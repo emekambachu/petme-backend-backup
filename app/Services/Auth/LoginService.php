@@ -2,8 +2,7 @@
 
 namespace App\Services\Auth;
 
-use App\Http\Resources\AdminCollection;
-use App\Http\Resources\AdminResource;
+use App\Http\Resources\Admin\AdminResource;
 use App\Services\Account\AdminAccountService;
 use Illuminate\Support\Facades\Hash;
 
@@ -33,4 +32,6 @@ class LoginService extends AdminAccountService {
         ];
         return response()->json($response);
     }
+
+
 }

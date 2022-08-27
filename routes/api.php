@@ -28,9 +28,11 @@ Route::middleware('auth:sanctum')->group(static function (){
         return $request->user('admin-api');
     });
 
+    // Admin Logout
+    Route::post('/admin/logout', [ApiAdminLoginController::class, 'logout']);
 });
 
-// Admin Auth
+// Admin Login
 Route::post('/admin/login', [ApiAdminLoginController::class, 'login']);
 
 

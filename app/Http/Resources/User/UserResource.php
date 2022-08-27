@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\User;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AdminResource extends JsonResource
+class UserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -12,12 +12,7 @@ class AdminResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
-    public function toArray($request)
-    {
-        return [
-            'name' => $this->name,
-            'email' => $this->email,
-            'role' => $this->role,
-        ];
+    public function toArray($request){
+        return parent::toArray($request);
     }
 }
