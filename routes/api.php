@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\ApiAdminLoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,10 +25,15 @@ Route::middleware('auth:sanctum')->group(static function (){
     // Admin Auth API
     // Get users with specific guard
     Route::get('/admin/authenticate', static function (Request $request) {
-        return $request->user('admin');
+        return $request->user('admin-api');
     });
 
 });
+
+// Admin Auth
+Route::post('/admin/login', [ApiAdminLoginController::class, 'login']);
+
+
 
 // Sentry test
 Route::get('/debug-sentry', static function () {
