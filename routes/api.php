@@ -14,6 +14,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+
+// Sanctum middleware group
+Route::middleware('auth:sanctum')->group(static function (){
+
+    // Admin Auth API
+    // Get users with specific guard
+    Route::get('/admin/authenticate', static function (Request $request) {
+        return $request->user('admin');
+    });
+
+});
+
+// Sentry test
+Route::get('/debug-sentry', static function () {
+    throw new \RuntimeException('My first Sentry error!');
 });
