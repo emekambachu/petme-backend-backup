@@ -2,6 +2,7 @@
 
 namespace App\Models\User;
 
+use App\Models\Pet\Pet;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -19,9 +20,12 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'mobile',
+        'address',
         'avatar',
         'password',
-        'active',
+        'last_login',
+        'verified',
     ];
 
     /**
@@ -42,4 +46,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function user_appointments(){
+        return $this->hasMany(UserAppointment::class, 'user_id', 'id');
+    }
+
+    public function pets(){
+        return $this->hasMany(Pet::class, 'user_id', 'id');
+    }
 }

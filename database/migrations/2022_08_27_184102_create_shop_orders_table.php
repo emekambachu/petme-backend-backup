@@ -16,7 +16,7 @@ class CreateShopOrdersTable extends Migration
         Schema::create('shop_orders', static function (Blueprint $table) {
             $table->id();
             $table->string('order_id');
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('shop_item_id');
             $table->string('customer_name');
             $table->string('mobile');
