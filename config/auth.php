@@ -42,18 +42,19 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
+            'driver' => 'sanctum',
             'provider' => 'users',
             'hash' => false,
         ],
 
+        // Both Admin and Admin-api need to work together
         'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
         ],
 
         'admin-api' => [
-            'driver' => 'token',
+            'driver' => 'sanctum',
             'provider' => 'admins',
             'hash' => false,
         ],

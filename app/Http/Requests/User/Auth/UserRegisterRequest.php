@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Admin\Auth;
+namespace App\Http\Requests\User\Auth;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\ValidationException;
 
-class AdminLoginRequest extends FormRequest
+class UserRegisterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,11 +23,11 @@ class AdminLoginRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
-    {
+    public function rules(){
         return [
-            'email' => 'required|string|exists:admins,email',
-            'password' => 'required|string',
+            'name' => 'required|string',
+            'email' => 'required|string|email|unique:users,email',
+            'password' => 'required|string|confirmed',
         ];
     }
 
@@ -35,8 +35,7 @@ class AdminLoginRequest extends FormRequest
     {
         return [
             'email.required' => 'Email is required!',
-            'email.exists' => 'Email does not exist!',
-            'password.required' => 'Password is required!',
+            'email.unique' => 'Email already exists!',
         ];
     }
 

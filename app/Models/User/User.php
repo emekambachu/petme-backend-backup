@@ -25,6 +25,7 @@ class User extends Authenticatable
         'avatar',
         'password',
         'last_login',
+        'verification_token',
         'verified',
     ];
 

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Auth\AdminLoginRequest;
 use App\Services\Auth\LoginService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ApiAdminLoginController extends Controller
@@ -17,7 +16,7 @@ class ApiAdminLoginController extends Controller
      */
 
     public function __construct(){
-        $this->middleware('guest:admin-api')
+        $this->middleware('guest:admin')
             ->except('logout');
     }
 
