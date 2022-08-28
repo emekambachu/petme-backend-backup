@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Services\Pet\PetService;
+use App\Services\Shop\ShopService;
 use Illuminate\Http\Request;
 
 class AdminShopItemController extends Controller
@@ -10,11 +12,24 @@ class AdminShopItemController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
-        //
+        try {
+            $items = ShopService::shopItemWithRelations()
+                ->latest()->paginate(12);
+            return response()->json([
+                'success' => true,
+                'items' => $items,
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
     }
 
     /**
@@ -26,6 +41,10 @@ class AdminShopItemController extends Controller
     public function store(Request $request)
     {
         //
+    }
+
+    public function search(){
+
     }
 
     /**
