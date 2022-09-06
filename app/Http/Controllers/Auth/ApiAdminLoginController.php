@@ -10,19 +10,26 @@ use Illuminate\Support\Facades\Auth;
 class ApiAdminLoginController extends Controller
 {
     /**
+     * @var LoginService
+     */
+
+
+    /**
      * Create a new controller instance.
      *
      * @return void
      */
 
-    public function __construct(){
+    private $login;
+    public function __construct(LoginService $login){
         $this->middleware('guest:admin')
             ->except('logout');
+        $this->login = $login;
     }
 
     public function login(AdminLoginRequest $request){
         try {
-            return LoginService::adminLoginAndToken($request);
+            return $this->login->adminLoginAndToken($request);
 
         } catch (\Exception $e) {
             return response()->json([

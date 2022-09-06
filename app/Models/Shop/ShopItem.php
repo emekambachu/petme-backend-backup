@@ -28,11 +28,11 @@ class ShopItem extends Model
     }
 
     public function shop_metric(){
-        return $this->hasMany(ShopMetric::class, 'shop_metric_id', 'id');
+        return $this->belongsTo(ShopMetric::class, 'shop_metric_id', 'id');
     }
 
     public function shop_category(){
-        return $this->hasMany(ShopCategory::class, 'shop_category_id', 'id');
+        return $this->belongsTo(ShopCategory::class, 'shop_category_id', 'id');
     }
 
 }

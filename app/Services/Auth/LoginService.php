@@ -17,19 +17,23 @@ use Illuminate\Support\Facades\Hash;
  */
 class LoginService{
 
-    public static function user(){
+    public function user(): User
+    {
         return new User();
     }
 
-    public static function userWithRelations(){
-        return self::user()->with('user_appointments', 'pets');
+    public function userWithRelations(): \Illuminate\Database\Eloquent\Builder
+    {
+        return $this->user()->with('user_appointments', 'pets');
     }
 
-    public static function admin(){
+    public function admin(): Admin
+    {
         return new Admin();
     }
 
-    public static function adminLoginAndToken($request){
+    public function adminLoginAndToken($request): \Illuminate\Http\JsonResponse
+    {
 
         if(Auth::guard('admin')->attempt([
             'email' => $request->email,
@@ -54,10 +58,10 @@ class LoginService{
         return response()->json($response);
     }
 
-    public static function userLoginAndToken($request){
-
+    public function userLoginAndToken($request): \Illuminate\Http\JsonResponse
+    {
         // Check if user is verified before attempting to login
-        $verified = self::user()
+        $verified = $this->user()
             ->where('email', $request->email)->first()->verified;
         if($verified !== 1){
             return response()->json([
@@ -76,7 +80,7 @@ class LoginService{
             $token = $user->createToken($user->email.' token', ['api'])->plainTextToken;
 
             // Last login
-            self::user()->where('email', $request->email)->update([
+            $this->user()->where('email', $request->email)->update([
                     'last_login' => Carbon::now()->format('Y-m-d h:i:s'),
                 ]);
 

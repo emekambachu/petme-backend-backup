@@ -9,12 +9,18 @@ use App\Models\Pet\Pet;
  */
 class PetService
 {
-    public static function pet(){
+    public function pet(): Pet
+    {
         return new Pet();
     }
 
-    public static function petWithRelations(){
-        return self::pet()->with('user', 'pet_type');
+    public function petWithRelations(): \Illuminate\Database\Eloquent\Builder
+    {
+        return $this->pet()->with('user', 'pet_type');
+    }
+
+    public function deletePet($id){
+        $this->pet()->findOrFail($id)->delete();
     }
 
 }

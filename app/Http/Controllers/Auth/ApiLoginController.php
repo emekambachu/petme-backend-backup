@@ -11,14 +11,16 @@ use Illuminate\Support\Facades\Auth;
 
 class ApiLoginController extends Controller
 {
-    public function __construct(){
+    private $login;
+    public function __construct(LoginService $login){
         $this->middleware('guest:web')
             ->except('logout');
+        $this->login = $login;
     }
 
     public function login(UserLoginRequest $request){
         try {
-            return LoginService::userLoginAndToken($request);
+            return $this->login->userLoginAndToken($request);
 
         } catch (\Exception $e) {
             return response()->json([

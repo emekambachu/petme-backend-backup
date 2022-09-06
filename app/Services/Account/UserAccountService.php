@@ -9,11 +9,13 @@ use App\Models\User\User;
  */
 class UserAccountService
 {
-    public static function user(){
+    public function user(): User
+    {
         return new User();
     }
 
-    public static function userWithRelations(){
-        return self::user()->with('user_appointments', 'pets');
+    public function userWithRelations(): \Illuminate\Database\Eloquent\Builder
+    {
+        return $this->user()->with('user_appointments', 'pets');
     }
 }

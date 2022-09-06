@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminPetController;
-use App\Http\Controllers\Admin\AdminShopItemController;
-use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\Pet\AdminPetController;
+use App\Http\Controllers\Admin\Shop\AdminShopCategoryController;
+use App\Http\Controllers\Admin\Shop\AdminShopItemController;
+use App\Http\Controllers\Admin\Shop\AdminShopMetricController;
+use App\Http\Controllers\Admin\User\AdminUserController;
 use App\Http\Controllers\Auth\ApiAdminLoginController;
 use App\Http\Controllers\Auth\ApiLoginController;
 use App\Http\Controllers\Auth\ApiRegisterController;
@@ -46,12 +48,27 @@ Route::middleware('auth:admin-api')->group(static function (){
     Route::get('/admin/pets', [AdminPetController::class, 'index']);
     Route::get('/admin/pets/{id}', [AdminPetController::class, 'show']);
 
-    // Users
+    // Admin Shop
     Route::get('/admin/shop/items', [AdminShopItemController::class, 'index']);
     Route::post('/admin/shop/items/create', [AdminShopItemController::class, 'store']);
+    Route::post('/admin/shop/items/{id}/publish', [AdminShopItemController::class, 'publish']);
+    Route::post('/admin/shop/items/search', [AdminShopItemController::class, 'search']);
     Route::get('/admin/shop/items/{id}', [AdminShopItemController::class, 'show']);
     Route::put('/admin/shop/items/{id}/update', [AdminShopItemController::class, 'update']);
     Route::delete('/admin/shop/items/{id}/delete', [AdminShopItemController::class, 'destroy']);
+    Route::delete('/admin/shop/image/{id}/delete', [AdminShopItemController::class, 'deleteShopItemImage']);
+
+    // Admin Shop Category
+    Route::get('/admin/shop/categories', [AdminShopCategoryController::class, 'index']);
+    Route::post('/admin/shop/categories/create', [AdminShopCategoryController::class, 'store']);
+    Route::put('/admin/shop/categories/{id}/update', [AdminShopCategoryController::class, 'update']);
+    Route::delete('/admin/shop/categories/{id}/delete', [AdminShopCategoryController::class, 'destroy']);
+
+    // Admin Shop Metrics
+    Route::get('/admin/shop/metrics', [AdminShopMetricController::class, 'index']);
+    Route::post('/admin/shop/metrics/create', [AdminShopMetricController::class, 'store']);
+    Route::put('/admin/shop/metrics/{id}/update', [AdminShopMetricController::class, 'update']);
+    Route::delete('/admin/shop/metrics/{id}/delete', [AdminShopMetricController::class, 'destroy']);
 
     // Admin Logout
     Route::post('/admin/logout', [ApiAdminLoginController::class, 'logout']);

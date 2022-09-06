@@ -9,11 +9,15 @@ use Illuminate\Http\Request;
 
 class ApiRegisterController extends Controller
 {
-    public function register(UserRegisterRequest $request){
+    private $registration;
+    public function __construct(RegistrationService $registration){
+        $this->registration = $registration;
+    }
 
+    public function register(UserRegisterRequest $request): \Illuminate\Http\JsonResponse
+    {
         try {
-            $user = RegistrationService::createUser($request);
-            RegistrationService::sendVerificationEmail($user);
+            $user = $this->registration->createUser($request);
             return response()->json([
                 'success' => true,
                 'message' => 'Verification email sent to '.$user->email,
@@ -29,7 +33,7 @@ class ApiRegisterController extends Controller
 
     public function verifyAccount($token){
         try {
-            RegistrationService::verifyWithToken($token);
+            $this->registration->verifyWithToken($token);
 
         } catch (\Exception $e) {
             return response()->json([

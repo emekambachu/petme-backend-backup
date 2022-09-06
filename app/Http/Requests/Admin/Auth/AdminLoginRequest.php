@@ -4,6 +4,7 @@ namespace App\Http\Requests\Admin\Auth;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\ValidationException;
 
 class AdminLoginRequest extends FormRequest
@@ -42,15 +43,11 @@ class AdminLoginRequest extends FormRequest
 
     protected function failedValidation(Validator $validator){
 
-        if($this->wantsJson()){
-            $response = response()->json([
-                'success' => false,
-                'errors' => $validator->errors()
-            ]);
-        }
-
-        throw (new ValidationException($validator, $response))
-            ->errorBag($this->errorBag)
-            ->redirectTo($this->getRedirectUrl());
+        // return errors in json object/array
+        $message = $validator->errors()->all();
+        throw new HttpResponseException(response()->json([
+            'success' => false,
+            'errors' => $message
+        ]));
     }
 }

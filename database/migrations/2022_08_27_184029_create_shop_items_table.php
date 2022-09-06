@@ -21,7 +21,7 @@ class CreateShopItemsTable extends Migration
             $table->unsignedBigInteger('shop_metric_id');
             $table->unsignedBigInteger('shop_category_id');
             $table->decimal('cost');
-            $table->string('status')->default('listed');
+            $table->string('status')->default('pending');
             $table->string('owner')->nullable();
             $table->timestamps();
             $table->softDeletes();

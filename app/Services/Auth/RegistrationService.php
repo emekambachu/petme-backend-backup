@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Mail;
 class RegistrationService extends UserAccountService
 {
     //Generate email verification token
-    public static function verificationToken($length = 11){
+    public function verificationToken($length = 11): string
+    {
         $characters = '0123456789ABCDEFG';
         $charactersLength = strlen($characters);
         $randomString = 'PET';
@@ -23,15 +24,19 @@ class RegistrationService extends UserAccountService
         return $randomString;
     }
 
-    public static function createUser($request){
+    public function createUser($request){
         $input = $request->all();
-        $input['verification_token'] = self::verificationToken();
+        $input['verification_token'] = $this->verificationToken();
         $input['password'] = Hash::make($input['password']);
-        return self::user()->create($input);
+        $user = $this->user()->create($input);
+
+        // Send email verification
+        $this->sendVerificationEmail($user);
+        return $user;
     }
 
-    public static function sendVerificationEmail($createdUser){
-
+    public function sendVerificationEmail($createdUser): void
+    {
         $user = [
             'name' => $createdUser->name,
             'email' => $createdUser->email,
@@ -46,7 +51,8 @@ class RegistrationService extends UserAccountService
         });
     }
 
-    public static function verifyWithToken($token){
+    public function verifyWithToken($token): \Illuminate\Http\JsonResponse
+    {
         $userVerified = self::user()->where('verification_token', $token)->first();
         if($userVerified){
             $userVerified->update([
