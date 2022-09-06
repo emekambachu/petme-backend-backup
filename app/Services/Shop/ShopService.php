@@ -91,6 +91,7 @@ class ShopService
             $shopItem->status = 'published';
             $message = $shopItem->name.' is now published';
         }
+        $shopItem->save();
         return [
             'shop_item'=>$shopItem,
             'message'=>$message,

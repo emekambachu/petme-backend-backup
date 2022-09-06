@@ -1,0 +1,772 @@
+{
+	"info": {
+		"_postman_id": "96480ad2-547a-48dd-92b9-1ab13698469e",
+		"name": "petme-backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9031746"
+	},
+	"item": [
+		{
+			"name": "Login Admin",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "13|BuXeWWyooUEErMEgdFwdjDnXT74eTWU8upbRh3W2",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "neutrondeveloper@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "11111111",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/api/admin/login",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"admin",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Logout",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "10|3iuhgkFRBJna5RaOh6sUYz5BXCEofhM4Wdqi7CWp",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "127.0.0.1:8000/api/admin/logout",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"admin",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Testing api route",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "10|3iuhgkFRBJna5RaOh6sUYz5BXCEofhM4Wdqi7CWp",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "127.0.0.1:8000/api/admin/test",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"admin",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Victor Victor",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "victor@email.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "11111111",
+							"type": "text"
+						},
+						{
+							"key": "password_confirmation",
+							"value": "11111111",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/api/user/register",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"user",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "victor@email.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "11111111",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/api/user/login",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "13|BuXeWWyooUEErMEgdFwdjDnXT74eTWU8upbRh3W2",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "127.0.0.1:8000/api/admin/users/3/delete",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"admin",
+						"users",
+						"3",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Admin Users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "13|BuXeWWyooUEErMEgdFwdjDnXT74eTWU8upbRh3W2",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "127.0.0.1:8000/api/admin/users",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"admin",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Admin Shop Items",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "13|BuXeWWyooUEErMEgdFwdjDnXT74eTWU8upbRh3W2",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "127.0.0.1:8000/api/admin/shop/items",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"admin",
+						"shop",
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Store Admin Shop Items",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "15|3IHOjyxKQ2lHD0wW6DVdkMHDc83AC4boKeFAjVSa",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Dog leash",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Hold your dog tight",
+							"type": "text"
+						},
+						{
+							"key": "shop_category_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "shop_metric_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "cost",
+							"value": "14",
+							"type": "text"
+						},
+						{
+							"key": "status",
+							"value": "listed",
+							"type": "text"
+						},
+						{
+							"key": "owner",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "images",
+							"type": "file",
+							"src": [
+								"/C:/Users/Lenovo/Downloads/113020226ecbcec127e1aac920b01239.jpg",
+								"/C:/Users/Lenovo/Downloads/5f4fa16f5fccdee5a80412a3_Templates_Main.jpg",
+								"/C:/Users/Lenovo/Downloads/xedd tech.png"
+							]
+						},
+						{
+							"key": "quantity",
+							"value": "23",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/api/admin/shop/items/create",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"admin",
+						"shop",
+						"items",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Delete Shop Items",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "15|3IHOjyxKQ2lHD0wW6DVdkMHDc83AC4boKeFAjVSa",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "127.0.0.1:8000/api/admin/shop/items/1/delete",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"admin",
+						"shop",
+						"items",
+						"1",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin search Shop Items",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "15|3IHOjyxKQ2lHD0wW6DVdkMHDc83AC4boKeFAjVSa",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "term",
+							"value": "biscuit",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/api/admin/shop/items/search",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"admin",
+						"shop",
+						"items",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Shop Store Category",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "15|3IHOjyxKQ2lHD0wW6DVdkMHDc83AC4boKeFAjVSa",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "term",
+							"value": "cat",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/api/admin/shop/categories/create",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"admin",
+						"shop",
+						"categories",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Get Shop Items",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "15|3IHOjyxKQ2lHD0wW6DVdkMHDc83AC4boKeFAjVSa",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "127.0.0.1:8000/api/admin/shop/categories",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"admin",
+						"shop",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Shop Delete Category",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "15|3IHOjyxKQ2lHD0wW6DVdkMHDc83AC4boKeFAjVSa",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "127.0.0.1:8000/api/admin/shop/categories/3/delete",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"admin",
+						"shop",
+						"categories",
+						"3",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Shop Store Metric",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "15|3IHOjyxKQ2lHD0wW6DVdkMHDc83AC4boKeFAjVSa",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "kg",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/api/admin/shop/metrics/create",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"admin",
+						"shop",
+						"metrics",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Shop Get Metric",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "15|3IHOjyxKQ2lHD0wW6DVdkMHDc83AC4boKeFAjVSa",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "127.0.0.1:8000/api/admin/shop/metrics",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"admin",
+						"shop",
+						"metrics"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
