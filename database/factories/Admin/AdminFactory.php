@@ -17,10 +17,11 @@ class AdminFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
+            'email' => 'xeddtech@gmail.com',
             'password' => Hash::make('11111111'),
             'remember_token' => Str::random(10),
             'last_login' => $this->faker->dateTime(),
+//            'role' => $this->faker->randomElement(array ('admin', 'superadmin')),
             'role' => 'superadmin',
             'verified' => 1,
         ];
