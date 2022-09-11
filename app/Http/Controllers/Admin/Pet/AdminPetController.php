@@ -53,10 +53,10 @@ class AdminPetController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(int $id)
     {
         try {
             $pet = $this->pet->petWithRelations()->findOrFail($id);
@@ -68,6 +68,57 @@ class AdminPetController extends Controller
                 'pet_deworms' => $pet->pet_deworm_details,
                 'pet_diets' => $pet->pet_diet_details,
                 'pet_vaccinations' => $pet->pet_vaccination_details,
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
+    public function showDeworming($id): \Illuminate\Http\JsonResponse
+    {
+        try {
+            $deworming_records = $this->pet->dewormingRecords($id);
+            return response()->json([
+                'success' => true,
+                'deworming_records' => $deworming_records
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
+    public function showVaccination($id): \Illuminate\Http\JsonResponse
+    {
+        try {
+            $vaccination_records = $this->pet->vaccinationRecords($id);
+            return response()->json([
+                'success' => true,
+                'vaccination_records' => $vaccination_records
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
+    public function showDiet($id): \Illuminate\Http\JsonResponse
+    {
+        try {
+            $diet = $this->pet->dietRecords($id);
+            return response()->json([
+                'success' => true,
+                'diet_records' => $diet
             ]);
 
         } catch (\Exception $e) {

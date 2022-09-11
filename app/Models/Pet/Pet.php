@@ -12,7 +12,11 @@ class Pet extends Model
     protected $fillable = [
         'user_id',
         'pet_type_id',
+        'name',
+        'distinguishing_marks',
+        'photo',
         'gender',
+        'dob',
         'registration_number',
     ];
 
@@ -34,5 +38,9 @@ class Pet extends Model
 
     public function pet_vaccination_details(){
         return $this->hasMany(PetVaccinationDetail::class, 'pet_id', 'id');
+    }
+
+    public function pet_service_providers(){
+        return $this->hasMany(PetServiceProvider::class, 'pet_id', 'id');
     }
 }

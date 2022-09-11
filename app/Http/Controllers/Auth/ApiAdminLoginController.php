@@ -27,7 +27,8 @@ class ApiAdminLoginController extends Controller
         $this->login = $login;
     }
 
-    public function login(AdminLoginRequest $request){
+    public function login(AdminLoginRequest $request): \Illuminate\Http\JsonResponse
+    {
         try {
             return $this->login->adminLoginAndToken($request);
 

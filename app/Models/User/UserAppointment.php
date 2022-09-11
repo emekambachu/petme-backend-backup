@@ -2,6 +2,8 @@
 
 namespace App\Models\User;
 
+use App\Models\ServiceProvider\AppointmentType;
+use App\Models\ServiceProvider\ServiceProvider;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,9 +13,12 @@ class UserAppointment extends Model
     protected $fillable = [
         'user_id',
         'pet_id',
+        'service_provider_id',
+        'appointment_type_id',
         'type',
-        'description',
-        'date_booked',
+        'note',
+        'location',
+        'appointment_time',
     ];
 
     public function user(){
@@ -22,5 +27,13 @@ class UserAppointment extends Model
 
     public function pet(){
         return $this->belongsTo(User::class, 'pet_id', 'id');
+    }
+
+    public function service_provider(){
+        return $this->belongsTo(ServiceProvider::class, 'service_provider_id', 'id');
+    }
+
+    public function appointment_type(){
+        return $this->belongsTo(AppointmentType::class, 'appointment_type_id', 'id');
     }
 }

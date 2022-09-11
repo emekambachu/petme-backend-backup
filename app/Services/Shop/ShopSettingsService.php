@@ -26,8 +26,9 @@ class ShopSettingsService
     }
 
     public function updateShopCategory($request, $id){
-        return $this->shopCategory()->findOrFail($id)
-            ->update($request->all());
+        $category = $this->shopCategory()->findOrFail($id);
+        $category->update($request->all());
+        return $category;
     }
 
     public function deleteShopCategory($id): void
@@ -40,8 +41,9 @@ class ShopSettingsService
     }
 
     public function updateShopMetric($request, $id){
-        return $this->shopMetric()->findOrFail($id)
-            ->update($request->all());
+        $metric = $this->shopMetric()->findOrFail($id);
+        $metric->update($request->all());
+        return $metric;
     }
 
     public function deleteShopMetric($id): void

@@ -19,11 +19,13 @@ class ShopItem extends Model
         'owner'
     ];
 
-    public function shop_item_images(){
+    public function shop_item_images(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
         return $this->hasMany(ShopItemImage::class, 'shop_item_id', 'id');
     }
 
-    public function shop_item_orders(){
+    public function shop_item_orders(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
         return $this->hasMany(ShopOrder::class, 'shop_item_id', 'id');
     }
 

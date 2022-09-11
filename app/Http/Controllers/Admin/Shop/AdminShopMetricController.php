@@ -54,7 +54,7 @@ class AdminShopMetricController extends Controller
             $metric = $this->metric->createShopMetric($request);
             return response()->json([
                 'success' => true,
-                'category' => $metric,
+                'metric' => $metric,
             ]);
 
         } catch (\Exception $e) {
@@ -68,10 +68,10 @@ class AdminShopMetricController extends Controller
     public function update(Request $request, $id): \Illuminate\Http\JsonResponse
     {
         try {
-            $category = $this->metric->updateShopMetric($request, $id);
+            $metric = $this->metric->updateShopMetric($request, $id);
             return response()->json([
                 'success' => true,
-                'category' => $category,
+                'metric' => $metric,
             ]);
 
         } catch (\Exception $e) {

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Shop;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Shop\AdminStoreShopItemRequest;
+use App\Http\Requests\Admin\Shop\AdminStoreShopItemRequest;
 use App\Services\Shop\ShopService;
 use Illuminate\Http\Request;
 
@@ -19,7 +19,7 @@ class AdminShopItemController extends Controller
         $this->shop = $shop;
     }
 
-    public function index()
+    public function index(): \Illuminate\Http\JsonResponse
     {
         try {
             $items = $this->shop->shopItemWithRelations()

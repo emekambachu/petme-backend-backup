@@ -13,12 +13,17 @@ class CreatePetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('pets', static function (Blueprint $table) {
+        Schema::create('pets', static function (Blueprint $table){
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('type');
+            $table->unsignedBigInteger('pet_type_id')->nullable();
+            $table->string('name');
+            $table->text('distinguishing_marks')->nullable();
+            $table->binary('photo')->nullable();
             $table->string('gender');
+            $table->string('dob');
             $table->string('registration_number');
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

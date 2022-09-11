@@ -17,9 +17,11 @@ class CreateUserAppointmentsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('pet_id');
             $table->unsignedBigInteger('user_id');
-            $table->string('type');
-            $table->longText('description')->nullable();
-            $table->dateTime('date_booked')->nullable();
+            $table->unsignedBigInteger('service_provider_id');
+            $table->unsignedBigInteger('appointment_type_id');
+            $table->string('location')->nullable();
+            $table->longText('note')->nullable();
+            $table->dateTime('appointment_time')->nullable();
             $table->timestamps();
         });
     }

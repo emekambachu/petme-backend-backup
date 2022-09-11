@@ -13,8 +13,13 @@ class CreatePetDietDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('pet_diet_details', function (Blueprint $table) {
+        Schema::create('pet_diet_details', static function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('pet_id');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->string('food_name');
+            $table->string('day');
+            $table->string('date');
             $table->timestamps();
         });
     }

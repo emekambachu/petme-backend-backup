@@ -34,13 +34,12 @@ class LoginService{
 
     public function adminLoginAndToken($request): \Illuminate\Http\JsonResponse
     {
-
         if(Auth::guard('admin')->attempt([
             'email' => $request->email,
             'password' => $request->password,
         ])){
             $user = Auth::guard('admin')->user();
-            $token = $user->createToken($user->email.' token', ['admin-api'])->plainTextToken;
+            $token = $user->createToken($request->email, ['admin-api'])->plainTextToken;
             $response = [
                 'success' => true,
                 'user' => new AdminResource($user),
@@ -77,7 +76,7 @@ class LoginService{
             // get Session
             $user = Auth::guard('web')->user();
             // Get Token
-            $token = $user->createToken($user->email.' token', ['api'])->plainTextToken;
+            $token = $user->createToken($request->email, ['api'])->plainTextToken;
 
             // Last login
             $this->user()->where('email', $request->email)->update([

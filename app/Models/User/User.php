@@ -3,6 +3,7 @@
 namespace App\Models\User;
 
 use App\Models\Pet\Pet;
+use App\Models\Wallet\WalletBalance;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -54,5 +55,9 @@ class User extends Authenticatable
 
     public function pets(){
         return $this->hasMany(Pet::class, 'user_id', 'id');
+    }
+
+    public function wallet_balance(){
+        return $this->hasOne(WalletBalance::class, 'user_id', 'id');
     }
 }

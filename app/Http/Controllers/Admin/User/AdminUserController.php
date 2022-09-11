@@ -51,10 +51,10 @@ class AdminUserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(int $id): \Illuminate\Http\JsonResponse
     {
         try {
             $user = $this->userAccount->userWithRelations()->findOrFail($id);
@@ -63,6 +63,30 @@ class AdminUserController extends Controller
                 'user' => $user,
                 'pets' => $user->pets,
                 'appointments' => $user->appointments,
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function verify(int $id): \Illuminate\Http\JsonResponse
+    {
+        try {
+            $data = $this->userAccount->verifyUser($id);
+            return response()->json([
+                'success' => true,
+                'user' => $data['user'],
+                'message' => $data['message'],
             ]);
 
         } catch (\Exception $e) {

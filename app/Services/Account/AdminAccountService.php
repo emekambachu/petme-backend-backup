@@ -9,7 +9,8 @@ use App\Models\Admin\Admin;
  */
 class AdminAccountService
 {
-    public static function admin(){
+    public static function admin(): Admin
+    {
         return new Admin();
     }
 
