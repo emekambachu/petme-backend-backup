@@ -17,7 +17,7 @@ class AdminFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'email' => 'xeddtech@gmail.com',
+            'email' => 'testadmin@email.com',
             'password' => Hash::make('11111111'),
             'remember_token' => Str::random(10),
             'last_login' => $this->faker->dateTime(),
