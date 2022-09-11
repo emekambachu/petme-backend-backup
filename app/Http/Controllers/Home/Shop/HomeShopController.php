@@ -36,10 +36,17 @@ class HomeShopController extends Controller
         try {
             $item = $this->shop->shopItemWithRelations()
                 ->findOrFail($id);
+            if($item){
+                return response()->json([
+                    'success' => true,
+                    'shop_item' => new ShopItemResource($item),
+                ]);
+            }
             return response()->json([
-                'success' => true,
-                'shop_item' => new ShopItemResource($item),
+                'success' => false,
+                'message' => 'Item does not exist',
             ]);
+
 
         } catch (\Exception $e) {
             return response()->json([
