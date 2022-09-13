@@ -72,7 +72,7 @@ Route::middleware('auth:admin-api')->group(static function (){
     Route::post('/admin/shop/items/{id}/publish', [AdminShopItemController::class, 'publish']);
     Route::post('/admin/shop/items/search', [AdminShopItemController::class, 'search']);
     Route::get('/admin/shop/items/{id}', [AdminShopItemController::class, 'show']);
-    Route::put('/admin/shop/items/{id}/update', [AdminShopItemController::class, 'update']);
+    Route::post('/admin/shop/items/{id}/update', [AdminShopItemController::class, 'update']);
     Route::delete('/admin/shop/items/{id}/delete', [AdminShopItemController::class, 'destroy']);
     Route::delete('/admin/shop/image/{id}/delete', [AdminShopItemController::class, 'deleteShopItemImage']);
 

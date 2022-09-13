@@ -63,8 +63,8 @@ class AdminPetController extends Controller
             return response()->json([
                 'success' => true,
                 'pet' => $pet,
-                'pet_parent' => $pet->user->name,
-                'pet_type' => $pet->pet_type->name,
+                'pet_parent' => $pet->user->name ?? null,
+                'pet_type' => $pet->pet_type->name ?? null,
                 'pet_deworms' => $pet->pet_deworm_details,
                 'pet_diets' => $pet->pet_diet_details,
                 'pet_vaccinations' => $pet->pet_vaccination_details,

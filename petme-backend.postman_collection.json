@@ -88,11 +88,11 @@
 											}
 										],
 										"body": {
-											"mode": "formdata",
-											"formdata": [
+											"mode": "urlencoded",
+											"urlencoded": [
 												{
 													"key": "name",
-													"value": "food",
+													"value": "food 2",
 													"type": "text"
 												}
 											]
@@ -514,6 +514,102 @@
 										}
 									},
 									"response": []
+								},
+								{
+									"name": "Admin Update Shop Items",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "19|o3WPRn9NpucKUsoDpUbxGqyGUQcvcgwtmjjnOvf7",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "Update Cat ball",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "Hold your dog tight",
+													"type": "text"
+												},
+												{
+													"key": "shop_category_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "shop_metric_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "cost",
+													"value": "20",
+													"type": "text"
+												},
+												{
+													"key": "status",
+													"value": "published",
+													"type": "text"
+												},
+												{
+													"key": "owner",
+													"value": "",
+													"type": "text"
+												},
+												{
+													"key": "images",
+													"type": "file",
+													"src": [
+														"/C:/Users/Lenovo/Downloads/113020226ecbcec127e1aac920b01239.jpg",
+														"/C:/Users/Lenovo/Downloads/5f4fa16f5fccdee5a80412a3_Templates_Main.jpg",
+														"/C:/Users/Lenovo/Downloads/xedd tech.png"
+													]
+												},
+												{
+													"key": "quantity",
+													"value": "15",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "127.0.0.1:8000/api/admin/shop/items/3/update",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"admin",
+												"shop",
+												"items",
+												"3",
+												"update"
+											]
+										}
+									},
+									"response": []
 								}
 							]
 						},
@@ -790,6 +886,53 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Login Admin (Production)",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "testadmin@email.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "11111111",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://petme.us-east-2.elasticbeanstalk.com/api/admin/login",
+									"protocol": "http",
+									"host": [
+										"petme",
+										"us-east-2",
+										"elasticbeanstalk",
+										"com"
+									],
+									"path": [
+										"api",
+										"admin",
+										"login"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -800,7 +943,14 @@
 							"name": "Get Users",
 							"request": {
 								"auth": {
-									"type": "noauth"
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "17|snAIskXV3eLWoDFMPfvJLFQ20IYFb1gizjoxThGS",
+											"type": "string"
+										}
+									]
 								},
 								"method": "GET",
 								"header": [
@@ -870,6 +1020,217 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "Pet",
+					"item": [
+						{
+							"name": "Admin pets",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "13|BuXeWWyooUEErMEgdFwdjDnXT74eTWU8upbRh3W2",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "127.0.0.1:8000/api/admin/pets",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"admin",
+										"pets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Admin Show Pet",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "13|BuXeWWyooUEErMEgdFwdjDnXT74eTWU8upbRh3W2",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "127.0.0.1:8000/api/admin/pets/2",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"admin",
+										"pets",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Admin Pet Dewormings",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "13|BuXeWWyooUEErMEgdFwdjDnXT74eTWU8upbRh3W2",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "127.0.0.1:8000/api/admin/pets/1/deworming",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"admin",
+										"pets",
+										"1",
+										"deworming"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Admin Pet Vaccinations",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "13|BuXeWWyooUEErMEgdFwdjDnXT74eTWU8upbRh3W2",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "127.0.0.1:8000/api/admin/pets/1/vaccination",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"admin",
+										"pets",
+										"1",
+										"vaccination"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Admin Pet Diets",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "13|BuXeWWyooUEErMEgdFwdjDnXT74eTWU8upbRh3W2",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "127.0.0.1:8000/api/admin/pets/1/diet",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"admin",
+										"pets",
+										"1",
+										"diet"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Service Provider",
+					"item": []
 				},
 				{
 					"name": "Get Admin Users",
@@ -1011,6 +1372,157 @@
 										"api",
 										"user",
 										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Pet",
+					"item": []
+				},
+				{
+					"name": "Shop",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "Home",
+			"item": [
+				{
+					"name": "Shop",
+					"item": [
+						{
+							"name": "Home Shop items",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "127.0.0.1:8000/api/shop",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"shop"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Home Show Shop Item",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "127.0.0.1:8000/api/shop/3/show",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"shop",
+										"3",
+										"show"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Blog",
+					"item": [
+						{
+							"name": "Home Blog Posts",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "127.0.0.1:8000/api/blog",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"blog"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Home Blog Post Show",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "127.0.0.1:8000/api/blog/1/show",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"blog",
+										"1",
+										"show"
 									]
 								}
 							},

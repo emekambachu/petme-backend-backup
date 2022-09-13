@@ -17,7 +17,7 @@ class AdminShopCategoryController extends Controller
     {
         try {
             $categories = $this->category->shopCategory()
-                ->orderBy('name')->paginate(12);
+                ->orderBy('name')->get();
             return response()->json([
                 'success' => true,
                 'categories' => $categories,

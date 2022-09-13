@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Shop;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Shop\AdminStoreShopItemRequest;
+use App\Http\Requests\Admin\Shop\AdminUpdateItemRequest;
 use App\Services\Shop\ShopService;
 use Illuminate\Http\Request;
 
@@ -128,7 +129,7 @@ class AdminShopItemController extends Controller
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, int $id): \Illuminate\Http\JsonResponse
+    public function update(AdminUpdateItemRequest $request, int $id): \Illuminate\Http\JsonResponse
     {
         try {
             $shopItem = $this->shop->updateShopItem($request, $id);

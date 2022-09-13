@@ -17,7 +17,7 @@ class AdminShopMetricController extends Controller
     {
         try {
             $metrics = $this->metric->shopMetric()
-                ->orderBy('name')->paginate(12);
+                ->orderBy('name')->get();
             return response()->json([
                 'success' => true,
                 'metrics' => $metrics,
