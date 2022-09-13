@@ -64,12 +64,13 @@ class ShopService
             }else{
                 $file = $request->file('images');
                 $path = '/photos/shop/items';
-                if (!File::exists($path)){
-                    File::makeDirectory($path, $mode = 0777, true, true);
-                }
+//                if (!File::exists($path)){
+//                    File::makeDirectory($path, $mode = 0777, true, true);
+//                }
                 $name = time() . $file->getClientOriginalName();
                 //Move image to photos directory
-                $file->move($path, $name);
+//                $file->move($path, $name);
+                $file->move(public_path($path), $name);
                 // Submit images
                 $this->shopItemImage()->create([
                     'shop_item_id' => $shopItem->id,
