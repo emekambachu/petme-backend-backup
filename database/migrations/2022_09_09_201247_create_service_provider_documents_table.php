@@ -15,8 +15,10 @@ class CreateServiceProviderDocumentsTable extends Migration
     {
         Schema::create('service_provider_documents', static function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('service_provider_id');
             $table->string('name');
             $table->binary('document');
+            $table->string('document_path');
             $table->string('status')->default('pending');
             $table->string('approved_by')->nullable();
             $table->timestamps();

@@ -23,6 +23,7 @@ class ServiceProvider extends Model
         'email_sent_count',
         'last_login',
         'onboarding_date',
+        'status',
     ];
 
     public function wallet_balance(){

@@ -9,8 +9,10 @@ class ServiceProviderDocument extends Model
 {
     use HasFactory;
     protected $fillable = [
+      'service_provider_id',
       'name',
       'document',
+      'document_path',
       'status',
       'approved_by'
     ];

@@ -124,7 +124,7 @@ class BlogPostService
         $post->update($input);
         // Delete previous image if it was updated
         if(Session::get('previous_image') !== $post->photo){
-            $this->deleteImage(Session::get('previous_image'));
+            $this->deleteFile(Session::get('previous_image'), $this->imagePath);
         }
         return $post;
     }
@@ -132,10 +132,12 @@ class BlogPostService
     public function deleteBlogPost($id): void
     {
         $post = $this->blogPostById($id);
-        $this->deleteImage($post->photo);
+        $this->deleteFile($post->photo, $this->imagePath);
         $post->delete();
     }
 
+
+    // Reusable
     protected function compressAndUploadImage($request, $path, $width, $height)
     {
         if($file = $request->file('photo')) {
@@ -162,17 +164,17 @@ class BlogPostService
         return false;
     }
 
-    protected function uploadImageOnly($file, $path): string
+    protected function uploadFile($file, $path): string
     {
         $name = time() . $file->getClientOriginalName();
         $file->move(public_path($path), $name);
         return $name;
     }
 
-    protected function deleteImage($image): void
+    protected function deleteFile($image, $path): void
     {
-        if(File::exists(public_path() . '/'.$this->imagePath.'/' . $image)){
-            FILE::delete(public_path() . '/'.$this->imagePath.'/' . $image);
+        if(File::exists(public_path() . '/'.$path.'/' . $image)){
+            FILE::delete(public_path() . '/'.$path.'/' . $image);
         }
     }
 

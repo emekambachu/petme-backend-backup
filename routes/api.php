@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\Blog\AdminBlogCategoryController;
 use App\Http\Controllers\Admin\Blog\AdminBlogPostController;
 use App\Http\Controllers\Admin\Pet\AdminPetController;
+use App\Http\Controllers\Admin\ServiceProvider\AdminServiceProviderController;
 use App\Http\Controllers\Admin\Shop\AdminShopCategoryController;
 use App\Http\Controllers\Admin\Shop\AdminShopDiscountController;
 use App\Http\Controllers\Admin\Shop\AdminShopItemController;
@@ -110,6 +111,20 @@ Route::middleware('auth:admin-api')->group(static function (){
     Route::post('/admin/blog/categories/create', [AdminBlogCategoryController::class, 'store']);
     Route::post('/admin/blog/categories/{id}/update', [AdminBlogCategoryController::class, 'update']);
     Route::delete('/admin/blog/categories/{id}/delete', [AdminBlogCategoryController::class, 'destroy']);
+
+    // Admin Service provider
+    Route::get('/admin/service-providers', [AdminServiceProviderController::class, 'index']);
+    Route::post('/admin/service-providers/create', [AdminServiceProviderController::class, 'store']);
+    Route::post('/admin/service-providers/{id}/publish', [AdminServiceProviderController::class, 'publish']);
+    Route::post('/admin/service-providers/search', [AdminServiceProviderController::class, 'search']);
+    Route::get('/admin/service-providers/{id}', [AdminServiceProviderController::class, 'show']);
+    Route::post('/admin/service-providers/{id}/update', [AdminServiceProviderController::class, 'update']);
+    Route::delete('/admin/service-providers/{id}/delete', [AdminServiceProviderController::class, 'destroy']);
+
+    // Admin Service provider Documents
+    Route::get('/admin/service-providers/{id}/documents', [AdminServiceProviderController::class, 'documents']);
+    Route::post('/admin/service-providers/{id}/document/upload', [AdminServiceProviderController::class, 'storeDocument']);
+    Route::post('/admin/service-providers/{id}/document/delete', [AdminServiceProviderController::class, 'deleteDocument']);
 
     // Admin Logout
     Route::post('/admin/logout', [ApiAdminLoginController::class, 'logout']);
