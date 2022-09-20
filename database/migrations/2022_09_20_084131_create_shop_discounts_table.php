@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateShopItemImagesTable extends Migration
+class CreateShopDiscountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateShopItemImagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('shop_item_images', static function (Blueprint $table) {
+        Schema::create('shop_discounts', static function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('shop_item_id');
-            $table->string('image_path');
-            $table->binary('image');
+            $table->string('name');
+            $table->integer('percent');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -30,6 +28,6 @@ class CreateShopItemImagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shop_item_images');
+        Schema::dropIfExists('shop_discounts');
     }
 }

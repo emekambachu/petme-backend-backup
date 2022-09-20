@@ -3,6 +3,7 @@
 namespace App\Models\User;
 
 use App\Models\Pet\Pet;
+use App\Models\Shop\ShopDiscount;
 use App\Models\Wallet\WalletBalance;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -59,5 +60,13 @@ class User extends Authenticatable
 
     public function wallet_balance(){
         return $this->hasOne(WalletBalance::class, 'user_id', 'id');
+    }
+
+    public function shop_discounts(){
+        return $this->hasMany(ShopDiscount::class, 'user_id', 'id');
+    }
+
+    public function user_shop_discounts(){
+        return $this->hasMany(UserShopDiscount::class, 'user_id', 'id');
     }
 }

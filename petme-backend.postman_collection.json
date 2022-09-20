@@ -206,7 +206,7 @@
 							"name": "Items",
 							"item": [
 								{
-									"name": "Get Admin Shop Items",
+									"name": "Admin Get Shop Items",
 									"request": {
 										"auth": {
 											"type": "bearer",
@@ -235,6 +235,46 @@
 												"1"
 											],
 											"port": "8000",
+											"path": [
+												"api",
+												"admin",
+												"shop",
+												"items"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Admin Get Shop Items (Production)",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "38|6TrPnwlhHXnTIjP6u13BjZeqyCIcbxTnTILn0Es4",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://petme.us-east-2.elasticbeanstalk.com/api/admin/shop/items",
+											"protocol": "http",
+											"host": [
+												"petme",
+												"us-east-2",
+												"elasticbeanstalk",
+												"com"
+											],
 											"path": [
 												"api",
 												"admin",
@@ -302,7 +342,8 @@
 												{
 													"key": "owner",
 													"value": "",
-													"type": "text"
+													"type": "text",
+													"disabled": true
 												},
 												{
 													"key": "images",
@@ -610,6 +651,48 @@
 										}
 									},
 									"response": []
+								},
+								{
+									"name": "Admin List/Unlist Shop Item",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "20|OnFhk2z0REzw7svNElNyxCVQfMkSjDqzGRof38A5",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "127.0.0.1:8000/api/admin/shop/items/2/publish",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"admin",
+												"shop",
+												"items",
+												"2",
+												"publish"
+											]
+										}
+									},
+									"response": []
 								}
 							]
 						},
@@ -891,7 +974,14 @@
 							"name": "Login Admin (Production)",
 							"request": {
 								"auth": {
-									"type": "noauth"
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "19|o3WPRn9NpucKUsoDpUbxGqyGUQcvcgwtmjjnOvf7",
+											"type": "string"
+										}
+									]
 								},
 								"method": "POST",
 								"header": [

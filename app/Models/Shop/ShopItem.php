@@ -16,7 +16,8 @@ class ShopItem extends Model
         'shop_category_id',
         'cost',
         'status',
-        'owner'
+        'owner',
+        'discount_percent'
     ];
 
     public function shop_item_images(): \Illuminate\Database\Eloquent\Relations\HasMany

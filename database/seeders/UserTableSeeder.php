@@ -15,7 +15,7 @@ class UserTableSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(5)->create()->each(function ($user) {
+        User::factory(3)->create()->each(function ($user) {
             $user->pets()->saveMany(Pet::factory(2)->make());
         });
     }

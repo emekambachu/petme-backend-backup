@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\Blog\AdminBlogCategoryController;
 use App\Http\Controllers\Admin\Blog\AdminBlogPostController;
 use App\Http\Controllers\Admin\Pet\AdminPetController;
 use App\Http\Controllers\Admin\Shop\AdminShopCategoryController;
+use App\Http\Controllers\Admin\Shop\AdminShopDiscountController;
 use App\Http\Controllers\Admin\Shop\AdminShopItemController;
 use App\Http\Controllers\Admin\Shop\AdminShopMetricController;
 use App\Http\Controllers\Admin\User\AdminUserController;
@@ -75,6 +76,13 @@ Route::middleware('auth:admin-api')->group(static function (){
     Route::post('/admin/shop/items/{id}/update', [AdminShopItemController::class, 'update']);
     Route::delete('/admin/shop/items/{id}/delete', [AdminShopItemController::class, 'destroy']);
     Route::delete('/admin/shop/image/{id}/delete', [AdminShopItemController::class, 'deleteShopItemImage']);
+
+    // Admin Shop Discount
+    Route::get('/admin/shop/discounts', [AdminShopDiscountController::class, 'index']);
+    Route::post('/admin/shop/discounts/create', [AdminShopDiscountController::class, 'store']);
+    Route::get('/admin/shop/discounts/{id}', [AdminShopDiscountController::class, 'show']);
+    Route::post('/admin/shop/discounts/{id}/update', [AdminShopDiscountController::class, 'update']);
+    Route::delete('/admin/shop/discounts/{id}/delete', [AdminShopDiscountController::class, 'destroy']);
 
     // Admin Shop Category
     Route::get('/admin/shop/categories', [AdminShopCategoryController::class, 'index']);

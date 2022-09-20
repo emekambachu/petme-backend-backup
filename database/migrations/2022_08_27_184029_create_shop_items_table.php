@@ -23,6 +23,7 @@ class CreateShopItemsTable extends Migration
             $table->decimal('cost');
             $table->string('status')->default('pending');
             $table->string('owner')->nullable();
+            $table->integer('discount_percent')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

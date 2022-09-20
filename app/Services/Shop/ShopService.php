@@ -4,6 +4,7 @@ namespace App\Services\Shop;
 
 use App\Models\Shop\ShopItem;
 use App\Models\Shop\ShopItemImage;
+use Intervention\Image\Facades\Image;
 use Intervention\Image\ImageManagerStatic as InterventionImage;
 use Illuminate\Support\Facades\File;
 
@@ -24,14 +25,22 @@ class ShopService
 
     public function shopItemWithRelations (): \Illuminate\Database\Eloquent\Builder
     {
-        return $this->shopItem()->with('shop_item_images', 'shop_item_orders', 'shop_metric', 'shop_category');
+        return $this->shopItem()->with(
+            'shop_item_images',
+            'shop_item_orders',
+            'shop_metric',
+            'shop_category'
+        );
+    }
+
+    public function shopItemById($id){
+        return $this->shopItemWithRelations()->findOrFail($id);
     }
 
     public function storeShopItem($request){
 
         $input = $request->all();
         $shopItem = $this->shopItem()->create($input);
-
         // Store Image
         $this->storeShopItemImage($request, $input, $shopItem);
         return $shopItem;
@@ -39,46 +48,59 @@ class ShopService
 
     public function storeShopItemImage($request, $input, $shopItem): void
     {
+        $path = '/photos/shop/items';
         // If image is sent as an array, store as an array
         // else store as single file
         if(!empty($input['images'])){
             if(is_array($input['images'])){
                 for($i = 0, $count = count($input['images']); $i < $count; $i++){
-                    if(isset($input['images'][$i])){
-                        $file = $request->file('images')[$i];
-                        $path = '/photos/shop/items';
-                        if (!File::exists($path)){
-                            File::makeDirectory($path, $mode = 0777, true, true);
-                        }
-                        $name = time() . $file->getClientOriginalName();
-                        //Move image to photos directory
-                        $file->move($path, $name);
+                    if(isset($input['images'][$i]) && $file = $request->file('images')[$i]) {
+                        $name = $this->compressAndUploadImage($file, $path, 200, 200);
+                        // Submit images
+                        $this->shopItemImage()->create([
+                            'shop_item_id' => $shopItem->id,
+                            'image' => $name,
+                            'image_path' => $path,
+                        ]);
                     }
-
-                    // Submit images
-                    $this->shopItemImage()->create([
-                        'shop_item_id' => $shopItem->id,
-                        'image' => $name,
-                    ]);
                 }
-            }else{
-                $file = $request->file('images');
-                $path = '/photos/shop/items';
-//                if (!File::exists($path)){
-//                    File::makeDirectory($path, $mode = 0777, true, true);
-//                }
-                $name = time() . $file->getClientOriginalName();
-                //Move image to photos directory
-//                $file->move($path, $name);
-                $file->move(public_path($path), $name);
+            }else if($file = $request->file('images')){
+                // Compress image using image intervention package
+                $name = $this->compressAndUploadImage($file, $path, 200, 200);
                 // Submit images
                 $this->shopItemImage()->create([
                     'shop_item_id' => $shopItem->id,
                     'image' => $name,
+                    'image_path' => $path,
                 ]);
             }
         }
 
+    }
+
+    protected function compressAndUploadImage($file, $path, $width, $height): string
+    {
+        $name = time() . $file->getClientOriginalName();
+        $background = Image::canvas($width, $height);
+        // start image conversion (Must install Image Intervention Package first)
+        $convert_image = Image::make($file->path());
+        // resize image and save to converted path
+        // resize and fit width
+        $convert_image->resize($width, $height, static function ($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();
+        });
+        // insert image to canvas
+        $background->insert($convert_image, 'center');
+        $background->save($path.'/'.$name);
+        return $name;
+    }
+
+    protected function uploadImageOnly($file, $path): string
+    {
+        $name = time() . $file->getClientOriginalName();
+        $file->move(public_path($path), $name);
+        return $name;
     }
 
     public function publishShopItem($id): array
@@ -163,6 +185,7 @@ class ShopService
         $input = $request->all();
         $shopItem = $this->shopItem()->findOrFail($id);
         $shopItem->update($input);
+        $this->storeShopItemImage($request, $input, $shopItem);
         return $shopItem;
     }
 
