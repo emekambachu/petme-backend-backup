@@ -14,6 +14,7 @@ class BlogPost extends Model
         'description',
         'blog_category_id',
         'photo',
+        'photo_path',
         'status',
     ];
 

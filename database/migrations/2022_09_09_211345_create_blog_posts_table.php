@@ -20,7 +20,7 @@ class CreateBlogPostsTable extends Migration
             $table->longText('description');
             $table->unsignedBigInteger('blog_category_id');
             $table->binary('photo');
-            $table->string('image_path');
+            $table->string('photo_path')->nullable();
             $table->string('status')->default('pending');
             $table->timestamps();
         });

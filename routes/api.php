@@ -102,13 +102,13 @@ Route::middleware('auth:admin-api')->group(static function (){
     Route::post('/admin/blog/posts/{id}/publish', [AdminBlogPostController::class, 'publish']);
     Route::post('/admin/blog/posts/search', [AdminBlogPostController::class, 'search']);
     Route::get('/admin/blog/posts/{id}', [AdminBlogPostController::class, 'show']);
-    Route::put('/admin/blog/posts/{id}/update', [AdminBlogPostController::class, 'update']);
+    Route::post('/admin/blog/posts/{id}/update', [AdminBlogPostController::class, 'update']);
     Route::delete('/admin/blog/posts/{id}/delete', [AdminBlogPostController::class, 'destroy']);
 
     // Admin Blog category
     Route::get('/admin/blog/categories', [AdminBlogCategoryController::class, 'index']);
     Route::post('/admin/blog/categories/create', [AdminBlogCategoryController::class, 'store']);
-    Route::put('/admin/blog/categories/{id}/update', [AdminBlogCategoryController::class, 'update']);
+    Route::post('/admin/blog/categories/{id}/update', [AdminBlogCategoryController::class, 'update']);
     Route::delete('/admin/blog/categories/{id}/delete', [AdminBlogCategoryController::class, 'destroy']);
 
     // Admin Logout

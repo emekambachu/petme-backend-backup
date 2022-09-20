@@ -43,8 +43,8 @@ class AdminBlogPostController extends Controller
             $post = $this->post->publishBlogPost($id);
             return response()->json([
                 'success' => true,
-                'post' => $post['post'],
                 'message' => $post['message'],
+                'post' => $post['post'],
             ]);
 
         } catch (\Exception $e) {

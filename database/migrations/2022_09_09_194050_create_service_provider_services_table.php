@@ -16,6 +16,7 @@ class CreateServiceProviderServicesTable extends Migration
         Schema::create('service_provider_services', static function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('rate_per_time');
             $table->timestamps();
         });
     }
