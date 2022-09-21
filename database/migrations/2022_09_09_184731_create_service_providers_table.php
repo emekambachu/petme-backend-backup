@@ -20,8 +20,9 @@ class CreateServiceProvidersTable extends Migration
             $table->string('email');
             $table->string('address')->nullable();
             $table->text('services');
-            $table->string('operating_hours')->nullable();
+            $table->string('opening_hours')->nullable();
             $table->binary('photo')->nullable();
+            $table->string('photo_path')->nullable();
             $table->bigInteger('staff_count')->default(0);
             $table->bigInteger('email_count')->default(0);
             $table->bigInteger('email_sent_count')->default(0);

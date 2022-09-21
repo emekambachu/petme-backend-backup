@@ -23,7 +23,7 @@ class ServiceProviderService
     public function serviceProviderWithRelations(): \Illuminate\Database\Eloquent\Builder
     {
         return $this->serviceProvider()
-            ->with('wallet_balance', 'appointments', 'services', 'documents');
+            ->with('wallet_balance', 'appointments', 'documents');
     }
 
     public function serviceProviderById($id){

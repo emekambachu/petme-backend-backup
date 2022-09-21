@@ -18,6 +18,7 @@ class ServiceProvider extends Model
         'services',
         'opening_hours',
         'photo',
+        'photo_path',
         'staff_count',
         'email_count',
         'email_sent_count',

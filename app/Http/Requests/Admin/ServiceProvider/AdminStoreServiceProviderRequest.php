@@ -28,10 +28,10 @@ class AdminStoreServiceProviderRequest extends FormRequest
         return [
             'name' => 'required|string|unique:service_providers,name',
             'email' => 'required|string|email|unique:service_providers,email',
-            'mobile' => 'nullable|numeric',
-            'address' => 'nullable|string',
+            'mobile' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
+            'address' => 'required|string',
             'services' => 'required|string',
-            'opening_hours' => 'nullable|string',
+            'opening_hours' => 'required|string',
             'photo' => 'required|image|mimes:jpg,jpeg,png|max:5000',
         ];
     }

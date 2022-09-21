@@ -4,6 +4,7 @@ namespace App\Services\Shop;
 
 use App\Models\Shop\ShopItem;
 use App\Models\Shop\ShopItemImage;
+use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
 use Intervention\Image\ImageManagerStatic as InterventionImage;
 use Illuminate\Support\Facades\File;
@@ -13,6 +14,8 @@ use Illuminate\Support\Facades\File;
  */
 class ShopService
 {
+    protected $imagePath = 'photos/shop/items';
+
     public function shopItem (): ShopItem
     {
         return new ShopItem();
@@ -42,65 +45,19 @@ class ShopService
         $input = $request->all();
         $shopItem = $this->shopItem()->create($input);
         // Store Image
-        $this->storeShopItemImage($request, $input, $shopItem);
+        $this->storeShopItemImage($request, $shopItem);
         return $shopItem;
     }
 
-    public function storeShopItemImage($request, $input, $shopItem): void
+    public function storeShopItemImage($request, $shopItem): void
     {
-        $path = '/photos/shop/items';
-        // If image is sent as an array, store as an array
-        // else store as single file
-        if(!empty($input['images'])){
-            if(is_array($input['images'])){
-                for($i = 0, $count = count($input['images']); $i < $count; $i++){
-                    if(isset($input['images'][$i]) && $file = $request->file('images')[$i]) {
-                        $name = $this->compressAndUploadImage($file, $path, 200, 200);
-                        // Submit images
-                        $this->shopItemImage()->create([
-                            'shop_item_id' => $shopItem->id,
-                            'image' => $name,
-                            'image_path' => $path,
-                        ]);
-                    }
-                }
-            }else if($file = $request->file('images')){
-                // Compress image using image intervention package
-                $name = $this->compressAndUploadImage($file, $path, 200, 200);
-                // Submit images
-                $this->shopItemImage()->create([
-                    'shop_item_id' => $shopItem->id,
-                    'image' => $name,
-                    'image_path' => $path,
-                ]);
-            }
-        }
-
-    }
-
-    protected function compressAndUploadImage($file, $path, $width, $height): string
-    {
-        $name = time() . $file->getClientOriginalName();
-        $background = Image::canvas($width, $height);
-        // start image conversion (Must install Image Intervention Package first)
-        $convert_image = Image::make($file->path());
-        // resize image and save to converted path
-        // resize and fit width
-        $convert_image->resize($width, $height, static function ($constraint) {
-            $constraint->aspectRatio();
-            $constraint->upsize();
-        });
-        // insert image to canvas
-        $background->insert($convert_image, 'center');
-        $background->save($path.'/'.$name);
-        return $name;
-    }
-
-    protected function uploadImageOnly($file, $path): string
-    {
-        $name = time() . $file->getClientOriginalName();
-        $file->move(public_path($path), $name);
-        return $name;
+        $name = $this->compressAndUploadImage($request, $this->imagePath, 200, 200);
+        // Submit images
+        $this->shopItemImage()->create([
+            'shop_item_id' => $shopItem->id,
+            'image' => $name,
+            'image_path' => $this->imagePath,
+        ]);
     }
 
     public function publishShopItem($id): array
@@ -185,33 +142,99 @@ class ShopService
         $input = $request->all();
         $shopItem = $this->shopItem()->findOrFail($id);
         $shopItem->update($input);
-        $this->storeShopItemImage($request, $input, $shopItem);
         return $shopItem;
     }
 
     public function deleteShopItemImage($id): void
     {
         $image = $this->shopItemImage()->findOrFail($id);
-        if(!empty($image->image) && File::exists(public_path() .'/photos/shop/items/'. $image->image)) {
-            FILE::delete(public_path() . '/photos/shop/items/' . $image->image);
-        }
+        $this->deleteFile($image->image, $this->imagePath);
         $image->delete();
     }
 
     public function deleteShopItem($id): void
     {
         $shopItem = $this->shopItemWithRelations()->findOrFail($id);
-        // get images from relationship and delete them all
-        $shopItemImages = $shopItem->shop_item_images;
-        if($shopItemImages->count() > 0){
-            foreach($shopItemImages as $image){
-                if(!empty($image->image) && File::exists(public_path() .'/photos/shop/items/'. $image->image)) {
-                    FILE::delete(public_path() . '/photos/shop/items/' . $image->image);
-                }
-                $image->delete();
-            }
-        }
+        // Delete all relationships from shop items
+        $this->deleteRelations($shopItem->shop_item_images);
         $shopItem->delete();
     }
 
+
+    // Reusable
+    protected function publishItem($item): array
+    {
+        $message = '';
+        if($item->status === 'published'){
+            $item->status = 'pending';
+            $item_name = $item->name ?? $item->title;
+            $message = $item_name.' is hidden';
+        }else{
+            $item->status = 'published';
+            $item_name = $item->name ?? $item->title;
+            $message = $item_name.' is published';
+        }
+        $item->save();
+
+        return [
+            'item' => $item,
+            'message' => $message,
+        ];
+    }
+
+    protected function compressAndUploadImage($request, $path, $width, $height)
+    {
+        if($file = $request->file('images')) {
+            $name = time() . $file->getClientOriginalName();
+            // create path to directory
+            if (!File::exists($path)){
+                File::makeDirectory($path, 0777, true, true);
+            }
+            $background = Image::canvas($width, $height);
+            // start image conversion (Must install Image Intervention Package first)
+            $convert_image = Image::make($file->path());
+            // resize image and save to converted path
+            // resize and fit width
+            $convert_image->resize($width, $height, static function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
+            // insert image to canvas
+            $background->insert($convert_image, 'center');
+            $background->save($path.'/'.$name);
+            // Return full image upload path
+            return $name;
+        }
+        return false;
+    }
+
+    protected function uploadDocument($request, $path)
+    {
+        if($file = $request->file('document')) {
+            $name = time() . $file->getClientOriginalName();
+            $file->move(public_path($path), $name);
+            return $name;
+        }
+        return false;
+    }
+
+    protected function deleteFile($fileName, $filePath): void
+    {
+        if(File::exists(public_path() . '/'.$filePath.'/' . $fileName)){
+            FILE::delete(public_path() . '/'.$filePath.'/' . $fileName);
+        }
+    }
+
+    protected function deleteRelations($items, $filePath = null): void
+    {
+        if($items->count() > 0){
+            foreach($items as $item){
+                $fileName = $item->photo ?? $item->document ?? $item->image ?? $item->file;
+                if($filePath !== null && !empty($fileName) && File::exists(public_path() . '/'.$filePath.'/' . $fileName)) {
+                    FILE::delete(public_path() . '/'.$filePath.'/' . $fileName);
+                }
+                $item->delete();
+            }
+        }
+    }
 }
