@@ -18,6 +18,8 @@ use App\Http\Controllers\Auth\ServiceProvider\ApiRegisterServiceProviderControll
 use App\Http\Controllers\Auth\User\ApiLoginController;
 use App\Http\Controllers\Auth\User\ApiRegisterController;
 use App\Http\Controllers\Home\Blog\HomeBlogController;
+use App\Http\Controllers\Home\Pet\HomePetController;
+use App\Http\Controllers\Home\ServiceProvider\HomeServiceProviderController;
 use App\Http\Controllers\Home\Shop\HomeShopController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -44,6 +46,12 @@ Route::post('/blog/search', [HomeBlogController::class, 'search']);
 Route::get('/blog/{id}/show', [HomeBlogController::class, 'show']);
 Route::post('/blog/{postId}/add-comment', [HomeBlogController::class, 'addComment']);
 Route::get('/blog/{postId}/comments', [HomeBlogController::class, 'getPostComments']);
+
+// Home Service Provider
+Route::get('/home/service-providers/categories', [HomeServiceProviderController::class, 'getCategories']);
+
+// Home Pets
+Route::get('/home/pet/types', [HomePetController::class, 'getPetTypes']);
 
 // Admin Auth
 Route::post('/admin/login', [ApiAdminLoginController::class, 'login']);
@@ -189,12 +197,11 @@ Route::middleware('auth:api')->group(static function (){
         return $request->user('api');
     });
 
+
+
     // User Logout
     Route::post('/user/logout', [ApiAdminLoginController::class, 'logout']);
 
-    Route::get('/user/test', static function () {
-        return 'user tested';
-    });
 });
 
 

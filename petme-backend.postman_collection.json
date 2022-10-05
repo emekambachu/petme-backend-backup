@@ -206,6 +206,155 @@
 							"name": "Items",
 							"item": [
 								{
+									"name": "Item Discount",
+									"item": [
+										{
+											"name": "Get Item Discount",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "28|1ZA2XbjE1G3Xs1oTW03xOC2Wtk08dzikQpKV3Ec6",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "127.0.0.1:8000/api/admin/shop/item/1/discount",
+													"host": [
+														"127",
+														"0",
+														"0",
+														"1"
+													],
+													"port": "8000",
+													"path": [
+														"api",
+														"admin",
+														"shop",
+														"item",
+														"1",
+														"discount"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Add Discount to Item",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "28|1ZA2XbjE1G3Xs1oTW03xOC2Wtk08dzikQpKV3Ec6",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "formdata",
+													"formdata": [
+														{
+															"key": "shop_item_id",
+															"value": "1",
+															"type": "text"
+														},
+														{
+															"key": "percent",
+															"value": "10",
+															"type": "text"
+														}
+													]
+												},
+												"url": {
+													"raw": "127.0.0.1:8000/api/admin/shop/item/1/discount/add",
+													"host": [
+														"127",
+														"0",
+														"0",
+														"1"
+													],
+													"port": "8000",
+													"path": [
+														"api",
+														"admin",
+														"shop",
+														"item",
+														"1",
+														"discount",
+														"add"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete Discount from Item",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "30|zQOmEIRgVWGEtAZlNdEQcpXLAQBbRKz0y3jBXlhM",
+															"type": "string"
+														}
+													]
+												},
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "127.0.0.1:8000/api/admin/shop/item/1/discount/1/delete",
+													"host": [
+														"127",
+														"0",
+														"0",
+														"1"
+													],
+													"port": "8000",
+													"path": [
+														"api",
+														"admin",
+														"shop",
+														"item",
+														"1",
+														"discount",
+														"1",
+														"delete"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
 									"name": "Store Admin Shop Item",
 									"request": {
 										"auth": {
@@ -435,18 +584,8 @@
 									"response": []
 								},
 								{
-									"name": "Admin Get Shop Items",
+									"name": "Get Admin Shop Items",
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "15|3IHOjyxKQ2lHD0wW6DVdkMHDc83AC4boKeFAjVSa",
-													"type": "string"
-												}
-											]
-										},
 										"method": "GET",
 										"header": [
 											{
@@ -456,7 +595,7 @@
 											}
 										],
 										"url": {
-											"raw": "127.0.0.1:8000/api/admin/shop/categories",
+											"raw": "127.0.0.1:8000/api/admin/shop/items",
 											"host": [
 												"127",
 												"0",
@@ -468,7 +607,7 @@
 												"api",
 												"admin",
 												"shop",
-												"categories"
+												"items"
 											]
 										}
 									},
@@ -1288,6 +1427,186 @@
 					"name": "Pet",
 					"item": [
 						{
+							"name": "Pet Types",
+							"item": [
+								{
+									"name": "Get Pet Types",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "127.0.0.1:8000/api/admin/pet/types",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"admin",
+												"pet",
+												"types"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Store Pet Type",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "28|1ZA2XbjE1G3Xs1oTW03xOC2Wtk08dzikQpKV3Ec6",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "Fish",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "127.0.0.1:8000/api/admin/pet/types/add",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"admin",
+												"pet",
+												"types",
+												"add"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update Pet Type",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "28|1ZA2XbjE1G3Xs1oTW03xOC2Wtk08dzikQpKV3Ec6",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "Dog2",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "127.0.0.1:8000/api/admin/pet/types/1/update",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"admin",
+												"pet",
+												"types",
+												"1",
+												"update"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Pet Type",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "28|1ZA2XbjE1G3Xs1oTW03xOC2Wtk08dzikQpKV3Ec6",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "127.0.0.1:8000/api/admin/pet/types/1/delete",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"admin",
+												"pet",
+												"types",
+												"1",
+												"delete"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
 							"name": "Admin pets",
 							"request": {
 								"auth": {
@@ -1495,6 +1814,166 @@
 					"name": "Service Provider",
 					"item": [
 						{
+							"name": "Categories",
+							"item": [
+								{
+									"name": "Get Admin Service Providers Categories",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "127.0.0.1:8000/api/admin/service-providers/categories",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"admin",
+												"service-providers",
+												"categories"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Post Admin Service Providers Category",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "Health",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "127.0.0.1:8000/api/admin/service-providers/categories/store",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"admin",
+												"service-providers",
+												"categories",
+												"store"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update Admin Service Providers Category",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "Vet",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "127.0.0.1:8000/api/admin/service-providers/categories/1/update",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"admin",
+												"service-providers",
+												"categories",
+												"1",
+												"update"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Admin Service Providers Category",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "Vet",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "127.0.0.1:8000/api/admin/service-providers/categories/1/delete",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"admin",
+												"service-providers",
+												"categories",
+												"1",
+												"delete"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
 							"name": "Get Service Providers",
 							"request": {
 								"method": "GET",
@@ -1635,7 +2114,7 @@
 									}
 								],
 								"url": {
-									"raw": "127.0.0.1:8000/api/admin/service-providers/1",
+									"raw": "127.0.0.1:8000/api/admin/service-providers/1/show",
 									"host": [
 										"127",
 										"0",
@@ -1647,7 +2126,8 @@
 										"api",
 										"admin",
 										"service-providers",
-										"1"
+										"1",
+										"show"
 									]
 								}
 							},
@@ -2331,6 +2811,9 @@
 						{
 							"name": "Register User",
 							"request": {
+								"auth": {
+									"type": "noauth"
+								},
 								"method": "POST",
 								"header": [
 									{
@@ -2344,12 +2827,12 @@
 									"urlencoded": [
 										{
 											"key": "name",
-											"value": "Victor Victor",
+											"value": "Emeka Mbachu",
 											"type": "text"
 										},
 										{
 											"key": "email",
-											"value": "victor@email.com",
+											"value": "xeddtech@gmail.com",
 											"type": "text"
 										},
 										{
@@ -2383,8 +2866,11 @@
 							"response": []
 						},
 						{
-							"name": "User Login",
+							"name": "Login User",
 							"request": {
+								"auth": {
+									"type": "noauth"
+								},
 								"method": "POST",
 								"header": [
 									{
@@ -2394,11 +2880,11 @@
 									}
 								],
 								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
+									"mode": "formdata",
+									"formdata": [
 										{
 											"key": "email",
-											"value": "victor@email.com",
+											"value": "embachu@afchub.org",
 											"type": "text"
 										},
 										{
@@ -2421,6 +2907,88 @@
 										"api",
 										"user",
 										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Logout User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "28|1ZA2XbjE1G3Xs1oTW03xOC2Wtk08dzikQpKV3Ec6",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "127.0.0.1:8000/api/user/logout",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"user",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Submit OTP",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "otp",
+											"value": "6432B",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "127.0.0.1:8000/api/user/otp/submit",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"user",
+										"otp",
+										"submit"
 									]
 								}
 							},
@@ -2470,6 +3038,48 @@
 									"path": [
 										"api",
 										"shop"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Search Shop Home",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "term",
+											"value": "food",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "127.0.0.1:8000/api/shop/search",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"shop",
+										"search"
 									]
 								}
 							},
@@ -2576,8 +3186,424 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Search Blog Home",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "term",
+											"value": "food",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "127.0.0.1:8000/api/blog/search",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"blog",
+										"search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Comment Home",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "blog_post_id",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "ip",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "comment",
+											"value": "comment",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "127.0.0.1:8000/api/blog/1/add-comment",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"blog",
+										"1",
+										"add-comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Comments Home",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "127.0.0.1:8000/api/blog/1/comments",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"blog",
+										"1",
+										"comments"
+									]
+								}
+							},
+							"response": []
 						}
 					]
+				},
+				{
+					"name": "Service Provider",
+					"item": [
+						{
+							"name": "Home Service Providers Categories",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:8000/api/home/service-providers/categories",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"home",
+										"service-providers",
+										"categories"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Pet",
+					"item": [
+						{
+							"name": "Get Home Pet Types",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "127.0.0.1:8000/api/home/pet/types",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"home",
+										"pet",
+										"types"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Service Provider",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Register",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Felix ",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "xeddtech@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "mobile",
+											"value": "11111111",
+											"type": "text"
+										},
+										{
+											"key": "specialization",
+											"value": "dog walker",
+											"type": "text"
+										},
+										{
+											"key": "location",
+											"value": "Lagos, Nigeria",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "11111111",
+											"type": "text"
+										},
+										{
+											"key": "password_confirmation",
+											"value": "11111111",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "127.0.0.1:8000/api/service-provider/register",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"service-provider",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Submit OTP",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "otp",
+											"value": "IBHI6196",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "127.0.0.1:8000/api/service-provider/otp/submit",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"service-provider",
+										"otp",
+										"submit"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login Service provider",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "xeddtech@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "11111111",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "127.0.0.1:8000/api/service-provider/login",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"service-provider",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Logout Service Provider",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "28|1ZA2XbjE1G3Xs1oTW03xOC2Wtk08dzikQpKV3Ec6",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "127.0.0.1:8000/api/service-provider/logout",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"service-provider",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Appointment",
+					"item": []
+				},
+				{
+					"name": "Services",
+					"item": []
 				}
 			]
 		},

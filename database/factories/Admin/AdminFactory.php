@@ -22,8 +22,8 @@ class AdminFactory extends Factory
             'remember_token' => Str::random(10),
             'last_login' => $this->faker->dateTime(),
 //            'role' => $this->faker->randomElement(array ('admin', 'superadmin')),
-            'role' => 'superadmin',
-            'verified' => 1,
+            'role' => 'super-admin',
+            'status' => 'verified',
         ];
     }
 }
