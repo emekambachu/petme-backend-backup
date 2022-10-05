@@ -83,7 +83,7 @@ class AdminShopItemController extends Controller
     public function search(Request $request): \Illuminate\Http\JsonResponse
     {
         try {
-            $shopItems = $this->shop->searchShopItems($request);
+            $shopItems = $this->shop->searchShopItems($request, $this->shop->shopItem());
             return response()->json([
                 'success' => true,
                 'shop_items' => $shopItems['shop_items'],

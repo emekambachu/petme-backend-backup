@@ -8,6 +8,9 @@ use App\Models\Admin\Admin;
 use App\Models\User\User;
 use App\Services\Account\AdminAccountService;
 use App\Services\Account\UserAccountService;
+use App\Services\Admin\AdminService;
+use App\Services\ServiceProvider\ServiceProviderService;
+use App\Services\User\UserService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -17,86 +20,61 @@ use Illuminate\Support\Facades\Hash;
  */
 class LoginService{
 
-    public function user(): User
-    {
-        return new User();
+    protected $user;
+    protected $provider;
+    protected $admin;
+    public function __construct(
+        UserService $user,
+        ServiceProviderService $provider,
+        AdminService $admin
+    ){
+        $this->user = $user;
+        $this->provider = $provider;
+        $this->admin = $admin;
     }
 
-    public function userWithRelations(): \Illuminate\Database\Eloquent\Builder
-    {
-        return $this->user()->with('user_appointments', 'pets');
-    }
-
-    public function admin(): Admin
-    {
-        return new Admin();
-    }
-
-    public function adminLoginAndToken($request): \Illuminate\Http\JsonResponse
-    {
-        if(Auth::guard('admin')->attempt([
-            'email' => $request->email,
-            'password' => $request->password,
-        ])){
-            $user = Auth::guard('admin')->user();
-            $token = $user->createToken($request->email, ['admin-api'])->plainTextToken;
-            $response = [
-                'success' => true,
-                'user' => new AdminResource($user),
-                'token' => $token,
-                'message' => 'Correct credentials',
-            ];
-        }else{
-            $response = [
-                'success' => false,
-                'message' => 'Incorrect credentials',
-                'status' => 401,
-            ];
-        }
-
-        return response()->json($response);
-    }
-
-    public function userLoginAndToken($request): \Illuminate\Http\JsonResponse
+    public function loginWithToken(
+        $request,
+        String $webGuard,
+        String $apiGuard,
+        $queryBuilder
+    )
     {
         // Check if user is verified before attempting to login
-        $verified = $this->user()
-            ->where('email', $request->email)->first()->verified;
-        if($verified !== 1){
-            return response()->json([
+        $status = $queryBuilder->where('email', $request->email)->first()->status;
+        if($status !== 'verified'){
+            return [
                 'success' => false,
                 'errors' => ['unverified', 'Unverified User'],
-            ]);
+            ];
         }
 
-        if(Auth::guard('web')->attempt([
+        if(Auth::guard($webGuard)->attempt([
             'email' => $request->email,
             'password' => $request->password,
         ])){
             // get Session
-            $user = Auth::guard('web')->user();
+            $user = Auth::guard($webGuard)->user();
             // Get Token
-            $token = $user->createToken($request->email, ['api'])->plainTextToken;
+            $token = $user->createToken($request->email, [$apiGuard])->plainTextToken;
 
             // Last login
-            $this->user()->where('email', $request->email)->update([
+            $queryBuilder->where('email', $request->email)->update([
                     'last_login' => Carbon::now()->format('Y-m-d h:i:s'),
                 ]);
 
-            $response = [
+            $data = [
                 'success' => true,
                 'user' => new UserResource($user),
                 'token' => $token,
                 'message' => 'Correct credentials',
             ];
         }else{
-            $response = [
+            $data = [
                 'success' => false,
                 'message' => 'Incorrect credentials',
-                'status' => 401,
             ];
         }
-
-        return response()->json($response);
+        return $data;
     }
 }

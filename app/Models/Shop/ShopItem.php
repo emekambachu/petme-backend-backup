@@ -17,24 +17,28 @@ class ShopItem extends Model
         'cost',
         'status',
         'owner',
-        'discount_percent'
     ];
 
-    public function shop_item_images(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function discount(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(ShopItemDiscount::class, 'shop_item_id', 'id');
+    }
+
+    public function images(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(ShopItemImage::class, 'shop_item_id', 'id');
     }
 
-    public function shop_item_orders(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function orders(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(ShopOrder::class, 'shop_item_id', 'id');
     }
 
-    public function shop_metric(){
+    public function metric(){
         return $this->belongsTo(ShopMetric::class, 'shop_metric_id', 'id');
     }
 
-    public function shop_category(){
+    public function category(){
         return $this->belongsTo(ShopCategory::class, 'shop_category_id', 'id');
     }
 

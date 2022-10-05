@@ -206,7 +206,7 @@
 							"name": "Items",
 							"item": [
 								{
-									"name": "Admin Get Shop Items",
+									"name": "Store Admin Shop Item",
 									"request": {
 										"auth": {
 											"type": "bearer",
@@ -218,7 +218,7 @@
 												}
 											]
 										},
-										"method": "GET",
+										"method": "POST",
 										"header": [
 											{
 												"key": "Accept",
@@ -226,8 +226,63 @@
 												"type": "text"
 											}
 										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "Stuff6",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "some stuff",
+													"type": "text"
+												},
+												{
+													"key": "quantity",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "shop_metric_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "shop_category_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "cost",
+													"value": "30",
+													"type": "text"
+												},
+												{
+													"key": "status",
+													"value": "published",
+													"type": "text"
+												},
+												{
+													"key": "owner",
+													"value": "me",
+													"type": "text"
+												},
+												{
+													"key": "discount_percent",
+													"value": "",
+													"type": "text"
+												},
+												{
+													"key": "images",
+													"type": "file",
+													"src": "/C:/Users/Lenovo/Downloads/WhatsApp Image 2022-09-17 at 6.51.18 PM.jpeg"
+												}
+											]
+										},
 										"url": {
-											"raw": "127.0.0.1:8000/api/admin/shop/items",
+											"raw": "127.0.0.1:8000/api/admin/shop/items/create",
 											"host": [
 												"127",
 												"0",
@@ -239,14 +294,15 @@
 												"api",
 												"admin",
 												"shop",
-												"items"
+												"items",
+												"create"
 											]
 										}
 									},
 									"response": []
 								},
 								{
-									"name": "Admin Get Shop Items (Production)",
+									"name": "Get Admin Shop Items (Production)",
 									"request": {
 										"auth": {
 											"type": "bearer",
@@ -286,103 +342,7 @@
 									"response": []
 								},
 								{
-									"name": "Store Admin Shop Items",
-									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "15|3IHOjyxKQ2lHD0wW6DVdkMHDc83AC4boKeFAjVSa",
-													"type": "string"
-												}
-											]
-										},
-										"method": "POST",
-										"header": [
-											{
-												"key": "Accept",
-												"value": "application/json",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "formdata",
-											"formdata": [
-												{
-													"key": "name",
-													"value": "Dog leash",
-													"type": "text"
-												},
-												{
-													"key": "description",
-													"value": "Hold your dog tight",
-													"type": "text"
-												},
-												{
-													"key": "shop_category_id",
-													"value": "1",
-													"type": "text"
-												},
-												{
-													"key": "shop_metric_id",
-													"value": "1",
-													"type": "text"
-												},
-												{
-													"key": "cost",
-													"value": "14",
-													"type": "text"
-												},
-												{
-													"key": "status",
-													"value": "listed",
-													"type": "text"
-												},
-												{
-													"key": "owner",
-													"value": "",
-													"type": "text",
-													"disabled": true
-												},
-												{
-													"key": "images",
-													"type": "file",
-													"src": [
-														"/C:/Users/Lenovo/Downloads/113020226ecbcec127e1aac920b01239.jpg",
-														"/C:/Users/Lenovo/Downloads/5f4fa16f5fccdee5a80412a3_Templates_Main.jpg",
-														"/C:/Users/Lenovo/Downloads/xedd tech.png"
-													]
-												},
-												{
-													"key": "quantity",
-													"value": "23",
-													"type": "text"
-												}
-											]
-										},
-										"url": {
-											"raw": "127.0.0.1:8000/api/admin/shop/items/create",
-											"host": [
-												"127",
-												"0",
-												"0",
-												"1"
-											],
-											"port": "8000",
-											"path": [
-												"api",
-												"admin",
-												"shop",
-												"items",
-												"create"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Admin Delete Shop Items",
+									"name": "Delete Admin Shop Items",
 									"request": {
 										"auth": {
 											"type": "bearer",
@@ -403,7 +363,7 @@
 											}
 										],
 										"url": {
-											"raw": "127.0.0.1:8000/api/admin/shop/items/1/delete",
+											"raw": "127.0.0.1:8000/api/admin/shop/items/14/delete",
 											"host": [
 												"127",
 												"0",
@@ -416,7 +376,7 @@
 												"admin",
 												"shop",
 												"items",
-												"1",
+												"14",
 												"delete"
 											]
 										}
@@ -515,49 +475,7 @@
 									"response": []
 								},
 								{
-									"name": "Admin Shop Publish Item",
-									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "15|3IHOjyxKQ2lHD0wW6DVdkMHDc83AC4boKeFAjVSa",
-													"type": "string"
-												}
-											]
-										},
-										"method": "POST",
-										"header": [
-											{
-												"key": "Accept",
-												"value": "application/json",
-												"type": "text"
-											}
-										],
-										"url": {
-											"raw": "127.0.0.1:8000/api/admin/shop/items/2/publish",
-											"host": [
-												"127",
-												"0",
-												"0",
-												"1"
-											],
-											"port": "8000",
-											"path": [
-												"api",
-												"admin",
-												"shop",
-												"items",
-												"2",
-												"publish"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Admin Update Shop Items",
+									"name": "Update Admin Shop Items",
 									"request": {
 										"auth": {
 											"type": "bearer",
@@ -618,11 +536,7 @@
 												{
 													"key": "images",
 													"type": "file",
-													"src": [
-														"/C:/Users/Lenovo/Downloads/113020226ecbcec127e1aac920b01239.jpg",
-														"/C:/Users/Lenovo/Downloads/5f4fa16f5fccdee5a80412a3_Templates_Main.jpg",
-														"/C:/Users/Lenovo/Downloads/xedd tech.png"
-													]
+													"src": "/C:/Users/Lenovo/Downloads/Affidavit for re-arrangement of name for BVN.jpeg"
 												},
 												{
 													"key": "quantity",
@@ -653,7 +567,7 @@
 									"response": []
 								},
 								{
-									"name": "Admin List/Unlist Shop Item",
+									"name": "List/UNlist Admin Shop Item",
 									"request": {
 										"auth": {
 											"type": "bearer",
@@ -878,6 +792,226 @@
 									"response": []
 								}
 							]
+						},
+						{
+							"name": "Discount",
+							"item": [
+								{
+									"name": "Get Admin Discount",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "21|Y2YxWlXNyvZeJFb6NrDG45SXAlrZilhF5XyRX7CN",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "21|Y2YxWlXNyvZeJFb6NrDG45SXAlrZilhF5XyRX7CN",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "127.0.0.1:8000/api/admin/shop/discounts",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"admin",
+												"shop",
+												"discounts"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Post Admin Discount",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "21|Y2YxWlXNyvZeJFb6NrDG45SXAlrZilhF5XyRX7CN",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "21|Y2YxWlXNyvZeJFb6NrDG45SXAlrZilhF5XyRX7CN",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "welcome sales",
+													"type": "text"
+												},
+												{
+													"key": "percent",
+													"value": "4",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "127.0.0.1:8000/api/admin/shop/discounts/create",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"admin",
+												"shop",
+												"discounts",
+												"create"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update Admin Discount",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "21|Y2YxWlXNyvZeJFb6NrDG45SXAlrZilhF5XyRX7CN",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "21|Y2YxWlXNyvZeJFb6NrDG45SXAlrZilhF5XyRX7CN",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "easter",
+													"type": "text"
+												},
+												{
+													"key": "percent",
+													"value": "7",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "127.0.0.1:8000/api/admin/shop/discounts/1/update",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"admin",
+												"shop",
+												"discounts",
+												"1",
+												"update"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Admin Discount",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "21|Y2YxWlXNyvZeJFb6NrDG45SXAlrZilhF5XyRX7CN",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "21|Y2YxWlXNyvZeJFb6NrDG45SXAlrZilhF5XyRX7CN",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "127.0.0.1:8000/api/admin/shop/discounts/1/delete",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"admin",
+												"shop",
+												"discounts",
+												"1",
+												"delete"
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						}
 					]
 				},
@@ -1059,6 +1193,45 @@
 										"1"
 									],
 									"port": "8000",
+									"path": [
+										"api",
+										"admin",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Users (Production)",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "49|EE3m3F8lJ9bckIWykE1Dw8lE8UCS8efszMUmNBqc",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://petme.us-east-2.elasticbeanstalk.com/api/admin/users",
+									"protocol": "http",
+									"host": [
+										"petme",
+										"us-east-2",
+										"elasticbeanstalk",
+										"com"
+									],
 									"path": [
 										"api",
 										"admin",
@@ -1320,7 +1493,793 @@
 				},
 				{
 					"name": "Service Provider",
-					"item": []
+					"item": [
+						{
+							"name": "Get Service Providers",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "127.0.0.1:8000/api/admin/service-providers",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"admin",
+										"service-providers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Store Admin Service Providers",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Test Teste",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "email1@email.com",
+											"type": "text"
+										},
+										{
+											"key": "mobile",
+											"value": "666666666666666",
+											"type": "text"
+										},
+										{
+											"key": "address",
+											"value": "rrr",
+											"type": "text"
+										},
+										{
+											"key": "services",
+											"value": "rrr",
+											"type": "text"
+										},
+										{
+											"key": "opening_hours",
+											"value": "rrrr",
+											"type": "text"
+										},
+										{
+											"key": "photo",
+											"type": "file",
+											"src": "/C:/Users/Lenovo/Downloads/1658845812238.jpg"
+										},
+										{
+											"key": "staff_count",
+											"value": "0",
+											"type": "text"
+										},
+										{
+											"key": "email_count",
+											"value": "0",
+											"type": "text"
+										},
+										{
+											"key": "email_sent_count",
+											"value": "0",
+											"type": "text"
+										},
+										{
+											"key": "last_login",
+											"value": "2022-09-21 15:29:51",
+											"type": "text"
+										},
+										{
+											"key": "onboarding_date",
+											"value": "2022-09-21 15:29:51",
+											"type": "text"
+										},
+										{
+											"key": "status",
+											"value": "published",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "127.0.0.1:8000/api/admin/service-providers/create",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"admin",
+										"service-providers",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show Admin Service Providers",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "127.0.0.1:8000/api/admin/service-providers/1",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"admin",
+										"service-providers",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Publish Admin Service Providers",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "127.0.0.1:8000/api/admin/service-providers/1/publish",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"admin",
+										"service-providers",
+										"1",
+										"publish"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Admin Service Providers",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "dex test",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "mail@email.com",
+											"type": "text"
+										},
+										{
+											"key": "mobile",
+											"value": "3333333334444",
+											"type": "text"
+										},
+										{
+											"key": "address",
+											"value": "dddddd",
+											"type": "text"
+										},
+										{
+											"key": "services",
+											"value": "dddd",
+											"type": "text"
+										},
+										{
+											"key": "opening_hours",
+											"value": "ddddddddd",
+											"type": "text"
+										},
+										{
+											"key": "photo",
+											"type": "file",
+											"src": "/C:/Users/Lenovo/Downloads/bkk.png"
+										},
+										{
+											"key": "photo_path",
+											"value": "/photo/",
+											"type": "text"
+										},
+										{
+											"key": "staff_count",
+											"value": "0",
+											"type": "text"
+										},
+										{
+											"key": "email_count",
+											"value": "0",
+											"type": "text"
+										},
+										{
+											"key": "email_sent_count",
+											"value": "0",
+											"type": "text"
+										},
+										{
+											"key": "last_login",
+											"value": "2022-09-21 15:29:51",
+											"type": "text"
+										},
+										{
+											"key": "onboarding_date",
+											"value": "2022-09-21 15:29:51",
+											"type": "text"
+										},
+										{
+											"key": "status",
+											"value": "published",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "127.0.0.1:8000/api/admin/service-providers/1/update",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"admin",
+										"service-providers",
+										"1",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Admin Service Providers",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "127.0.0.1:8000/api/admin/service-providers/1/delete",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"admin",
+										"service-providers",
+										"1",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Blog",
+					"item": [
+						{
+							"name": "Categories",
+							"item": [
+								{
+									"name": "Get Admin Blog Categories",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "21|Y2YxWlXNyvZeJFb6NrDG45SXAlrZilhF5XyRX7CN",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "127.0.0.1:8000/api/admin/blog/categories",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"admin",
+												"blog",
+												"categories"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Store Admin Blog Categories",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "21|Y2YxWlXNyvZeJFb6NrDG45SXAlrZilhF5XyRX7CN",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "Lifestyle",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "127.0.0.1:8000/api/admin/blog/categories/create",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"admin",
+												"blog",
+												"categories",
+												"create"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update Admin Blog Categories",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "21|Y2YxWlXNyvZeJFb6NrDG45SXAlrZilhF5XyRX7CN",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "Pet Lifestyle",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "127.0.0.1:8000/api/admin/blog/categories/3/update",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"admin",
+												"blog",
+												"categories",
+												"3",
+												"update"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Admin Blog Categories",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "21|Y2YxWlXNyvZeJFb6NrDG45SXAlrZilhF5XyRX7CN",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "127.0.0.1:8000/api/admin/blog/categories/3/delete",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"admin",
+												"blog",
+												"categories",
+												"3",
+												"delete"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Posts",
+							"item": [
+								{
+									"name": "Get Admin Blog Post",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "127.0.0.1:8000/api/admin/blog/posts",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"admin",
+												"blog",
+												"posts"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Post Admin Blog Post",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "title",
+													"value": "How to writdddd",
+													"type": "text"
+												},
+												{
+													"key": "author",
+													"value": "Dexter",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "hey my man",
+													"type": "text"
+												},
+												{
+													"key": "blog_category_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "photo",
+													"type": "file",
+													"src": "/C:/Users/Lenovo/Downloads/WhatsApp Image 2022-08-29 at 1.21.42 PM.jpeg"
+												},
+												{
+													"key": "status",
+													"value": "published",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "127.0.0.1:8000/api/admin/blog/posts/create",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"admin",
+												"blog",
+												"posts",
+												"create"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Show Admin Blog Post",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "127.0.0.1:8000/api/admin/blog/posts/15",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"admin",
+												"blog",
+												"posts",
+												"15"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update Admin Blog Post",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "title",
+													"value": "How to write a da33mfff",
+													"type": "text"
+												},
+												{
+													"key": "author",
+													"value": "Dexter",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "hey my man",
+													"type": "text"
+												},
+												{
+													"key": "blog_category_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "photo",
+													"type": "file",
+													"src": "/C:/Users/Lenovo/Downloads/Trifold Flier Design Front.png"
+												},
+												{
+													"key": "status",
+													"value": "published",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "127.0.0.1:8000/api/admin/blog/posts/20/update",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"admin",
+												"blog",
+												"posts",
+												"20",
+												"update"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Admin Blog Post",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "127.0.0.1:8000/api/admin/blog/posts/19/delete",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"admin",
+												"blog",
+												"posts",
+												"19",
+												"delete"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Publish Admin Blog Post",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "127.0.0.1:8000/api/admin/blog/posts/1/publish",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"admin",
+												"blog",
+												"posts",
+												"1",
+												"publish"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
 				},
 				{
 					"name": "Get Admin Users",

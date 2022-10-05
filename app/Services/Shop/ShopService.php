@@ -29,11 +29,20 @@ class ShopService
     public function shopItemWithRelations (): \Illuminate\Database\Eloquent\Builder
     {
         return $this->shopItem()->with(
-            'shop_item_images',
-            'shop_item_orders',
-            'shop_metric',
-            'shop_category'
+            'images',
+            'orders',
+            'metric',
+            'category',
+            'discount',
         );
+    }
+
+    public function shopItemPublished(){
+        return $this->shopItemWithRelations()->where('status', 'published');
+    }
+
+    public function shopItemPublishedJoins(){
+        return $this->shopItemWithRelations()->where('shop_items.status', 'published');
     }
 
     public function shopItemById($id){
@@ -56,7 +65,7 @@ class ShopService
         $this->shopItemImage()->create([
             'shop_item_id' => $shopItem->id,
             'image' => $name,
-            'image_path' => $this->imagePath,
+            'image_path' => @config('app.url').'/'.$this->imagePath.'/',
         ]);
     }
 
@@ -78,7 +87,7 @@ class ShopService
         ];
     }
 
-    public function searchShopItems($request): array
+    public function searchShopItems($request, $queryBuilder): array
     {
         $input = $request->all();
         $request->session()->forget(['search_inputs']);
@@ -92,19 +101,10 @@ class ShopService
             $searchValues['term'] = $input['term'];
         }
 
-        $items = $this->shopItemWithRelations()
-            ->select(
+        $items = $queryBuilder->select(
                 'shop_items.id AS shop_item_id',
                 'shop_items.name AS shop_item_name',
-                'shop_items.description',
-                'shop_items.quantity',
-                'shop_items.shop_category_id',
-                'shop_items.shop_metric_id',
-                'shop_items.cost',
-                'shop_items.status',
-                'shop_items.owner',
-                'shop_items.created_at',
-                'shop_items.updated_at',
+                'shop_items.*',
                 'shop_categories.id',
                 'shop_categories.name',
             )->leftjoin('shop_categories',
@@ -114,9 +114,6 @@ class ShopService
                 $query->when(!empty($input['term']), static function($q) use($input){
                     $q->where('shop_items.name', 'like' , '%'. $input['term'] .'%')
                         ->orWhere('shop_items.description', 'like' , '%'. $input['term'] .'%')
-                        ->orWhere('shop_items.cost', 'like' , '%'. $input['term'] .'%')
-                        ->orWhere('shop_items.status', 'like' , '%'. $input['term'] .'%')
-                        ->orWhere('shop_items.owner', 'like' , '%'. $input['term'] .'%')
                         ->orWhere('shop_categories.name', 'like' , '%'. $input['term'] .'%');
                 });
             })->paginate(15);

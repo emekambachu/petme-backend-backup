@@ -13,7 +13,8 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Pet Me'),
+    'mail_from' => env('MAIL_FROM_ADDRESS', 'noreply@petme.tech'),
 
     /*
     |--------------------------------------------------------------------------
@@ -52,9 +53,9 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://petme.us-east-2.elasticbeanstalk.com'),
 
-    'asset_url' => env('ASSET_URL', null),
+    'asset_url' => env('ASSET_URL', 'http://petme.us-east-2.elasticbeanstalk.com'),
 
     /*
     |--------------------------------------------------------------------------

@@ -17,11 +17,15 @@ class BlogPostResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'slug' => $this->slug,
             'author' => $this->author,
             'description' => $this->description,
-            'photo' => $this->photo,
-            'category' => $this->blog_category,
-            'created_at' => $this->created_at,
+            'image' => $this->image,
+            'image_path' => $this->image_path,
+            'category' => $this->category,
+            'comments' => $this->comments,
+            'likes' => count($this->likes),
+            'views' => count($this->views),
         ];
     }
 }

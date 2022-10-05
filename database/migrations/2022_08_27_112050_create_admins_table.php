@@ -20,7 +20,7 @@ class CreateAdminsTable extends Migration
             $table->string('password');
             $table->dateTime('last_login')->nullable();
             $table->string('role')->nullable();
-            $table->tinyInteger('verified')->default(0);
+            $table->string('status')->default('pending');
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

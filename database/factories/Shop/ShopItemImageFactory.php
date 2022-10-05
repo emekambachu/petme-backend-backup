@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ShopItemImageFactory extends Factory
 {
+    protected $imagePath = 'photos/shop/items';
     /**
      * Define the model's default state.
      *
@@ -15,7 +16,7 @@ class ShopItemImageFactory extends Factory
     {
         return [
             'image' => 'https://via.placeholder.com/200',
-            'image_path' => '/photos/shop/items'
+            'image_path' => @config('app.url').'/'.$this->imagePath.'/'
         ];
     }
 }

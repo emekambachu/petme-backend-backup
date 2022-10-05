@@ -19,7 +19,8 @@ class CreatePetsTable extends Migration
             $table->unsignedBigInteger('pet_type_id')->nullable();
             $table->string('name');
             $table->text('distinguishing_marks')->nullable();
-            $table->binary('photo')->nullable();
+            $table->binary('image')->nullable();
+            $table->binary('image_path')->nullable();
             $table->string('gender');
             $table->string('dob');
             $table->string('registration_number');

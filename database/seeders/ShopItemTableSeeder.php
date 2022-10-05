@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Shop\ShopItem;
+use App\Models\Shop\ShopItemDiscount;
 use App\Models\Shop\ShopItemImage;
 use Illuminate\Database\Seeder;
 
@@ -16,7 +17,8 @@ class ShopItemTableSeeder extends Seeder
     public function run(): void
     {
         ShopItem::factory(6)->create()->each(function ($item) {
-            $item->shop_item_images()->saveMany(ShopItemImage::factory(3)->make());
+            $item->images()->saveMany(ShopItemImage::factory(3)->make());
+            $item->discount()->saveMany(ShopItemDiscount::factory(1)->make());
         });
     }
 }

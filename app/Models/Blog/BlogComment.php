@@ -10,6 +10,7 @@ class BlogComment extends Model
     use HasFactory;
     protected $fillable = [
       'blog_post_id',
+      'ip',
       'name',
       'comment',
       'status',

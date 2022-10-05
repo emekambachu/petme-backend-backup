@@ -9,6 +9,11 @@ class ServiceProviderService extends Model
 {
     use HasFactory;
     protected $fillable = [
+      'service_provider_id',
       'name'
     ];
+
+    public function service_provider(){
+        return $this->belongsTo(ServiceProvider::class, 'service_provider_id', 'id');
+    }
 }

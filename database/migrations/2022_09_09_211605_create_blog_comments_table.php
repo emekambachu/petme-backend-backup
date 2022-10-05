@@ -15,7 +15,8 @@ class CreateBlogCommentsTable extends Migration
     {
         Schema::create('blog_comments', static function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('blog_post_id');
+            $table->unsignedBigInteger('blog_post_id')->nullable();
+            $table->text('ip');
             $table->string('name')->nullable();
             $table->longText('comment');
             $table->string('status')->default('pending');

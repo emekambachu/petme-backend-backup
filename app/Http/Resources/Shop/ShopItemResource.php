@@ -19,8 +19,9 @@ class ShopItemResource extends JsonResource
             'description' => $this->description,
             'quantity' => $this->quantity,
             'cost' => $this->cost,
-            'metric' => $this->shop_metric,
-            'category' => $this->shop_category,
+            'metric' => $this->metric,
+            'images' => $this->images,
+            'category' => $this->category,
             'created_at' => $this->created_at,
         ];
     }

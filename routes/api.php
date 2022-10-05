@@ -3,15 +3,20 @@
 use App\Http\Controllers\Admin\Blog\AdminBlogCategoryController;
 use App\Http\Controllers\Admin\Blog\AdminBlogPostController;
 use App\Http\Controllers\Admin\Pet\AdminPetController;
+use App\Http\Controllers\Admin\Pet\AdminPetTypeController;
+use App\Http\Controllers\Admin\ServiceProvider\AdminServiceProviderCategoryController;
 use App\Http\Controllers\Admin\ServiceProvider\AdminServiceProviderController;
 use App\Http\Controllers\Admin\Shop\AdminShopCategoryController;
 use App\Http\Controllers\Admin\Shop\AdminShopDiscountController;
 use App\Http\Controllers\Admin\Shop\AdminShopItemController;
+use App\Http\Controllers\Admin\Shop\AdminShopItemDiscountController;
 use App\Http\Controllers\Admin\Shop\AdminShopMetricController;
 use App\Http\Controllers\Admin\User\AdminUserController;
-use App\Http\Controllers\Auth\ApiAdminLoginController;
-use App\Http\Controllers\Auth\ApiLoginController;
-use App\Http\Controllers\Auth\ApiRegisterController;
+use App\Http\Controllers\Auth\Admin\ApiAdminLoginController;
+use App\Http\Controllers\Auth\ServiceProvider\ApiLoginServiceProviderController;
+use App\Http\Controllers\Auth\ServiceProvider\ApiRegisterServiceProviderController;
+use App\Http\Controllers\Auth\User\ApiLoginController;
+use App\Http\Controllers\Auth\User\ApiRegisterController;
 use App\Http\Controllers\Home\Blog\HomeBlogController;
 use App\Http\Controllers\Home\Shop\HomeShopController;
 use Illuminate\Http\Request;
@@ -30,22 +35,28 @@ use Illuminate\Support\Facades\Route;
 
 // Home Shop
 Route::get('/shop', [HomeShopController::class, 'index']);
+Route::post('/shop/search', [HomeShopController::class, 'search']);
 Route::get('/shop/{id}/show', [HomeShopController::class, 'show']);
 
 // Home Blog
 Route::get('/blog', [HomeBlogController::class, 'index']);
+Route::post('/blog/search', [HomeBlogController::class, 'search']);
 Route::get('/blog/{id}/show', [HomeBlogController::class, 'show']);
-Route::post('/blog/{id}/add-comment', [HomeBlogController::class, 'addComment']);
-Route::get('/blog/{id}/comments', [HomeBlogController::class, 'comments']);
+Route::post('/blog/{postId}/add-comment', [HomeBlogController::class, 'addComment']);
+Route::get('/blog/{postId}/comments', [HomeBlogController::class, 'getPostComments']);
 
 // Admin Auth
 Route::post('/admin/login', [ApiAdminLoginController::class, 'login']);
 
 // User Auth
 Route::post('/user/register', [ApiRegisterController::class, 'register']);
-Route::get('/user/verify/{token}', [ApiRegisterController::class, 'verifyAccount'])
-    ->name('user.verify.token');
+Route::post('/user/otp/submit', [ApiRegisterController::class, 'submitOtp']);
 Route::post('/user/login', [ApiLoginController::class, 'login']);
+
+// Service Provider Auth
+Route::post('/service-provider/register', [ApiRegisterServiceProviderController::class, 'register']);
+Route::post('/service-provider/otp/submit', [ApiRegisterServiceProviderController::class, 'submitOtp']);
+Route::post('/service-provider/login', [ApiLoginServiceProviderController::class, 'login']);
 
 // Custom sanctum admin guard authentication for admin
 Route::middleware('auth:admin-api')->group(static function (){
@@ -68,6 +79,12 @@ Route::middleware('auth:admin-api')->group(static function (){
     Route::get('/admin/pets/{id}/vaccination', [AdminPetController::class, 'showVaccination']);
     Route::get('/admin/pets/{id}/diet', [AdminPetController::class, 'showDiet']);
 
+    // Admin Pet Types
+    Route::get('/admin/pet/types', [AdminPetTypeController::class, 'index']);
+    Route::post('/admin/pet/types/add', [AdminPetTypeController::class, 'store']);
+    Route::post('/admin/pet/types/{id}/update', [AdminPetTypeController::class, 'update']);
+    Route::delete('/admin/pet/types/{id}/delete', [AdminPetTypeController::class, 'delete']);
+
     // Admin Shop
     Route::get('/admin/shop/items', [AdminShopItemController::class, 'index']);
     Route::post('/admin/shop/items/create', [AdminShopItemController::class, 'store']);
@@ -77,6 +94,12 @@ Route::middleware('auth:admin-api')->group(static function (){
     Route::post('/admin/shop/items/{id}/update', [AdminShopItemController::class, 'update']);
     Route::delete('/admin/shop/items/{id}/delete', [AdminShopItemController::class, 'destroy']);
     Route::delete('/admin/shop/image/{id}/delete', [AdminShopItemController::class, 'deleteShopItemImage']);
+
+    // Admin Shop Item Discount
+    Route::get('/admin/shop/item/{id}/discount', [AdminShopItemDiscountController::class, 'show']);
+    Route::post('/admin/shop/item/{id}/discount/add', [AdminShopItemDiscountController::class, 'store']);
+    Route::delete('/admin/shop/item/{itemId}/discount/{discountId}/delete',
+        [AdminShopItemDiscountController::class, 'delete']);
 
     // Admin Shop Discount
     Route::get('/admin/shop/discounts', [AdminShopDiscountController::class, 'index']);
@@ -117,9 +140,20 @@ Route::middleware('auth:admin-api')->group(static function (){
     Route::post('/admin/service-providers/create', [AdminServiceProviderController::class, 'store']);
     Route::post('/admin/service-providers/{id}/publish', [AdminServiceProviderController::class, 'publish']);
     Route::post('/admin/service-providers/search', [AdminServiceProviderController::class, 'search']);
-    Route::get('/admin/service-providers/{id}', [AdminServiceProviderController::class, 'show']);
+    Route::get('/admin/service-providers/{id}/show', [AdminServiceProviderController::class, 'show']);
     Route::post('/admin/service-providers/{id}/update', [AdminServiceProviderController::class, 'update']);
     Route::delete('/admin/service-providers/{id}/delete', [AdminServiceProviderController::class, 'destroy']);
+
+    // Admin Service Provider Category
+    Route::get('/admin/service-providers/categories',
+        [AdminServiceProviderCategoryController::class, 'index']);
+    Route::post('/admin/service-providers/categories/store',
+        [AdminServiceProviderCategoryController::class, 'store']);
+    Route::post('/admin/service-providers/categories/{id}/update',
+        [AdminServiceProviderCategoryController::class, 'update']);
+    Route::delete('/admin/service-providers/categories/{id}/delete',
+        [AdminServiceProviderCategoryController::class, 'delete']);
+
 
     // Admin Service provider Documents
     Route::get('/admin/service-providers/{id}/documents', [AdminServiceProviderController::class, 'documents']);
@@ -132,6 +166,19 @@ Route::middleware('auth:admin-api')->group(static function (){
     Route::get('/admin/test', static function () {
         return 'Admin tested';
     });
+});
+
+// Default sanctum api guard authentication for service providers
+Route::middleware('auth:service-provider-api')->group(static function (){
+    // Admin Auth API
+    // Get users with specific guard
+    Route::get('/service-provider/authenticate', static function (Request $request) {
+        return $request->user('service-provider-api');
+    });
+
+    // User Logout
+    Route::post('/service-provider/logout', [ApiLoginServiceProviderController::class, 'logout']);
+
 });
 
 // Default sanctum api guard authentication for users

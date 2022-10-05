@@ -14,4 +14,5 @@ class ShopDiscount extends Model
       'name',
       'percent'
     ];
+
 }

@@ -16,7 +16,8 @@ class ServiceProviderService
     protected $imagePath = 'photos/service-providers';
     protected $documentPath = 'documents/service-providers';
 
-    public function serviceProvider(){
+    public function serviceProvider(): ServiceProvider
+    {
         return new ServiceProvider();
     }
 
@@ -28,6 +29,11 @@ class ServiceProviderService
 
     public function serviceProviderById($id){
         return $this->serviceProviderWithRelations()->findOrFail($id);
+    }
+
+    public function serviceProviderByEmail($email){
+        return $this->serviceProviderWithRelations()
+            ->where('email', $email)->first();
     }
 
     public function serviceProviderDocument(){

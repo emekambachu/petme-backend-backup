@@ -1,26 +1,40 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Auth\User;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Auth\AdminLoginRequest;
 use App\Http\Requests\User\Auth\UserLoginRequest;
 use App\Services\Auth\LoginService;
-use Illuminate\Http\Request;
+use App\Services\User\UserService;
 use Illuminate\Support\Facades\Auth;
 
 class ApiLoginController extends Controller
 {
     private $login;
-    public function __construct(LoginService $login){
+    private $user;
+    public function __construct(LoginService $login, UserService $user){
         $this->middleware('guest:web')
             ->except('logout');
         $this->login = $login;
+        $this->user = $user;
     }
 
-    public function login(UserLoginRequest $request){
+    public function login(UserLoginRequest $request): \Illuminate\Http\JsonResponse
+    {
         try {
-            return $this->login->userLoginAndToken($request);
+            $data = $this->login->loginWithToken(
+                $request,
+                'web',
+                'api',
+                $this->user->user()
+            );
+            return response()->json([
+                'success' => $data['success'] ?? null,
+                'user' => $data['user'] ?? null,
+                'token' => $data['token'] ?? null,
+                'message' => $data['message'] ?? null,
+                'errors' => $data['errors'] ?? null,
+            ]);
 
         } catch (\Exception $e) {
             return response()->json([
@@ -31,6 +45,7 @@ class ApiLoginController extends Controller
 
     public function logout(){
         try {
+            Auth::guard('web')->logout();
             Auth::user()->tokens()->delete();
             return response()->json([
                 'success' => true,

@@ -23,11 +23,19 @@ class BlogPostService
     public function blogPostWithRelations(): \Illuminate\Database\Eloquent\Builder
     {
         return $this->blogPost()
-            ->with('blog_category', 'blog_comments', 'blog_likes', 'blog_views');
+            ->with('category', 'comments', 'likes', 'views');
     }
 
     public function blogPostById($id){
         return $this->blogPostWithRelations()->findOrFail($id);
+    }
+
+    public function blogPostApproved(){
+        return $this->blogPostWithRelations()->where('status', 'published');
+    }
+
+    public function blogPostApprovedJoins(){
+        return $this->blogPostWithRelations()->where('blog_posts.status', 'published');
     }
 
     public function blogCategory()
@@ -43,8 +51,8 @@ class BlogPostService
     public function storeBlogPost($request){
 
         $input = $request->all();
-        $input['photo'] = $this->compressAndUploadImage($request, $this->imagePath, 700, 400);
-        $input['photo_path'] = '/'.$this->imagePath.'/';
+        $input['image'] = $this->compressAndUploadImage($request, $this->imagePath, 700, 400);
+        $input['image_path'] = config('app.url').'/'.$this->imagePath.'/';
         return $this->blogPost()->create($input);
     }
 
@@ -66,7 +74,7 @@ class BlogPostService
         ];
     }
 
-    public function searchBlogPosts($request): array
+    public function searchBlogPosts($request, $queryBuilder): array
     {
         $input = $request->all();
         // Array for storing search results
@@ -80,7 +88,7 @@ class BlogPostService
             $searchValues['category'] = $this->blogCategoryById($input['category_id'])->first()->name;
         }
 
-        $posts = $this->blogPostWithRelations()->select(
+        $posts = $queryBuilder->select(
                 'blog_posts.*',
                 'blog_categories.id AS blog_categories_id',
             )->leftjoin('blog_categories',
@@ -88,7 +96,7 @@ class BlogPostService
             )->where(function($query) use ($input){
                 // The rest of the queries can come here
                 $query->when(!empty($input['term']), static function($q) use($input){
-                    $q->where('blog_categories.title', 'like' , '%'. $input['term'] .'%')
+                    $q->where('blog_posts.title', 'like' , '%'. $input['term'] .'%')
                         ->orWhere('blog_categories.name', 'like' , '%'. $input['term'] .'%');
                 });
             })->paginate(15);

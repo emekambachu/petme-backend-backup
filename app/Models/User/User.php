@@ -24,11 +24,13 @@ class User extends Authenticatable
         'email',
         'mobile',
         'address',
-        'avatar',
+        'image',
+        'image_path',
         'password',
         'last_login',
         'verification_token',
-        'verified',
+        'token_used',
+        'status',
     ];
 
     /**

@@ -16,18 +16,23 @@ class CreateServiceProvidersTable extends Migration
         Schema::create('service_providers', static function (Blueprint $table){
             $table->id();
             $table->string('name');
-            $table->string('mobile');
             $table->string('email');
+            $table->string('mobile');
+            $table->string('specialization');
+            $table->string('location');
+            $table->string('password');
+            $table->unsignedBigInteger('service_provider_category_id')->nullable();
             $table->string('address')->nullable();
-            $table->text('services');
-            $table->string('opening_hours')->nullable();
-            $table->binary('photo')->nullable();
-            $table->string('photo_path')->nullable();
+            $table->longText('opening_hours')->nullable();
+            $table->binary('image')->nullable();
+            $table->longText('image_path')->nullable();
             $table->bigInteger('staff_count')->default(0);
             $table->bigInteger('email_count')->default(0);
             $table->bigInteger('email_sent_count')->default(0);
             $table->dateTime('last_login')->nullable();
             $table->dateTime('onboarding_date')->nullable();
+            $table->string('verification_token')->nullable();
+            $table->boolean('token_used')->default(false);
             $table->string('status')->default('pending');
             $table->timestamps();
         });

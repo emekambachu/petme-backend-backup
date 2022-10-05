@@ -59,6 +59,18 @@ return [
             'hash' => false,
         ],
 
+        // Service Providers
+        'service-provider' => [
+            'driver' => 'session',
+            'provider' => 'service-providers',
+        ],
+
+        'service-provider-api' => [
+            'driver' => 'sanctum',
+            'provider' => 'service-providers',
+            'hash' => false,
+        ],
+
     ],
 
     /*
@@ -87,6 +99,11 @@ return [
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Models\Admin\Admin::class,
+        ],
+
+        'service-providers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\ServiceProvider\ServiceProvider::class,
         ],
 
         // 'users' => [
@@ -120,6 +137,13 @@ return [
 
         'admins' => [
             'provider' => 'admins',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'service-providers' => [
+            'provider' => 'service-providers',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
