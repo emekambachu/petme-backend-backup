@@ -7,6 +7,7 @@ use App\Models\Pet\PetDewormDetail;
 use App\Models\Pet\PetDietDetail;
 use App\Models\Pet\PetVaccinationDetail;
 use App\Services\Base\CrudService;
+use App\Services\User\UserService;
 
 /**
  * Class PetService.
@@ -16,8 +17,10 @@ class PetService
     private $imagePath = 'photos/pets';
 
     protected $crud;
-    public function __construct(CrudService $crud){
+    protected $user;
+    public function __construct(CrudService $crud, UserService $user){
         $this->crud = $crud;
+        $this->user = $user;
     }
 
     public function pet(): Pet
@@ -49,6 +52,55 @@ class PetService
         return $this->pet()->create($input);
     }
 
+    public function publishPet($userId, $petId): array
+    {
+        $user = $this->user->userById($userId);
+        if($user){
+            $pet = $this->crud->publishItem($this->petById($petId));
+        }else{
+            $pet = [
+                'item' => null,
+                'message' => 'user does not exists',
+            ];
+        }
+        return $pet;
+    }
+
+    public function updatePet($request, $userId, $petId): array
+    {
+        $user = $this->user->userById($userId);
+        if($user){
+            $pet = $this->petById($petId);
+            $input = $request->all();
+            $image = $this->crud->compressAndUploadImage($request, $this->imagePath, 200, 200);
+            if($image){
+                $input['image'] = $image;
+                $input['image_path'] = @config('app.url').$this->imagePath.'/';
+            }
+            $pet->update($input);
+            $pet = [
+                'pet' => $pet,
+                'message' => $pet->name.' updated',
+            ];
+        }else{
+            $pet = [
+                'pet' => null,
+                'message' => 'user does not exists',
+            ];
+        }
+        return $pet;
+    }
+
+    public function deletePet($userId, $petId): void
+    {
+        $pet = $this->petById($petId);
+        $this->crud->deleteFile($pet->image, $this->imagePath);
+        $this->pet()->where([
+            ['id', $petId],
+            ['user_id', $userId],
+        ])->delete();
+    }
+
     public function petDeworm(): PetDewormDetail
     {
         return new PetDewormDetail();
@@ -62,13 +114,6 @@ class PetService
     public function petDiet(): PetDietDetail
     {
         return new PetDietDetail();
-    }
-
-    public function deletePet($petId, $userId){
-        $this->pet()->where([
-            ['id', $petId],
-            ['user_id', $userId],
-        ])->delete();
     }
 
     public function dewormingRecords($id){

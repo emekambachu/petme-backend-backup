@@ -48,5 +48,57 @@ class UserPetController extends Controller
         }
     }
 
+    public function publish($userId, $petId): \Illuminate\Http\JsonResponse
+    {
+        try {
+            $data = $this->pet->publishPet($userId, $petId);
+            return response()->json([
+                'success' => true,
+                'pet' => $data['item'],
+                'message' => $data['message'],
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
+    public function update(UserStorePetRequest $request, $userId, $petId): \Illuminate\Http\JsonResponse
+    {
+        try {
+            $data = $this->pet->updatePet($request, $userId, $petId);
+            return response()->json([
+                'success' => true,
+                'pet' => $data['pet'],
+                'message' => $data['message'],
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
+    public function delete($userId, $petId): \Illuminate\Http\JsonResponse
+    {
+        try {
+            $this->pet->deletePet($userId, $petId);
+            return response()->json([
+                'success' => true,
+                'message' => 'Deleted',
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
 
 }

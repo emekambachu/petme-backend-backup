@@ -68,14 +68,14 @@ class CrudService
         return false;
     }
 
-    protected function deleteFile($fileName, $filePath): void
+    public function deleteFile($fileName, $filePath): void
     {
         if(File::exists(public_path() . '/'.$filePath.'/' . $fileName)){
             FILE::delete(public_path() . '/'.$filePath.'/' . $fileName);
         }
     }
 
-    protected function deleteRelations($items, $path = null): void
+    public function deleteRelations($items, $path = null): void
     {
         if($items->count() > 0){
             foreach($items as $item){

@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class UserStorePetRequest extends FormRequest
+class UserUpdatePetRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -46,6 +46,7 @@ class UserStorePetRequest extends FormRequest
     }
 
     protected function failedValidation(Validator $validator){
+
         // return errors in json object/array
         $message = $validator->errors()->all();
         throw new HttpResponseException(response()->json([
