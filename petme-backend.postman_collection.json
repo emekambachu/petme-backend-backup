@@ -2970,7 +2970,7 @@
 									"formdata": [
 										{
 											"key": "otp",
-											"value": "6432B",
+											"value": "G0H39I5B",
 											"type": "text"
 										}
 									]
@@ -2993,12 +2993,358 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Send User Email Otp",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "embachu@afchub.org",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "11111111",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "127.0.0.1:8000/api/user/otp/email/send",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"user",
+										"otp",
+										"email",
+										"send"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
 				{
 					"name": "Pet",
-					"item": []
+					"item": [
+						{
+							"name": "Get User Pets",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "32|zAKUXF6tm9h3hGm5pkG5Is5Li1ZvOq0v4GXmdHkK",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "127.0.0.1:8000/api/user/pets",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"user",
+										"pets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Store Pet by User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "32|zAKUXF6tm9h3hGm5pkG5Is5Li1ZvOq0v4GXmdHkK",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "user_id",
+											"value": "3",
+											"type": "text"
+										},
+										{
+											"key": "pet_type_id",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "Billy",
+											"type": "text"
+										},
+										{
+											"key": "gender",
+											"value": "male",
+											"type": "text"
+										},
+										{
+											"key": "registration_number",
+											"value": "11111",
+											"type": "text"
+										},
+										{
+											"key": "dob",
+											"value": "11111",
+											"type": "text"
+										},
+										{
+											"key": "distinguishing_marks",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/Lenovo/Downloads/2340411801.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "127.0.0.1:8000/api/user/pets/create",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"user",
+										"pets",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Publish Pet",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "32|zAKUXF6tm9h3hGm5pkG5Is5Li1ZvOq0v4GXmdHkK",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "127.0.0.1:8000/api/user/3/pets/2/publish",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"user",
+										"3",
+										"pets",
+										"2",
+										"publish"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Pet",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "32|zAKUXF6tm9h3hGm5pkG5Is5Li1ZvOq0v4GXmdHkK",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "user_id",
+											"value": "3",
+											"type": "text"
+										},
+										{
+											"key": "pet_type_id",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "Bryan",
+											"type": "text"
+										},
+										{
+											"key": "distinguishing_marks",
+											"value": "Black spots on white skin",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/Lenovo/Downloads/Fruit-Nut-mix-e1616068900175.png"
+										},
+										{
+											"key": "gender",
+											"value": "male",
+											"type": "text"
+										},
+										{
+											"key": "dob",
+											"value": "2222",
+											"type": "text"
+										},
+										{
+											"key": "registration_number",
+											"value": "121212",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "127.0.0.1:8000/api/user/3/pets/2/update",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"user",
+										"3",
+										"pets",
+										"2",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Pet",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "32|zAKUXF6tm9h3hGm5pkG5Is5Li1ZvOq0v4GXmdHkK",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "127.0.0.1:8000/api/user/3/pets/1/delete",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"user",
+										"3",
+										"pets",
+										"1",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				},
 				{
 					"name": "Shop",
