@@ -21,6 +21,7 @@ use App\Http\Controllers\Home\Blog\HomeBlogController;
 use App\Http\Controllers\Home\Pet\HomePetController;
 use App\Http\Controllers\Home\ServiceProvider\HomeServiceProviderController;
 use App\Http\Controllers\Home\Shop\HomeShopController;
+use App\Http\Controllers\User\Pet\UserPetController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -58,6 +59,7 @@ Route::post('/admin/login', [ApiAdminLoginController::class, 'login']);
 
 // User Auth
 Route::post('/user/register', [ApiRegisterController::class, 'register']);
+Route::post('/user/otp/email/send', [ApiRegisterController::class, 'sendOtpToUserEmail']);
 Route::post('/user/otp/submit', [ApiRegisterController::class, 'submitOtp']);
 Route::post('/user/login', [ApiLoginController::class, 'login']);
 
@@ -197,7 +199,12 @@ Route::middleware('auth:api')->group(static function (){
         return $request->user('api');
     });
 
-
+    // User Pets
+    Route::get('/user/pets', [UserPetController::class, 'index']);
+    Route::post('/user/pets/create', [UserPetController::class, 'store']);
+    Route::post('/user/{userId}/pets/{petId}/publish', [UserPetController::class, 'publish']);
+    Route::post('/user/{userId}/pets/{petId}/update', [UserPetController::class, 'update']);
+    Route::delete('/user/{userId}/pets/{petId}/delete', [UserPetController::class, 'delete']);
 
     // User Logout
     Route::post('/user/logout', [ApiAdminLoginController::class, 'logout']);

@@ -5,13 +5,14 @@ namespace App\Services\Base;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
+use Ramsey\Uuid\Type\Integer;
 
 /**
  * Class CrudService.
  */
 class CrudService
 {
-    protected function publishItem($item): array
+    public function publishItem($item): array
     {
         $message = '';
         if($item->status === 'published'){
@@ -31,7 +32,7 @@ class CrudService
         ];
     }
 
-    protected function compressAndUploadImage($request, $path, $width, $height)
+    public function compressAndUploadImage($request, String $path, Int $width, Int $height)
     {
         if($file = $request->file('image')) {
             $name = time() . $file->getClientOriginalName();
@@ -57,7 +58,7 @@ class CrudService
         return false;
     }
 
-    protected function uploadDocument($request, $path)
+    public function uploadDocument($request, $path)
     {
         if($file = $request->file('document')) {
             $name = time() . $file->getClientOriginalName();

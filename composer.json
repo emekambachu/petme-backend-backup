@@ -14,6 +14,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
         "sentry/sentry-laravel": "^2.13",
+        "stevebauman/location": "^6.5",
         "timwassenburg/laravel-service-generator": "^1.0",
         "unicodeveloper/laravel-paystack": "^1.0"
     },

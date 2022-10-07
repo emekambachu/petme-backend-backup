@@ -1,5 +1,7 @@
 <?php
 
+use Stevebauman\Location\Facades\Location;
+
 return [
 
     /*
@@ -178,6 +180,7 @@ return [
 
         Unicodeveloper\Paystack\PaystackServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Stevebauman\Location\LocationServiceProvider::class,
     ],
 
     /*
@@ -233,8 +236,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        'Image' => Intervention\Image\Facades\Image::class
-
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Location' => Location::class,
     ],
 
 ];

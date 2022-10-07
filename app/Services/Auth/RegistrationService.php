@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Mail;
 class RegistrationService
 {
     //Generate email verification token
-    protected function generateToken($length = 8): string
+    public function generateToken($length = 8): string
     {
         $characters = '0123456789ABCDEFGHIJ';
         $charactersLength = strlen($characters);
@@ -39,7 +39,7 @@ class RegistrationService
         return $user;
     }
 
-    protected function sendWelcomeEmail($createdUser, String $emailContent): void
+    public function sendWelcomeEmail($createdUser, String $emailContent): void
     {
         $user = [
             'name' => $createdUser->name,
@@ -48,7 +48,7 @@ class RegistrationService
         $this->sendEmail($user, $emailContent, 'Welcome to Pet Me');
     }
 
-    protected function generateOtpForUserById($id, $queryBuilder){
+    public function generateOtpForUserById($id, $queryBuilder){
         $otp = $this->generateToken();
         $user = $queryBuilder->findOrFail($id);
         $user->verification_token = $otp;
@@ -57,7 +57,7 @@ class RegistrationService
         return $user->verification_token;
     }
 
-    protected function sendOtpEmail($user, $otp): void
+    public function sendOtpEmail($user, $otp): void
     {
         $data = [
             'name' => $user->name,

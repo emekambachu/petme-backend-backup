@@ -52,7 +52,7 @@ class BlogPostService
 
         $input = $request->all();
         $input['image'] = $this->compressAndUploadImage($request, $this->imagePath, 700, 400);
-        $input['image_path'] = config('app.url').'/'.$this->imagePath.'/';
+        $input['image_path'] = config('app.url').$this->imagePath.'/';
         return $this->blogPost()->create($input);
     }
 

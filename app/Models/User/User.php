@@ -52,15 +52,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function user_appointments(){
+    public function user_appointments(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
         return $this->hasMany(UserAppointment::class, 'user_id', 'id');
     }
 
-    public function pets(){
+    public function pets(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
         return $this->hasMany(Pet::class, 'user_id', 'id');
     }
 
-    public function wallet_balance(){
+    public function wallet_balance(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
         return $this->hasOne(WalletBalance::class, 'user_id', 'id');
     }
 
@@ -70,5 +73,10 @@ class User extends Authenticatable
 
     public function user_shop_discounts(){
         return $this->hasMany(UserShopDiscount::class, 'user_id', 'id');
+    }
+
+    public function location(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(UserLocation::class, 'user_id', 'id');
     }
 }
