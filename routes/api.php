@@ -22,6 +22,7 @@ use App\Http\Controllers\Home\Pet\HomePetController;
 use App\Http\Controllers\Home\ServiceProvider\HomeServiceProviderController;
 use App\Http\Controllers\Home\Shop\HomeShopController;
 use App\Http\Controllers\User\Pet\UserPetController;
+use App\Http\Controllers\User\UserLocationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -198,6 +199,10 @@ Route::middleware('auth:api')->group(static function (){
     Route::get('/user/authenticate', static function (Request $request) {
         return $request->user('api');
     });
+
+    // User Location
+    Route::get('/user/location', [UserLocationController::class, 'currentLocation']);
+    Route::get('/user/location/update', [UserLocationController::class, 'updateLocation']);
 
     // User Pets
     Route::get('/user/pets', [UserPetController::class, 'index']);
