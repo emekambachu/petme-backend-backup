@@ -25,6 +25,8 @@ use App\Http\Controllers\User\Appointment\UserAppointmentController;
 use App\Http\Controllers\User\Location\UserLocationController;
 use App\Http\Controllers\User\Pet\UserPetController;
 use App\Http\Controllers\User\Pet\UserPetDewormController;
+use App\Http\Controllers\User\Pet\UserPetDietController;
+use App\Http\Controllers\User\Pet\UserPetVaccinationController;
 use App\Http\Controllers\User\ServiceProvider\UserServiceProviderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -220,12 +222,25 @@ Route::middleware('auth:api')->group(static function (){
     Route::post('/user/pets/{petId}/deworm/{id}/update', [UserPetDewormController::class, 'update']);
     Route::delete('/user/pets/{petId}/deworm/{id}/delete', [UserPetDewormController::class, 'delete']);
 
+    // User Pets Diet
+    Route::get('/user/pets/diet', [UserPetDietController::class, 'index']);
+    Route::post('/user/pets/{petId}/diet/create', [UserPetDietController::class, 'store']);
+    Route::post('/user/pets/{petId}/diet/{id}/update', [UserPetDietController::class, 'update']);
+    Route::delete('/user/pets/{petId}/diet/{id}/delete', [UserPetDietController::class, 'delete']);
+
+    // User Pets Vaccination
+    Route::get('/user/pets/vaccination', [UserPetVaccinationController::class, 'index']);
+    Route::post('/user/pets/{petId}/vaccination/create', [UserPetVaccinationController::class, 'store']);
+    Route::post('/user/pets/{petId}/vaccination/{id}/update', [UserPetVaccinationController::class, 'update']);
+    Route::delete('/user/pets/{petId}/vaccination/{id}/delete', [UserPetVaccinationController::class, 'delete']);
+
     // User Appointments
     Route::get('/user/appointments', [UserAppointmentController::class, 'index']);
     Route::post('/user/appointments/create', [UserAppointmentController::class, 'store']);
     Route::post('/user/appointments/{id}/reschedule', [UserAppointmentController::class, 'update']);
     Route::delete('/user/appointments/{id}/cancel', [UserAppointmentController::class, 'delete']);
 
+    // User Service Providers
     Route::get('/user/service-providers', [UserServiceProviderController::class, 'index']);
 
     // User Logout

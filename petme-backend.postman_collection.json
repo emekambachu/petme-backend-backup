@@ -3349,6 +3349,296 @@
 				{
 					"name": "Shop",
 					"item": []
+				},
+				{
+					"name": "Location",
+					"item": [
+						{
+							"name": "Get User Location",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "33|M3ACacsPUF2a9XfzG6mZzUkZL8VXunD152HZochH",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "127.0.0.1:8000/api/user/location",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"user",
+										"location"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update User Location",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "33|M3ACacsPUF2a9XfzG6mZzUkZL8VXunD152HZochH",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "127.0.0.1:8000/api/user/location/update",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"user",
+										"location",
+										"update"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Appointments",
+					"item": [
+						{
+							"name": "Get User Appountments",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "127.0.0.1:8000/api/user/appointments",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"user",
+										"appointments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create User Appountments",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "pet_id",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "service_provider_id",
+											"value": "4",
+											"type": "text"
+										},
+										{
+											"key": "service_provider_category_id",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "appointment_type_id",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "note",
+											"value": "Lorem ipsum",
+											"type": "text"
+										},
+										{
+											"key": "location",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "appointment_date",
+											"value": "21st july 2022",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "127.0.0.1:8000/api/user/appointments/create",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"user",
+										"appointments",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Reschedule User Appointments",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "pet_id",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "service_provider_id",
+											"value": "4",
+											"type": "text"
+										},
+										{
+											"key": "service_provider_category_id",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "appointment_type_id",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "note",
+											"value": "Sorry for the chnage in time",
+											"type": "text"
+										},
+										{
+											"key": "location",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "appointment_time",
+											"value": "2022-10-10",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "127.0.0.1:8000/api/user/appointments/1/reschedule",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"user",
+										"appointments",
+										"1",
+										"reschedule"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete User Appointments",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "127.0.0.1:8000/api/user/appointments/1/cancel",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"user",
+										"appointments",
+										"1",
+										"cancel"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
