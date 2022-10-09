@@ -2,6 +2,7 @@
 
 namespace App\Models\User;
 
+use App\Models\Appointment\Appointment;
 use App\Models\Pet\Pet;
 use App\Models\Shop\ShopDiscount;
 use App\Models\Wallet\WalletBalance;
@@ -52,9 +53,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function user_appointments(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function appointments(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(UserAppointment::class, 'user_id', 'id');
+        return $this->hasMany(Appointment::class, 'user_id', 'id');
     }
 
     public function pets(): \Illuminate\Database\Eloquent\Relations\HasMany
@@ -68,10 +69,6 @@ class User extends Authenticatable
     }
 
     public function shop_discounts(){
-        return $this->hasMany(ShopDiscount::class, 'user_id', 'id');
-    }
-
-    public function user_shop_discounts(){
         return $this->hasMany(UserShopDiscount::class, 'user_id', 'id');
     }
 

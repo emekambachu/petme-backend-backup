@@ -10,6 +10,7 @@ class UserLocation extends Model
     use HasFactory;
     protected $fillable = [
         'user_id',
+        'user_type',
         'ip',
         'country_name',
         'country_code',

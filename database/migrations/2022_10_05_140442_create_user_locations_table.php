@@ -16,6 +16,7 @@ class CreateUserLocationsTable extends Migration
         Schema::create('user_locations', static function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->string('user_type');
             $table->string('ip')->nullable();
             $table->string('country_name')->nullable();
             $table->string('country_code')->nullable();

@@ -1,4 +1,4 @@
-<img src="{{ asset('/logo.png') }}" width="150"/><br>
+<img src="{{ @config('app.url').'logo.png' }}" width="100"/><br>
 
 <p>
     Hello {{ $name }}<br>

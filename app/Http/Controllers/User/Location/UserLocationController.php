@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\User\Location;
 
 use App\Http\Controllers\Controller;
 use App\Services\User\UserLocationService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UserLocationController extends Controller

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserAppointmentsTable extends Migration
+class CreateAppointmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,17 @@ class CreateUserAppointmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_appointments', static function (Blueprint $table) {
+        Schema::create('appointments', static function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('pet_id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('service_provider_id');
+            $table->unsignedBigInteger('service_provider_category_id')->nullable();
             $table->unsignedBigInteger('appointment_type_id');
             $table->string('location')->nullable();
             $table->longText('note')->nullable();
-            $table->dateTime('appointment_time')->nullable();
+            $table->dateTime('appointment_time');
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }
@@ -33,6 +35,6 @@ class CreateUserAppointmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_appointments');
+        Schema::dropIfExists('appointments');
     }
 }

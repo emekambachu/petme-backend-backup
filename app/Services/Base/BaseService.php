@@ -2,6 +2,8 @@
 
 namespace App\Services\Base;
 
+use Illuminate\Support\Facades\Mail;
+
 /**
  * Class BaseService.
  */
@@ -20,5 +22,15 @@ class BaseService
             }
         }
         return request()->ip(); // it will return server ip when no client ip found
+    }
+
+    public function sendEmail(Array $data, String $emailContent, String $subject): void
+    {
+        Mail::send($emailContent, $data, static function ($message) use ($data, $subject) {
+            $message->from(@config('app.mail_from'), @config('app.name'));
+            $message->to($data['email'], $data['name']);
+            $message->replyTo(@config('app.mail_from'), @config('app.name'));
+            $message->subject($subject);
+        });
     }
 }

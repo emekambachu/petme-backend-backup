@@ -21,8 +21,11 @@ use App\Http\Controllers\Home\Blog\HomeBlogController;
 use App\Http\Controllers\Home\Pet\HomePetController;
 use App\Http\Controllers\Home\ServiceProvider\HomeServiceProviderController;
 use App\Http\Controllers\Home\Shop\HomeShopController;
+use App\Http\Controllers\User\Appointment\UserAppointmentController;
+use App\Http\Controllers\User\Location\UserLocationController;
 use App\Http\Controllers\User\Pet\UserPetController;
-use App\Http\Controllers\User\UserLocationController;
+use App\Http\Controllers\User\Pet\UserPetDewormController;
+use App\Http\Controllers\User\ServiceProvider\UserServiceProviderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -210,6 +213,20 @@ Route::middleware('auth:api')->group(static function (){
     Route::post('/user/{userId}/pets/{petId}/publish', [UserPetController::class, 'publish']);
     Route::post('/user/{userId}/pets/{petId}/update', [UserPetController::class, 'update']);
     Route::delete('/user/{userId}/pets/{petId}/delete', [UserPetController::class, 'delete']);
+
+    // User Pets Deworm
+    Route::get('/user/pets/deworm', [UserPetDewormController::class, 'index']);
+    Route::post('/user/pets/{petId}/deworm/create', [UserPetDewormController::class, 'store']);
+    Route::post('/user/pets/{petId}/deworm/{id}/update', [UserPetDewormController::class, 'update']);
+    Route::delete('/user/pets/{petId}/deworm/{id}/delete', [UserPetDewormController::class, 'delete']);
+
+    // User Appointments
+    Route::get('/user/appointments', [UserAppointmentController::class, 'index']);
+    Route::post('/user/appointments/create', [UserAppointmentController::class, 'store']);
+    Route::post('/user/appointments/{id}/reschedule', [UserAppointmentController::class, 'update']);
+    Route::delete('/user/appointments/{id}/cancel', [UserAppointmentController::class, 'delete']);
+
+    Route::get('/user/service-providers', [UserServiceProviderController::class, 'index']);
 
     // User Logout
     Route::post('/user/logout', [ApiAdminLoginController::class, 'logout']);
