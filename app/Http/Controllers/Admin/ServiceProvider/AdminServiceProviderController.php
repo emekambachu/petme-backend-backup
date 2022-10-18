@@ -54,11 +54,11 @@ class AdminServiceProviderController extends Controller
     public function publish($id): \Illuminate\Http\JsonResponse
     {
         try {
-            $provider = $this->provider->publishServiceProvider($id);
+            $data = $this->provider->publishServiceProvider($id);
             return response()->json([
                 'success' => true,
-                'message' => $provider['message'],
-                'service_provider' => $provider['item'],
+                'message' => $data['message'],
+                'service_provider' => $data['item'],
             ]);
 
         } catch (\Exception $e) {

@@ -139,22 +139,20 @@ class ServiceProviderService
         $document->delete();
     }
 
-
     // Reusable
     protected function publishItem($item): array
     {
         $message = '';
-        if($item->status === 'published'){
+        if($item->status === 'verified'){
             $item->status = 'pending';
             $item_name = $item->name ?? $item->title;
-            $message = $item_name.' is hidden';
+            $message = $item_name.' is pending';
         }else{
-            $item->status = 'published';
+            $item->status = 'verified';
             $item_name = $item->name ?? $item->title;
-            $message = $item_name.' is published';
+            $message = $item_name.' is verified';
         }
         $item->save();
-
         return [
             'item' => $item,
             'message' => $message,

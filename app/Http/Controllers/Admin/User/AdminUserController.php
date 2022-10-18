@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\User;
 
 use App\Http\Controllers\Controller;
 use App\Services\Account\UserAccountService;
+use App\Services\User\UserService;
 use Illuminate\Http\Request;
 
 class AdminUserController extends Controller
@@ -15,7 +16,7 @@ class AdminUserController extends Controller
      */
 
     private $userAccount;
-    public function __construct(UserAccountService $userAccount){
+    public function __construct(UserService $userAccount){
         $this->userAccount = $userAccount;
     }
 
