@@ -65,7 +65,7 @@ class ShopService
         $this->shopItemImage()->create([
             'shop_item_id' => $shopItem->id,
             'image' => $name,
-            'image_path' => @config('app.url').$this->imagePath.'/',
+            'image_path' => BaseService::$baseUrl.$this->imagePath.'/',
         ]);
     }
 
