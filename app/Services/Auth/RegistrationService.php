@@ -2,9 +2,6 @@
 
 namespace App\Services\Auth;
 
-use App\Services\Account\UserAccountService;
-use App\Services\User\UserService;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
@@ -39,7 +36,7 @@ class RegistrationService
         return $user;
     }
 
-    public function sendWelcomeEmail($createdUser, String $emailContent): void
+    private function sendWelcomeEmail($createdUser, String $emailContent): void
     {
         $user = [
             'name' => $createdUser->name,

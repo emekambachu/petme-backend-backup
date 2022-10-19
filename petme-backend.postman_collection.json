@@ -1420,6 +1420,47 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Verify User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "35|R4EyyR4Slg9LMvXchHCNKJ68SQxff1WFl1QEVYUf",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "127.0.0.1:8000/api/admin/users/3/verify",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"admin",
+										"users",
+										"3",
+										"verify"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -2136,6 +2177,16 @@
 						{
 							"name": "Publish Admin Service Providers",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "35|R4EyyR4Slg9LMvXchHCNKJ68SQxff1WFl1QEVYUf",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [
 									{
@@ -2145,7 +2196,7 @@
 									}
 								],
 								"url": {
-									"raw": "127.0.0.1:8000/api/admin/service-providers/1/publish",
+									"raw": "127.0.0.1:8000/api/admin/service-providers/4/publish",
 									"host": [
 										"127",
 										"0",
@@ -2157,7 +2208,7 @@
 										"api",
 										"admin",
 										"service-providers",
-										"1",
+										"4",
 										"publish"
 									]
 								}
@@ -3049,6 +3100,18 @@
 				{
 					"name": "Pet",
 					"item": [
+						{
+							"name": "Deworming",
+							"item": []
+						},
+						{
+							"name": "Diet",
+							"item": []
+						},
+						{
+							"name": "Vaccination",
+							"item": []
+						},
 						{
 							"name": "Get User Pets",
 							"request": {

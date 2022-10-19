@@ -23,7 +23,7 @@ class ApiRegisterController extends Controller
         try {
             $user = $this->registration->createUser(
                 $request,
-                'emails.user.welcome',
+                'emails.users.welcome',
                 $this->user->user()
             );
             return response()->json([
