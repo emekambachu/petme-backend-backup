@@ -66,7 +66,6 @@ class ShopService
             'shop_item_id' => $shopItem->id,
             'image' => $name,
             'image_path' => @config('app.url').$this->imagePath.'/',
-
         ]);
     }
 
