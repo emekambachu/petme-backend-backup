@@ -380,7 +380,7 @@
 											"formdata": [
 												{
 													"key": "name",
-													"value": "Stuff6",
+													"value": "Bird caje",
 													"type": "text"
 												},
 												{
@@ -426,7 +426,7 @@
 												{
 													"key": "images",
 													"type": "file",
-													"src": "/C:/Users/Lenovo/Downloads/WhatsApp Image 2022-09-17 at 6.51.18 PM.jpeg"
+													"src": "/C:/Users/Lenovo/Downloads/1658845812238.jpg"
 												}
 											]
 										},
@@ -439,6 +439,102 @@
 												"1"
 											],
 											"port": "8000",
+											"path": [
+												"api",
+												"admin",
+												"shop",
+												"items",
+												"create"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Store Admin Shop Item (Production)",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "13|BuXeWWyooUEErMEgdFwdjDnXT74eTWU8upbRh3W2",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "Chew Toy 2",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "Dogs play with",
+													"type": "text"
+												},
+												{
+													"key": "quantity",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "shop_metric_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "shop_category_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "cost",
+													"value": "30",
+													"type": "text"
+												},
+												{
+													"key": "status",
+													"value": "published",
+													"type": "text"
+												},
+												{
+													"key": "owner",
+													"value": "me",
+													"type": "text"
+												},
+												{
+													"key": "discount_percent",
+													"value": "",
+													"type": "text"
+												},
+												{
+													"key": "images",
+													"type": "file",
+													"src": "/C:/Users/Lenovo/Downloads/shot-grey-black-woman-warrior-holding-axe-shield-dressed-ancient-armor-african-amazon-249922484.jpg"
+												}
+											]
+										},
+										"url": {
+											"raw": "http://petme.us-east-2.elasticbeanstalk.com/api/admin/shop/items/create",
+											"protocol": "http",
+											"host": [
+												"petme",
+												"us-east-2",
+												"elasticbeanstalk",
+												"com"
+											],
 											"path": [
 												"api",
 												"admin",
@@ -2330,6 +2426,47 @@
 										"admin",
 										"service-providers",
 										"4",
+										"publish"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Publish Admin Service Providers (Production)",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "35|R4EyyR4Slg9LMvXchHCNKJ68SQxff1WFl1QEVYUf",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://petme.us-east-2.elasticbeanstalk.com/api/admin/service-providers/1/publish",
+									"protocol": "http",
+									"host": [
+										"petme",
+										"us-east-2",
+										"elasticbeanstalk",
+										"com"
+									],
+									"path": [
+										"api",
+										"admin",
+										"service-providers",
+										"1",
 										"publish"
 									]
 								}
@@ -4408,14 +4545,14 @@
 									]
 								},
 								"url": {
-									"raw": "127.0.0.1:8000/api/service-provider/register",
+									"raw": "http://petme.us-east-2.elasticbeanstalk.com/api/service-provider/register",
+									"protocol": "http",
 									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
+										"petme",
+										"us-east-2",
+										"elasticbeanstalk",
+										"com"
 									],
-									"port": "8000",
 									"path": [
 										"api",
 										"service-provider",
