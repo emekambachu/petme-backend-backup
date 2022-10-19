@@ -4,7 +4,6 @@ namespace App\Services\Blog;
 
 use App\Models\Blog\BlogCategory;
 use App\Models\Blog\BlogPost;
-use App\Services\Base\BaseService;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
@@ -53,7 +52,7 @@ class BlogPostService
 
         $input = $request->all();
         $input['image'] = $this->compressAndUploadImage($request, $this->imagePath, 700, 400);
-        $input['image_path'] = BaseService::$baseUrl.$this->imagePath.'/';
+        $input['image_path'] = config('app.url').$this->imagePath.'/';
         return $this->blogPost()->create($input);
     }
 
