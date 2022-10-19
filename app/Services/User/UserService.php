@@ -36,7 +36,7 @@ class UserService
         if($user->status === 'verified'){
             $user->status = 'pending';
         }else{
-            $user->verified = 'verified';
+            $user->status = 'verified';
         }
         $message = $user->name.' is now '.$user->status;
         $user->save();

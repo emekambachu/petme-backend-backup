@@ -38,7 +38,8 @@ class ApiRegisterServiceProviderController extends Controller
         }
     }
 
-    public function submitOtp(Request $request){
+    public function submitOtp(Request $request): \Illuminate\Http\JsonResponse
+    {
         try {
             $data = $this->registration->submitOtpAndActivateAccount(
                 $request,
