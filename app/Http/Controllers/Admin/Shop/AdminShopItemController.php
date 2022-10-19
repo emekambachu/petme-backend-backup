@@ -65,11 +65,11 @@ class AdminShopItemController extends Controller
     public function store(AdminStoreShopItemRequest $request): \Illuminate\Http\JsonResponse
     {
         try {
-            $shopItem = $this->shop->storeShopItem($request);
+            $data = $this->shop->storeShopItem($request);
             return response()->json([
                 'success' => true,
-                'shop_item' => $shopItem,
-                'shop_item_images' => $shopItem->shop_item_images ?? null,
+                'shop_item' => $data,
+                'shop_item_images' => $shopItem->images ?? null,
             ]);
 
         } catch (\Exception $e) {
