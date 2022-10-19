@@ -53,7 +53,7 @@ class BlogPostService
     public function storeBlogPost($request){
 
         $input = $request->all();
-		$input['slug'] = Str::slug($input['title']);
+		$input['slug'] = $input['title'];
         $input['image'] = $this->compressAndUploadImage($request, $this->imagePath, 700, 400);
         $input['image_path'] = BaseService::$baseUrl.$this->imagePath.'/';
         return $this->blogPost()->create($input);
