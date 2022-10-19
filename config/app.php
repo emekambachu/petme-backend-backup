@@ -55,9 +55,9 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://petme.us-east-2.elasticbeanstalk.com'),
+    'url' => env('APP_URL', 'http://petme.us-east-2.elasticbeanstalk.com/'),
 
-    'asset_url' => env('ASSET_URL', 'http://petme.us-east-2.elasticbeanstalk.com'),
+    'asset_url' => env('ASSET_URL', 'http://petme.us-east-2.elasticbeanstalk.com/'),
 
     /*
     |--------------------------------------------------------------------------
