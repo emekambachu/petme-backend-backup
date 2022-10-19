@@ -32,7 +32,7 @@ class AdminUpdatePostRequest extends FormRequest
             'description' => 'required|string',
             'blog_category_id' => 'nullable|integer',
             'status' => 'nullable|string',
-            'photo' => 'required|image|mimes:jpg,jpeg,png|max:5000',
+            'image' => 'required|image|mimes:jpg,jpeg,png|max:5000',
         ];
     }
 

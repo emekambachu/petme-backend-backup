@@ -2,11 +2,12 @@
 
 namespace App\Http\Requests\Admin\Blog;
 
+use http\Env\Request;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class AdminStorePostRequest extends FormRequest
+class AdminUpdatePostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,12 +27,12 @@ class AdminStorePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|unique:blog_posts,title',
+            'title' => 'required|string|unique:blog_posts,title,'.\Request::instance()->id,
             'author' => 'required|string',
             'description' => 'required|string',
             'blog_category_id' => 'nullable|integer',
             'status' => 'nullable|string',
-            'image' => 'required|image|mimes:jpg,jpeg,png|max:5000',
+            'photo' => 'required|image|mimes:jpg,jpeg,png|max:5000',
         ];
     }
 
