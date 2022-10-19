@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Mail;
  */
 class BaseService
 {
+    public static $baseUrl = 'http://petme.us-east-2.elasticbeanstalk.com/';
+
     public function getIp(): ?string
     {
         foreach (array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR') as $key){

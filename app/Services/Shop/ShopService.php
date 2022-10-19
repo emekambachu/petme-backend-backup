@@ -4,6 +4,7 @@ namespace App\Services\Shop;
 
 use App\Models\Shop\ShopItem;
 use App\Models\Shop\ShopItemImage;
+use App\Services\Base\BaseService;
 use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
 use Intervention\Image\ImageManagerStatic as InterventionImage;
@@ -64,7 +65,7 @@ class ShopService
         $this->shopItemImage()->create([
             'shop_item_id' => $shopItem->id,
             'image' => $name,
-            'image_path' => @config('app.url').$this->imagePath.'/',
+            'image_path' => BaseService::$baseUrl.$this->imagePath.'/',
         ]);
     }
 
