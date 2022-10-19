@@ -2,7 +2,7 @@
 
 namespace App\Models\Wallet;
 
-use App\Models\ServiceProvider\ServiceProvider;
+use App\Models\ServiceProvider\ServiceProviderModel;
 use App\Models\User\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -21,6 +21,6 @@ class WalletBalance extends Model
     }
 
     public function service_provider(){
-        return $this->belongsTo(ServiceProvider::class, 'service_provider_id', 'id');
+        return $this->belongsTo(ServiceProviderModel::class, 'service_provider_id', 'id');
     }
 }

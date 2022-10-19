@@ -3,7 +3,7 @@
 namespace App\Models\Appointment;
 
 use App\Models\Pet\Pet;
-use App\Models\ServiceProvider\ServiceProvider;
+use App\Models\ServiceProvider\ServiceProviderModel;
 use App\Models\ServiceProvider\ServiceProviderCategory;
 use App\Models\User\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -33,7 +33,7 @@ class Appointment extends Model
 
     public function service_provider(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(ServiceProvider::class, 'service_provider_id', 'id');
+        return $this->belongsTo(ServiceProviderModel::class, 'service_provider_id', 'id');
     }
 
     public function service_provider_category(): \Illuminate\Database\Eloquent\Relations\BelongsTo

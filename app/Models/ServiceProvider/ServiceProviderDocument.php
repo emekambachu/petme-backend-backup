@@ -18,6 +18,6 @@ class ServiceProviderDocument extends Model
     ];
 
     public function service_provider(){
-        return $this->belongsTo(ServiceProvider::class, 'service_provider_id', 'id');
+        return $this->belongsTo(ServiceProviderModel::class, 'service_provider_id', 'id');
     }
 }

@@ -1349,7 +1349,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "49|EE3m3F8lJ9bckIWykE1Dw8lE8UCS8efszMUmNBqc",
+											"value": "75|xQ8foZy4oHaHlXmX9sfPsoVGLDPraTFvOYmndphX",
 											"type": "string"
 										}
 									]
@@ -1461,6 +1461,47 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Verify User (Production)",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "75|xQ8foZy4oHaHlXmX9sfPsoVGLDPraTFvOYmndphX",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://petme.us-east-2.elasticbeanstalk.com/api/admin/users/1/verify",
+									"protocol": "http",
+									"host": [
+										"petme",
+										"us-east-2",
+										"elasticbeanstalk",
+										"com"
+									],
+									"path": [
+										"api",
+										"admin",
+										"users",
+										"1",
+										"verify"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -1540,6 +1581,57 @@
 												"1"
 											],
 											"port": "8000",
+											"path": [
+												"api",
+												"admin",
+												"pet",
+												"types",
+												"add"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Store Pet Type (Production)",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "74|lJyYhzSdl3dadoGibnWxtaUZNJ05OVYHk5Zrg3CD",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "Bird",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "http://petme.us-east-2.elasticbeanstalk.com/api/admin/pet/types/add",
+											"protocol": "http",
+											"host": [
+												"petme",
+												"us-east-2",
+												"elasticbeanstalk",
+												"com"
+											],
 											"path": [
 												"api",
 												"admin",
@@ -2034,6 +2126,35 @@
 										"1"
 									],
 									"port": "8000",
+									"path": [
+										"api",
+										"admin",
+										"service-providers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Service Providers (Production)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://petme.us-east-2.elasticbeanstalk.com/api/admin/service-providers",
+									"protocol": "http",
+									"host": [
+										"petme",
+										"us-east-2",
+										"elasticbeanstalk",
+										"com"
+									],
 									"path": [
 										"api",
 										"admin",
@@ -2878,12 +2999,12 @@
 									"urlencoded": [
 										{
 											"key": "name",
-											"value": "Emeka Mbachu",
+											"value": "Mr neutron",
 											"type": "text"
 										},
 										{
 											"key": "email",
-											"value": "xeddtech@gmail.com",
+											"value": "neutrondeveloper@gmail.com",
 											"type": "text"
 										},
 										{
@@ -2907,6 +3028,73 @@
 										"1"
 									],
 									"port": "8000",
+									"path": [
+										"api",
+										"user",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Register User (Production)",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Emeka Mbachu",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "xeddtech@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "mobile",
+											"value": "11111111111",
+											"type": "text"
+										},
+										{
+											"key": "address",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "11111111",
+											"type": "text"
+										},
+										{
+											"key": "password_confirmation",
+											"value": "11111111",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://petme.us-east-2.elasticbeanstalk.com/api/user/register",
+									"protocol": "http",
+									"host": [
+										"petme",
+										"us-east-2",
+										"elasticbeanstalk",
+										"com"
+									],
 									"path": [
 										"api",
 										"user",
@@ -4112,12 +4300,84 @@
 									"formdata": [
 										{
 											"key": "name",
-											"value": "Felix ",
+											"value": "Felix Bans",
 											"type": "text"
 										},
 										{
 											"key": "email",
 											"value": "xeddtech@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "mobile",
+											"value": "11111111",
+											"type": "text"
+										},
+										{
+											"key": "specialization",
+											"value": "dog walker",
+											"type": "text"
+										},
+										{
+											"key": "location",
+											"value": "Lagos, Nigeria",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "11111111",
+											"type": "text"
+										},
+										{
+											"key": "password_confirmation",
+											"value": "11111111",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "127.0.0.1:8000/api/service-provider/register",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"service-provider",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Register (Production)",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Felix Bans",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "neutrondeveloper@gmail.com",
 											"type": "text"
 										},
 										{

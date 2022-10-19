@@ -2,7 +2,7 @@
 
 namespace App\Services\ServiceProvider;
 
-use App\Models\ServiceProvider\ServiceProvider;
+use App\Models\ServiceProvider\ServiceProviderModel;
 use App\Models\ServiceProvider\ServiceProviderDocument;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
@@ -16,9 +16,9 @@ class ServiceProviderService
     protected $imagePath = 'photos/service-providers';
     protected $documentPath = 'documents/service-providers';
 
-    public function serviceProvider(): ServiceProvider
+    public function serviceProvider(): ServiceProviderModel
     {
-        return new ServiceProvider();
+        return new ServiceProviderModel();
     }
 
     public function serviceProviderWithRelations(): \Illuminate\Database\Eloquent\Builder
@@ -36,7 +36,8 @@ class ServiceProviderService
             ->where('email', $email)->first();
     }
 
-    public function serviceProviderDocument(){
+    public function serviceProviderDocument(): ServiceProviderDocument
+    {
         return new ServiceProviderDocument();
     }
 

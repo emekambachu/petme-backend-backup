@@ -103,7 +103,7 @@ return [
 
         'service-providers' => [
             'driver' => 'eloquent',
-            'model' => App\Models\ServiceProvider\ServiceProvider::class,
+            'model' => App\Models\ServiceProvider\ServiceProviderModel::class,
         ],
 
         // 'users' => [

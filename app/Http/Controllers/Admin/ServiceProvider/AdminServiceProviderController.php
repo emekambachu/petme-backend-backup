@@ -15,14 +15,14 @@ class AdminServiceProviderController extends Controller
         $this->provider = $provider;
     }
 
-    public function index(): \Illuminate\Http\JsonResponse
+    public function index()
     {
         try {
-            $providers = $this->provider->serviceProviderWithRelations()
+            $data = $this->provider->serviceProviderWithRelations()
                 ->latest()->paginate(12);
             return response()->json([
                 'success' => true,
-                'service_providers' => $providers,
+                'service_providers' => $data,
             ]);
 
         } catch (\Exception $e) {
@@ -33,7 +33,7 @@ class AdminServiceProviderController extends Controller
         }
     }
 
-    public function documents($id): \Illuminate\Http\JsonResponse
+    public function documents($id)
     {
         try {
             $documents = $this->provider->serviceProviderDocuments($id)
@@ -51,7 +51,7 @@ class AdminServiceProviderController extends Controller
         }
     }
 
-    public function publish($id): \Illuminate\Http\JsonResponse
+    public function publish($id)
     {
         try {
             $data = $this->provider->publishServiceProvider($id);
@@ -69,7 +69,7 @@ class AdminServiceProviderController extends Controller
         }
     }
 
-    public function store(AdminStoreServiceProviderRequest $request): \Illuminate\Http\JsonResponse
+    public function store(AdminStoreServiceProviderRequest $request)
     {
         try {
             $provider = $this->provider->storeServiceProvider($request);

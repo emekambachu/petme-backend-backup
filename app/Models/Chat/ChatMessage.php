@@ -2,7 +2,7 @@
 
 namespace App\Models\Chat;
 
-use App\Models\ServiceProvider\ServiceProvider;
+use App\Models\ServiceProvider\ServiceProviderModel;
 use App\Models\User\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -29,12 +29,12 @@ class ChatMessage extends Model
     }
 
     public function sender_service_provider(){
-        return $this->belongsTo(ServiceProvider::class, 'sender_id', 'id')
+        return $this->belongsTo(ServiceProviderModel::class, 'sender_id', 'id')
             ->where('sender_user', 'service_provider');
     }
 
     public function receiver_service_provider(){
-        return $this->belongsTo(ServiceProvider::class, 'receiver_id', 'id')
+        return $this->belongsTo(ServiceProviderModel::class, 'receiver_id', 'id')
             ->where('receiver_user', 'service_provider');
     }
 }

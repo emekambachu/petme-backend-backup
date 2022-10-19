@@ -2,7 +2,7 @@
 
 namespace App\Models\ServiceProvider;
 
-use App\Models\User\UserAppointment;
+use App\Models\Appointment\Appointment;
 use App\Models\Wallet\WalletBalance;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,9 +10,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class ServiceProvider extends Authenticatable
+class ServiceProviderModel extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    protected $table = 'service_providers';
     protected $fillable = [
         'name',
         'email',
@@ -52,7 +53,7 @@ class ServiceProvider extends Authenticatable
     }
 
     public function appointments(){
-        return $this->hasMany(UserAppointment::class, 'service_provider_id', 'id');
+        return $this->hasMany(Appointment::class, 'service_provider_id', 'id');
     }
 
     public function documents(){
