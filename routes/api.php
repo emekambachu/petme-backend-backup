@@ -42,6 +42,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get("test-mail",function (){
+
+    //dd(config("mail.mailers.smtp.username"));
+    \Illuminate\Support\Facades\Mail::to("oyebamijitobi@gmail.com")
+        ->send(new \App\Mail\TestMail());
+    return true;
+});
+
 // Home Shop
 Route::get('/shop', [HomeShopController::class, 'index']);
 Route::post('/shop/search', [HomeShopController::class, 'search']);
