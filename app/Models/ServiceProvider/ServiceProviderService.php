@@ -10,10 +10,12 @@ class ServiceProviderService extends Model
     use HasFactory;
     protected $fillable = [
       'service_provider_id',
-      'name'
+      'name',
+      'cost'
     ];
 
-    public function service_provider(){
+    public function service_provider(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
         return $this->belongsTo(ServiceProviderModel::class, 'service_provider_id', 'id');
     }
 }

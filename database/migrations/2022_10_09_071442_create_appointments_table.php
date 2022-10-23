@@ -19,9 +19,10 @@ class CreateAppointmentsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('service_provider_id');
             $table->unsignedBigInteger('service_provider_category_id')->nullable();
-            $table->unsignedBigInteger('appointment_type_id');
+            $table->unsignedBigInteger('appointment_type_id')->nullable();
             $table->string('location')->nullable();
-            $table->longText('note')->nullable();
+            $table->longText('note');
+            $table->integer('total_cost');
             $table->dateTime('appointment_time');
             $table->string('status')->default('pending');
             $table->timestamps();

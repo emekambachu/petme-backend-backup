@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateServiceProviderServicesTable extends Migration
+class CreateAppointmentServicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateServiceProviderServicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('service_provider_services', static function (Blueprint $table) {
+        Schema::create('appointment_services', static function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('appointment_id');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('service_provider_id');
-            $table->string('name');
-            $table->string('cost');
+            $table->unsignedBigInteger('service_provider_service_id');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateServiceProviderServicesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('service_provider_services');
+        Schema::dropIfExists('appointment_services');
     }
 }

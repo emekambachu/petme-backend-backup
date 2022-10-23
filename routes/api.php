@@ -21,6 +21,8 @@ use App\Http\Controllers\Home\Blog\HomeBlogController;
 use App\Http\Controllers\Home\Pet\HomePetController;
 use App\Http\Controllers\Home\ServiceProvider\HomeServiceProviderController;
 use App\Http\Controllers\Home\Shop\HomeShopController;
+use App\Http\Controllers\ServiceProvider\Appointment\ServiceProviderAppointmentController;
+use App\Http\Controllers\ServiceProvider\Services\ServiceProviderServiceController;
 use App\Http\Controllers\User\Appointment\UserAppointmentController;
 use App\Http\Controllers\User\Location\UserLocationController;
 use App\Http\Controllers\User\Pet\UserPetController;
@@ -178,7 +180,6 @@ Route::middleware('auth:admin-api')->group(static function (){
     Route::delete('/admin/service-providers/categories/{id}/delete',
         [AdminServiceProviderCategoryController::class, 'delete']);
 
-
     // Admin Service provider Documents
     Route::get('/admin/service-providers/{id}/documents', [AdminServiceProviderController::class, 'documents']);
     Route::post('/admin/service-providers/{id}/document/upload', [AdminServiceProviderController::class, 'storeDocument']);
@@ -200,7 +201,18 @@ Route::middleware('auth:service-provider-api')->group(static function (){
         return $request->user('service-provider-api');
     });
 
-    // User Logout
+    // Service Provider Services
+    Route::get('/service-provider/services', [ServiceProviderServiceController::class, 'index']);
+    Route::post('/service-provider/services/create', [ServiceProviderServiceController::class, 'store']);
+    Route::post('/service-provider/services/{id}/update', [ServiceProviderServiceController::class, 'update']);
+    Route::delete('/service-provider/services/{id}/delete', [ServiceProviderServiceController::class, 'destroy']);
+
+    // Service Provider Appointment
+    Route::get('/service-provider/appointments', [ServiceProviderAppointmentController::class, 'index']);
+    Route::post('/service-provider/appointments/{id}/accept', [ServiceProviderAppointmentController::class, 'acceptAppointment']);
+    Route::post('/service-provider/appointments/{id}/reject', [ServiceProviderAppointmentController::class, 'rejectAppointment']);
+
+    // Service provider Logout
     Route::post('/service-provider/logout', [ApiLoginServiceProviderController::class, 'logout']);
 
 });
@@ -246,7 +258,7 @@ Route::middleware('auth:api')->group(static function (){
     Route::get('/user/appointments', [UserAppointmentController::class, 'index']);
     Route::post('/user/appointments/create', [UserAppointmentController::class, 'store']);
     Route::post('/user/appointments/{id}/reschedule', [UserAppointmentController::class, 'update']);
-    Route::delete('/user/appointments/{id}/cancel', [UserAppointmentController::class, 'delete']);
+    Route::delete('/user/appointments/{id}/cancel', [UserAppointmentController::class, 'destroy']);
 
     // User Service Providers
     Route::get('/user/service-providers', [UserServiceProviderController::class, 'index']);

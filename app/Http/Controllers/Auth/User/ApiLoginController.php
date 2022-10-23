@@ -43,7 +43,8 @@ class ApiLoginController extends Controller
         }
     }
 
-    public function logout(){
+    public function logout(): \Illuminate\Http\JsonResponse
+    {
         try {
             Auth::guard('web')->logout();
             Auth::user()->tokens()->delete();

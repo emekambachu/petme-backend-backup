@@ -19,6 +19,7 @@ class Appointment extends Model
         'service_provider_category_id',
         'appointment_type_id',
         'note',
+        'total_cost',
         'location',
         'appointment_time',
     ];
@@ -46,5 +47,10 @@ class Appointment extends Model
     {
         return $this->belongsTo(AppointmentType::class,
             'appointment_type_id', 'id');
+    }
+
+    public function appointment_services(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(AppointmentService::class,'appointment_id', 'id');
     }
 }

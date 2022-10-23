@@ -59,6 +59,15 @@ class AppointmentService
         ]);
     }
 
+    public function appointmentService(): \App\Models\Appointment\AppointmentService
+    {
+        return new \App\Models\Appointment\AppointmentService();
+    }
+
+    public function servicesByAppointmentId($id){
+       return $this->appointmentService()->where('appointment_id', $id);
+    }
+
     public function createAppointmentForUser($request, $userId): array
     {
         $input = $request->all();
@@ -72,21 +81,8 @@ class AppointmentService
                 'message' => 'Error creating appointment',
             ];
         }
-        $emailData = [
-            'name' => $appointment->service_provider->name,
-            'email' => $appointment->service_provider->email,
-            'user_name' => $appointment->user->name,
-            'pet_type' => $appointment->pet->pet_type->name,
-            'appointment_type' => $appointment->appointment_type->name,
-            'appointment_note' => $appointment->note,
-            'appointment_time' => Carbon::parse($appointment->appointment_time)
-                ->format('g:i a, l jS F Y'),
-        ];
-        $this->base->sendEmail(
-            $emailData,
-            'emails.service-providers.new-appointment',
-            'New Appointment | '.$emailData['user_name']
-        );
+        $this->addAppointmentServices($request, $appointment);
+        $this->sendEmailToServiceProvider($appointment);
         return [
             'success' => true,
             'appointment' => $appointment,
@@ -105,14 +101,24 @@ class AppointmentService
                   'message' => 'Error rescheduling appointment',
             ];
         }
+        $input['status'] = 'pending';
         $appointment->update($input);
-        // Send email to service provider
+        $this->sendEmailToServiceProvider($appointment);
+        return [
+            'success' => true,
+            'appointment' => $appointment,
+            'message' => 'Appointment rescheduled',
+        ];
+    }
+
+    protected function sendEmailToServiceProvider($appointment): void
+    {
         $emailData = [
             'name' => $appointment->service_provider->name,
             'email' => $appointment->service_provider->email,
             'user_name' => $appointment->user->name,
             'pet_type' => $appointment->pet->pet_type->name,
-            'appointment_type' => $appointment->appointment_type->name,
+            'service_provider_category' => $appointment->service_provider_category->name,
             'appointment_note' => $appointment->note,
             'appointment_time' => Carbon::parse($appointment->appointment_time)
                 ->format('g:i a, l jS F Y'),
@@ -120,13 +126,27 @@ class AppointmentService
         $this->base->sendEmail(
             $emailData,
             'emails.service-providers.new-appointment',
-            'Appointment Reschedule | '.$emailData['user_name']
+            'New Appointment | '.$emailData['user_name']
         );
-        return [
-            'success' => true,
-            'appointment' => $appointment,
-            'message' => 'Appointment rescheduled',
-        ];
+    }
+
+    protected function addAppointmentServices($request, $appointment): void
+    {
+        if(is_array($request->services) && !empty($request->services)){
+            $cost = 0;
+            foreach ($request->services as $service){
+                $cost += $service->cost;
+                $this->appointmentService()->create([
+                    'appointment_id' => $appointment->id,
+                    'user_id' => $appointment->user_id,
+                    'service_provider_id' => $appointment->service_provider_id,
+                    'service_provider_service_id' => $service->id,
+                ]);
+            }
+            $this->appointmentById($appointment->id)->update([
+                'total_cost' => $cost
+            ]);
+        }
     }
 
     public function deleteAppointmentForUser($id, $userId): array
@@ -138,12 +158,11 @@ class AppointmentService
                 'message' => 'Error deleting appointment',
             ];
         }
-
         $appointment->delete();
-
         return [
             'success' => true,
             'message' => 'Deleted',
         ];
     }
+
 }

@@ -38,7 +38,7 @@ class LoginService{
         String $webGuard,
         String $apiGuard,
         $queryBuilder
-    )
+    ): array
     {
         // Check if user is verified before attempting to login
         $status = $queryBuilder->where('email', $request->email)->first()->status;

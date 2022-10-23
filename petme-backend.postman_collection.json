@@ -2881,6 +2881,12 @@
 													"key": "status",
 													"value": "published",
 													"type": "text"
+												},
+												{
+													"key": "slug",
+													"value": "how-to-write",
+													"type": "text",
+													"disabled": true
 												}
 											]
 										},
@@ -2893,6 +2899,78 @@
 												"1"
 											],
 											"port": "8000",
+											"path": [
+												"api",
+												"admin",
+												"blog",
+												"posts",
+												"create"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Post Admin Blog Post (Production)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "title",
+													"value": "How to writdddd",
+													"type": "text"
+												},
+												{
+													"key": "author",
+													"value": "Dexter",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "hey my man",
+													"type": "text"
+												},
+												{
+													"key": "blog_category_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "image",
+													"type": "file",
+													"src": "/C:/Users/Lenovo/Downloads/shot-grey-black-woman-warrior-holding-axe-shield-dressed-ancient-armor-african-amazon-249922484.jpg"
+												},
+												{
+													"key": "status",
+													"value": "published",
+													"type": "text"
+												},
+												{
+													"key": "slug",
+													"value": "how-to",
+													"type": "text",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "http://petme.us-east-2.elasticbeanstalk.com/api/admin/blog/posts/create",
+											"protocol": "http",
+											"host": [
+												"petme",
+												"us-east-2",
+												"elasticbeanstalk",
+												"com"
+											],
 											"path": [
 												"api",
 												"admin",

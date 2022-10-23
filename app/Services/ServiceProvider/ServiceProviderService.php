@@ -27,6 +27,10 @@ class ServiceProviderService
             ->with('wallet_balance', 'appointments', 'documents');
     }
 
+    public function serviceProviderApproved(){
+        $this->serviceProviderWithRelations()->where('service_providers.status', 'approved');
+    }
+
     public function serviceProviderById($id){
         return $this->serviceProviderWithRelations()->findOrFail($id);
     }
@@ -68,7 +72,7 @@ class ServiceProviderService
         return $this->publishItem($provider);
     }
 
-    public function searchServiceProviders($request): array
+    public function searchServiceProviders($request, $queryBuilder): array
     {
         $input = $request->all();
         // Array for storing search results
@@ -82,8 +86,7 @@ class ServiceProviderService
             $searchValues['status'] = $input['status'];
         }
 
-        $providers = $this->serviceProviderWithRelations()
-            ->where(function($query) use ($input){
+        $providers = $queryBuilder->where(function($query) use ($input){
             // The rest of the queries can come here
             $query->when(!empty($input['term']), static function($q) use($input){
                 $q->where('name', 'like' , '%'. $input['term'] .'%')
@@ -126,7 +129,8 @@ class ServiceProviderService
         return $provider;
     }
 
-    public function deleteServiceProvider($id){
+    public function deleteServiceProvider($id): void
+    {
         $provider = $this->serviceProviderById($id);
         $this->deleteRelations($provider->documents, $this->documentPath);
         $this->deleteRelations($provider->appointments);
@@ -134,7 +138,8 @@ class ServiceProviderService
         $provider->delete();
     }
 
-    public function deleteServiceProviderDocument($id){
+    public function deleteServiceProviderDocument($id): void
+    {
         $document = $this->serviceProviderDocument()->findOrFail($id);
         $this->deleteFile($document->document, $this->documentPath);
         $document->delete();

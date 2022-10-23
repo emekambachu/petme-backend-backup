@@ -15,12 +15,14 @@ class UserAppointmentController extends Controller
         $this->appointment = $appointment;
     }
 
-    public function index(){
+    public function index(): \Illuminate\Http\JsonResponse
+    {
         try {
             $appointments = $this->appointment->appointmentsByUserId(Auth::user()->id)
                 ->orderBy('created_at', 'desc')->paginate(12);
             return response()->json([
                 'success' => true,
+                'total' => $appointments->total(),
                 'appointments' => $appointments
             ]);
 
@@ -32,7 +34,8 @@ class UserAppointmentController extends Controller
         }
     }
 
-    public function store(UserStoreAppointmentRequest $request){
+    public function store(UserStoreAppointmentRequest $request): \Illuminate\Http\JsonResponse
+    {
         try {
             $data = $this->appointment->createAppointmentForUser($request, Auth::user()->id);
             return response()->json([
@@ -49,7 +52,8 @@ class UserAppointmentController extends Controller
         }
     }
 
-    public function update(UserStoreAppointmentRequest $request, $id){
+    public function update(UserStoreAppointmentRequest $request, $id): \Illuminate\Http\JsonResponse
+    {
         try {
             $data = $this->appointment->rescheduleAppointmentForUser($request, $id, Auth::user()->id);
             return response()->json([
@@ -66,7 +70,8 @@ class UserAppointmentController extends Controller
         }
     }
 
-    public function delete($id){
+    public function destroy($id): \Illuminate\Http\JsonResponse
+    {
         try {
             $data = $this->appointment->deleteAppointmentForUser($id, Auth::user()->id);
             return response()->json([

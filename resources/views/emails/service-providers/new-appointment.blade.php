@@ -6,7 +6,7 @@
 
     <strong>Appointment Details</strong><br>
     <strong>Pet type:</strong> {{ $pet_type }}<br>
-    <strong>Appointment type:</strong> {{ $appointment_type }}<br>
+    <strong>Service type:</strong> {{ $service_provider_category }}<br>
     <strong>Appointment note:</strong> {{ $appointment_note }}<br>
     <strong>Appointment time:</strong> {{ $appointment_time }}<br>
 </p>

@@ -28,8 +28,10 @@ class UserStoreAppointmentRequest extends FormRequest
         return [
             'pet_id' => 'required|integer|exists:pets,id',
             'service_provider_id' => 'required|integer|exists:service_providers,id',
-            'service_provider_category_id' => 'nullable|integer|exists:service_provider_categories,id',
-            'appointment_type_id' => 'required|integer|exists:appointment_types,id',
+            'service_provider_category_id' => 'required|integer|exists:service_provider_categories,id',
+            'appointment_type_id' => 'nullable|integer|exists:appointment_types,id',
+            'note' => 'required',
+            'services' => 'required',
             'appointment_time' => 'required|string',
 
         ];
@@ -42,7 +44,6 @@ class UserStoreAppointmentRequest extends FormRequest
             'pet_id.exists' => 'This pet does not exist!',
             'service_provider_id.exists' => 'This service provider does not exist!',
             'service_provider_id.required' => 'Service provider is required!',
-            'appointment_type_id.required' => 'Appointment type is required!',
             'appointment_type_id.exists' => 'Appointment type does not exists!',
         ];
     }

@@ -88,4 +88,19 @@ class CrudService
         }
     }
 
+    public function deleteManyRelations($path = null, ...$relations): void
+    {
+        foreach($relations as $relation){
+            if($relation->count() > 0){
+                foreach($relation as $object){
+                    $item_file = $object->photo ?? $object->document ?? $object->image ?? $object->file;
+                    if($path !== null && !empty($item_file) && File::exists(public_path() . '/'.$path.'/' . $item_file)) {
+                        FILE::delete(public_path() . '/'.$path.'/' . $item_file);
+                    }
+                    $object->delete();
+                }
+            }
+        }
+    }
+
 }
