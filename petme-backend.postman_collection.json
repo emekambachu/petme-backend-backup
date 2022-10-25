@@ -2076,7 +2076,78 @@
 									"response": []
 								},
 								{
-									"name": "Post Admin Service Providers Category",
+									"name": "Get Admin Service Providers Categories (Production)",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://petme.us-east-2.elasticbeanstalk.com/api/admin/service-providers/categories",
+											"protocol": "http",
+											"host": [
+												"petme",
+												"us-east-2",
+												"elasticbeanstalk",
+												"com"
+											],
+											"path": [
+												"api",
+												"admin",
+												"service-providers",
+												"categories"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Admin Service Providers Category (Production)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "Grooming",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "http://petme.us-east-2.elasticbeanstalk.com/api/admin/service-providers/categories/store",
+											"protocol": "http",
+											"host": [
+												"petme",
+												"us-east-2",
+												"elasticbeanstalk",
+												"com"
+											],
+											"path": [
+												"api",
+												"admin",
+												"service-providers",
+												"categories",
+												"store"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Admin Service Providers Category Copy",
 									"request": {
 										"method": "POST",
 										"header": [
@@ -3958,12 +4029,12 @@
 										},
 										{
 											"key": "service_provider_category_id",
-											"value": "",
+											"value": "2",
 											"type": "text"
 										},
 										{
 											"key": "appointment_type_id",
-											"value": "2",
+											"value": "",
 											"type": "text"
 										},
 										{
@@ -3977,8 +4048,8 @@
 											"type": "text"
 										},
 										{
-											"key": "appointment_date",
-											"value": "21st july 2022",
+											"key": "appointment_time",
+											"value": "2022-10-31 05:12:42",
 											"type": "text"
 										}
 									]
@@ -4003,7 +4074,7 @@
 							"response": []
 						},
 						{
-							"name": "Reschedule User Appointments",
+							"name": "Reschedule User Appountments",
 							"request": {
 								"method": "POST",
 								"header": [
@@ -4028,17 +4099,17 @@
 										},
 										{
 											"key": "service_provider_category_id",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "appointment_type_id",
 											"value": "2",
 											"type": "text"
 										},
 										{
+											"key": "appointment_type_id",
+											"value": "",
+											"type": "text"
+										},
+										{
 											"key": "note",
-											"value": "Sorry for the chnage in time",
+											"value": "Lorem ipsum",
 											"type": "text"
 										},
 										{
@@ -4048,7 +4119,7 @@
 										},
 										{
 											"key": "appointment_time",
-											"value": "2022-10-10",
+											"value": "2022-10-31 05:12:42",
 											"type": "text"
 										}
 									]
@@ -4099,6 +4170,95 @@
 										"appointments",
 										"1",
 										"cancel"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Service Providers",
+					"item": [
+						{
+							"name": "Service Providers",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "127.0.0.1:8000/api/user/service-providers",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"user",
+										"service-providers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Service Providers Categories",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "127.0.0.1:8000/api/user/service-providers/categories",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"user",
+										"service-providers",
+										"categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Service Providers by Categories",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:8000/api/user/service-providers/1/category",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"user",
+										"service-providers",
+										"1",
+										"category"
 									]
 								}
 							},
@@ -4773,11 +4933,222 @@
 				},
 				{
 					"name": "Appointment",
-					"item": []
+					"item": [
+						{
+							"name": "Get Appointments",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "Accept Appointment",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:8000/api/service-providers/appointments/1/accept",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"service-providers",
+										"appointments",
+										"1",
+										"accept"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Reject Appointment",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:8000/api/service-providers/appointments/1/reject",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"service-providers",
+										"appointments",
+										"1",
+										"reject"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				},
 				{
 					"name": "Services",
-					"item": []
+					"item": [
+						{
+							"name": "Get Services",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "127.0.0.1:8000/api/service-provider/services",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"service-provider",
+										"services"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Service",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Fever Treatment",
+											"type": "text"
+										},
+										{
+											"key": "cost",
+											"value": "20",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "127.0.0.1:8000/api/service-provider/services/create",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"service-provider",
+										"services",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Service",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Gen Treatment 2",
+											"type": "text"
+										},
+										{
+											"key": "cost",
+											"value": "30",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "127.0.0.1:8000/api/service-provider/services/1/update",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"service-provider",
+										"services",
+										"1",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Service",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "127.0.0.1:8000/api/service-provider/services/1/delete",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"service-provider",
+										"services",
+										"1",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
