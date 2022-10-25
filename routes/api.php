@@ -30,6 +30,7 @@ use App\Http\Controllers\User\Pet\UserPetDewormController;
 use App\Http\Controllers\User\Pet\UserPetDietController;
 use App\Http\Controllers\User\Pet\UserPetVaccinationController;
 use App\Http\Controllers\User\ServiceProvider\UserServiceProviderController;
+use App\Http\Controllers\User\Wallet\UserWalletController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -259,9 +260,16 @@ Route::middleware('auth:api')->group(static function (){
     Route::post('/user/appointments/create', [UserAppointmentController::class, 'store']);
     Route::post('/user/appointments/{id}/reschedule', [UserAppointmentController::class, 'update']);
     Route::delete('/user/appointments/{id}/cancel', [UserAppointmentController::class, 'destroy']);
+    Route::post('/user/appointments/{appointmentId}/service/{serviceId}/add', [UserAppointmentController::class, 'addService']);
+    Route::post('/user/appointments/{appointmentId}/service/{serviceId}/remove', [UserAppointmentController::class, 'removeService']);
 
     // User Service Providers
     Route::get('/user/service-providers', [UserServiceProviderController::class, 'index']);
+    Route::get('/user/service-providers/categories', [UserServiceProviderController::class, 'categories']);
+    Route::get('/user/service-providers/{id}/category', [UserServiceProviderController::class, 'category']);
+
+    // User Wallet
+    Route::get('/user/wallet', [UserWalletController::class, 'index']);
 
     // User Logout
     Route::post('/user/logout', [ApiAdminLoginController::class, 'logout']);

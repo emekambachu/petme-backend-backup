@@ -5,6 +5,7 @@ namespace App\Models\User;
 use App\Models\Appointment\Appointment;
 use App\Models\Pet\Pet;
 use App\Models\Shop\ShopDiscount;
+use App\Models\Wallet\UserWallet;
 use App\Models\Wallet\WalletBalance;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -52,6 +53,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function user_wallet(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(UserWallet::class, 'user_id', 'id');
+    }
 
     public function appointments(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

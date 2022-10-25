@@ -24,11 +24,18 @@ class ServiceProviderService
     public function serviceProviderWithRelations(): \Illuminate\Database\Eloquent\Builder
     {
         return $this->serviceProvider()
-            ->with('wallet_balance', 'appointments', 'documents');
+            ->with('service_provider_wallet', 'appointments', 'documents');
     }
 
-    public function serviceProviderApproved(){
-        $this->serviceProviderWithRelations()->where('service_providers.status', 'approved');
+    public function approvedJoinServiceProviders(): \Illuminate\Database\Eloquent\Builder
+    {
+        return $this->serviceProviderWithRelations()
+            ->where('service_providers.status', 'approved');
+    }
+
+    public function approvedServiceProviders(): \Illuminate\Database\Eloquent\Builder
+    {
+        return $this->serviceProviderWithRelations()->where('status', 'verified');
     }
 
     public function serviceProviderById($id){

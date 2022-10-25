@@ -25,23 +25,19 @@ class Pet extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function pet_type(){
+    public function type(){
         return $this->belongsTo(PetType::class, 'pet_type_id', 'id');
     }
 
-    public function pet_deworm_details(){
+    public function deworm_details(){
         return $this->hasMany(PetDewormDetail::class, 'pet_id', 'id');
     }
 
-    public function pet_diet_details(){
+    public function diet_details(){
         return $this->hasMany(PetDietDetail::class, 'pet_id', 'id');
     }
 
-    public function pet_vaccination_details(){
+    public function vaccination_details(){
         return $this->hasMany(PetVaccinationDetail::class, 'pet_id', 'id');
-    }
-
-    public function pet_service_providers(){
-        return $this->hasMany(PetServiceProvider::class, 'pet_id', 'id');
     }
 }

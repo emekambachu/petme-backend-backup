@@ -3,6 +3,7 @@
 namespace App\Models\ServiceProvider;
 
 use App\Models\Appointment\Appointment;
+use App\Models\Wallet\ServiceProviderWallet;
 use App\Models\Wallet\WalletBalance;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -36,7 +37,8 @@ class ServiceProviderModel extends Authenticatable
         'status',
     ];
 
-    public function category(){
+    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
         return $this->belongsTo(
             ServiceProviderCategory::class,
             'service_provider_id',
@@ -44,19 +46,23 @@ class ServiceProviderModel extends Authenticatable
         );
     }
 
-    public function wallet_balance(){
-        return $this->hasOne(WalletBalance::class, 'service_provider_id', 'id');
+    public function service_provider_wallet(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(ServiceProviderWallet::class, 'service_provider_id', 'id');
     }
 
-    public function services(){
+    public function services(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
         return $this->hasMany(ServiceProviderService::class, 'service_provider_id', 'id');
     }
 
-    public function appointments(){
+    public function appointments(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
         return $this->hasMany(Appointment::class, 'service_provider_id', 'id');
     }
 
-    public function documents(){
+    public function documents(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
         return $this->hasMany(ServiceProviderDocument::class, 'service_provider_id', 'id');
     }
 }

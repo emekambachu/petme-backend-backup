@@ -87,4 +87,39 @@ class UserAppointmentController extends Controller
         }
     }
 
+    public function addService($serviceId, $appointmentId): \Illuminate\Http\JsonResponse
+    {
+        try {
+            $data = $this->appointment->addServiceToAppointment($serviceId, $appointmentId);
+            return response()->json([
+                'success' => $data['success'],
+                'message' => $data['message']
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
+    public function removeService($serviceId, $appointmentId): \Illuminate\Http\JsonResponse
+    {
+        try {
+            $data = $this->appointment->removeServiceFromAppointment($serviceId, $appointmentId);
+            return response()->json([
+                'success' => $data['success'],
+                'message' => $data['message']
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
+
 }

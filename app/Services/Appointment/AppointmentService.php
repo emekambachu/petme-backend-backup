@@ -68,6 +68,10 @@ class AppointmentService
        return $this->appointmentService()->where('appointment_id', $id);
     }
 
+    public function appointmentServiceById($id){
+        return $this->appointmentService()->findOrFail($id);
+    }
+
     public function createAppointmentForUser($request, $userId): array
     {
         $input = $request->all();
@@ -162,6 +166,55 @@ class AppointmentService
         return [
             'success' => true,
             'message' => 'Deleted',
+        ];
+    }
+
+    public function addServiceToAppointment($serviceId, $appointmentId): array
+    {
+        $appointment = $this->appointmentById($appointmentId);
+        if(!$appointment){
+            return [
+                'success' => false,
+                'message' => 'The appointment does not exist',
+            ];
+        }
+
+        $appointmentService = $this->appointmentService()->create([
+           'appointment_id' => $appointmentId,
+           'user_id' => $appointment->user_id,
+           'service_provider_id' => $appointment->service_provider_id,
+           'service_provider_service_id' => $serviceId,
+        ]);
+
+        $appointment->total_cost += $appointmentService->service->cost;
+        $appointment->save();
+
+        return [
+            'success' => true,
+            'message' => 'Service has been added',
+        ];
+    }
+
+    public function removeServiceFromAppointment($serviceId, $appointmentId): array
+    {
+        $service = $this->appointmentServiceById($serviceId);
+        $appointment = $this->appointmentById($appointmentId);
+
+        if(!$service || !$appointment){
+            return [
+                'success' => false,
+                'message' => 'The service or appointment does not exist',
+            ];
+        }
+
+        $appointment->total_cost -= $service->cost;
+        $appointment->save();
+
+        $service->delete();
+
+        return [
+            'success' => true,
+            'message' => 'Service has been deleted',
         ];
     }
 
