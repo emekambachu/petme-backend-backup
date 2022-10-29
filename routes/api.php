@@ -240,20 +240,20 @@ Route::middleware('auth:api')->group(static function (){
     // User Pets Deworm
     Route::get('/user/pets/{petId}/deworm', [UserPetDewormController::class, 'index']);
     Route::post('/user/pets/{petId}/deworm/create', [UserPetDewormController::class, 'store']);
-    Route::post('/user/pets/{petId}/deworm/{id}/update', [UserPetDewormController::class, 'update']);
-    Route::delete('/user/pets/{petId}/deworm/{id}/delete', [UserPetDewormController::class, 'delete']);
+    Route::post('/user/pets/deworm/{id}/update', [UserPetDewormController::class, 'update']);
+    Route::delete('/user/pets/deworm/{id}/delete', [UserPetDewormController::class, 'destroy']);
 
     // User Pets Diet
     Route::get('/user/pets/{petId}/diet', [UserPetDietController::class, 'index']);
     Route::post('/user/pets/{petId}/diet/create', [UserPetDietController::class, 'store']);
-    Route::post('/user/pets/{petId}/diet/{id}/update', [UserPetDietController::class, 'update']);
-    Route::delete('/user/pets/{petId}/diet/{id}/delete', [UserPetDietController::class, 'delete']);
+    Route::post('/user/pets/diet/{id}/update', [UserPetDietController::class, 'update']);
+    Route::delete('/user/pets/diet/{id}/delete', [UserPetDietController::class, 'destroy']);
 
     // User Pets Vaccination
     Route::get('/user/pets/{petId}/vaccination', [UserPetVaccinationController::class, 'index']);
     Route::post('/user/pets/{petId}/vaccination/create', [UserPetVaccinationController::class, 'store']);
-    Route::post('/user/pets/{petId}/vaccination/{id}/update', [UserPetVaccinationController::class, 'update']);
-    Route::delete('/user/pets/{petId}/vaccination/{id}/delete', [UserPetVaccinationController::class, 'delete']);
+    Route::post('/user/pets/vaccination/{id}/update', [UserPetVaccinationController::class, 'update']);
+    Route::delete('/user/pets/vaccination/{id}/delete', [UserPetVaccinationController::class, 'destroy']);
 
     // User Appointments
     Route::get('/user/appointments', [UserAppointmentController::class, 'index']);

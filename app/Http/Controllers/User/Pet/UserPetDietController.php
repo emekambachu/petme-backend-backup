@@ -19,7 +19,8 @@ class UserPetDietController extends Controller
     public function index($id): \Illuminate\Http\JsonResponse
     {
         try {
-            $data = $this->diet->dietByPetId($id)->latest()->get();
+            $data = $this->diet->dietByPetId($id, Auth::user()->id)
+                ->latest()->get();
             return response()->json([
                 'success' => true,
                 'diets' => $data

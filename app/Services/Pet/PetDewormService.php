@@ -18,8 +18,11 @@ class PetDewormService
         return $this->petDeworm()->findOrFail($id);
     }
 
-    public function dewormsByPetId($id){
-        return $this->petDeworm()->where('pet_id', $id);
+    public function dewormsByPetId($petId, $userId){
+        return $this->petDeworm()->where([
+            ['pet_id', $petId],
+            ['user_id', $userId],
+        ]);
     }
 
     public function addDewormDetail($request, $petId, $ownerId){

@@ -18,8 +18,11 @@ class PetVaccinationService
         return $this->petVaccination()->findOrFail($id);
     }
 
-    public function vaccinationByPetId($id){
-        return $this->petVaccination()->where('pet_id', $id);
+    public function vaccinationByPetId($petId, $userId){
+        return $this->petVaccination()->where([
+            ['pet_id', $petId],
+            ['user_id', $userId],
+        ]);
     }
 
     public function addVaccinationDetail($request, $petId, $ownerId){

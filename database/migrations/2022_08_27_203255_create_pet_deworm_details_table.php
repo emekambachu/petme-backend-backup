@@ -18,9 +18,9 @@ class CreatePetDewormDetailsTable extends Migration
             $table->unsignedBigInteger('pet_id');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('drug');
-            $table->integer('administer_rate')->nullable();
+            $table->string('administer_rate')->nullable();
             $table->string('frequency')->nullable();
-            $table->integer('administration_duration')->nullable();
+            $table->string('administration_duration')->nullable();
             $table->dateTime('last_session')->nullable();
             $table->dateTime('next_session')->nullable();
             $table->string('created_by')->nullable();

@@ -19,7 +19,8 @@ class UserPetVaccinationController extends Controller
     public function index($id): \Illuminate\Http\JsonResponse
     {
         try {
-            $data = $this->vaccination->vaccinationByPetId($id)->latest()->get();
+            $data = $this->vaccination->vaccinationByPetId($id, Auth::user()->id)
+                ->latest()->get();
             return response()->json([
                 'success' => true,
                 'vaccinations' => $data

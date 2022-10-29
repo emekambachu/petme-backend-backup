@@ -23,11 +23,6 @@ class UserUpdatePetDietRequest extends FormRequest
      *
      * @return array
      */
-    /**
-     * Get the validation rules that apply to the request.
-     *s
-     * @return array
-     */
     public function rules(): array
     {
         return [

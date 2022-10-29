@@ -18,10 +18,11 @@ class CreatePetVaccinationDetailsTable extends Migration
             $table->unsignedBigInteger('pet_id');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('drug');
-            $table->integer('administer_rate')->nullable();
+            $table->string('source');
+            $table->string('administer_rate')->nullable();
             $table->string('frequency')->nullable();
-            $table->integer('administration_duration')->nullable();
-            $table->string('batch_number')->nullable();
+            $table->string('administration_duration')->nullable();
+            $table->integer('batch_number')->nullable();
             $table->dateTime('last_session')->nullable();
             $table->dateTime('next_session')->nullable();
             $table->string('created_by')->nullable();

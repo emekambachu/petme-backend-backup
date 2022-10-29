@@ -18,7 +18,8 @@ class UserPetDewormController extends Controller
     public function index($id): \Illuminate\Http\JsonResponse
     {
         try {
-            $data = $this->deworm->dewormsByPetId($id)->latest()->get();
+            $data = $this->deworm->dewormsByPetId($id, Auth::user()->id)
+                ->latest()->get();
             return response()->json([
                 'success' => true,
                 'deworms' => $data
@@ -49,10 +50,10 @@ class UserPetDewormController extends Controller
         }
     }
 
-    public function update(UserUpdatePetDewormRequest $request, $petId): \Illuminate\Http\JsonResponse
+    public function update(UserUpdatePetDewormRequest $request, $id): \Illuminate\Http\JsonResponse
     {
         try {
-            $data = $this->deworm->updateDewormDetail($request, $petId, Auth::user()->id);
+            $data = $this->deworm->updateDewormDetail($request, $id, Auth::user()->id);
             return response()->json([
                 'success' => $data['success'],
                 'message' => $data['message'] ?? null,

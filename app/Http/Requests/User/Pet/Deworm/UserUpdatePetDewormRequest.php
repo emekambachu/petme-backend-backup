@@ -30,8 +30,8 @@ class UserUpdatePetDewormRequest extends FormRequest
             'administer_rate' => 'required|string',
             'frequency' => 'required|string',
             'administration_duration' => 'required|string',
-            'last_session' => 'null|string',
-            'next_session' => 'null|string',
+            'last_session' => 'nullable|string',
+            'next_session' => 'nullable|string',
             'created_by' => 'required|string',
             'location' => 'required|string',
         ];

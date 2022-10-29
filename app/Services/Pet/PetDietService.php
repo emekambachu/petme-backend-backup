@@ -18,8 +18,11 @@ class PetDietService
         return $this->petDiet()->findOrFail($id);
     }
 
-    public function dietByPetId($id){
-        return $this->petDiet()->where('pet_id', $id);
+    public function dietByPetId($petId, $userId){
+        return $this->petDiet()->where([
+            ['pet_id', $petId],
+            ['user_id', $userId],
+        ]);
     }
 
     public function addDietDetail($request, $petId, $ownerId){
