@@ -6,15 +6,22 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ServiceProvider\Auth\ServiceProviderRegisterRequest;
 use App\Services\Auth\RegistrationService;
 use App\Services\ServiceProvider\ServiceProviderService;
+use App\Services\Wallet\WalletService;
 use Illuminate\Http\Request;
 
 class ApiRegisterServiceProviderController extends Controller
 {
-    private $registration;
-    private $provider;
-    public function __construct(RegistrationService $registration, ServiceProviderService $provider){
+    private RegistrationService $registration;
+    private ServiceProviderService $provider;
+    private WalletService $wallet;
+    public function __construct(
+        RegistrationService $registration,
+        ServiceProviderService $provider,
+        WalletService $wallet
+    ){
         $this->registration = $registration;
         $this->provider = $provider;
+        $this->wallet = $wallet;
     }
 
     public function register(ServiceProviderRegisterRequest $request): \Illuminate\Http\JsonResponse
@@ -23,7 +30,8 @@ class ApiRegisterServiceProviderController extends Controller
             $user = $this->registration->createUser(
                 $request,
                 'emails.service-providers.welcome',
-                $this->provider->serviceProvider()
+                $this->provider->serviceProvider(),
+                $this->wallet->serviceProviderWallet()
             );
             return response()->json([
                 'success' => true,

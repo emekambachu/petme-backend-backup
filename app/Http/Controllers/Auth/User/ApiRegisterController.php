@@ -7,15 +7,22 @@ use App\Http\Requests\User\Auth\UserRegisterRequest;
 use App\Http\Requests\User\Auth\UserSendEmailOtpRequest;
 use App\Services\Auth\RegistrationService;
 use App\Services\User\UserService;
+use App\Services\Wallet\WalletService;
 use Illuminate\Http\Request;
 
 class ApiRegisterController extends Controller
 {
-    private $registration;
-    private $user;
-    public function __construct(RegistrationService $registration, UserService $user){
+    private RegistrationService $registration;
+    private UserService $user;
+    private WalletService $wallet;
+    public function __construct(
+        RegistrationService $registration,
+        UserService $user,
+        WalletService $wallet
+    ){
         $this->registration = $registration;
         $this->user = $user;
+        $this->wallet = $wallet;
     }
 
     public function register(UserRegisterRequest $request): \Illuminate\Http\JsonResponse
@@ -24,7 +31,8 @@ class ApiRegisterController extends Controller
             $user = $this->registration->createUser(
                 $request,
                 'emails.users.welcome',
-                $this->user->user()
+                $this->user->user(),
+                $this->wallet->userWallet(),
             );
             return response()->json([
                 'success' => true,

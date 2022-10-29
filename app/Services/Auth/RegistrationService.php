@@ -28,17 +28,17 @@ class RegistrationService
         return $randomString;
     }
 
-    public function createUser($request, $emailContent, $queryBuilder){
+    public function createUser($request, $emailContent, $userQuery, $walletQuery){
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
-        $user = $queryBuilder->create($input);
+        $user = $userQuery->create($input);
 
         // Create wallet
-        $this->wallet->createWallet($user->id, $queryBuilder);
+        $this->wallet->createWallet($user->id, $walletQuery);
 
         // Send welcome and otp emails
         $this->sendWelcomeEmail($user, $emailContent);
-        $otp = $this->generateOtpForUserById($user->id, $queryBuilder);
+        $otp = $this->generateOtpForUserById($user->id, $userQuery);
         $this->sendOtpEmail($user, $otp);
 
         // Return user
