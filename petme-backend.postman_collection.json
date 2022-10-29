@@ -3285,12 +3285,12 @@
 									"urlencoded": [
 										{
 											"key": "name",
-											"value": "Mr neutron",
+											"value": "Mr neutron Test",
 											"type": "text"
 										},
 										{
 											"key": "email",
-											"value": "neutrondeveloper@gmail.com",
+											"value": "neutron@gmail.com",
 											"type": "text"
 										},
 										{
@@ -3576,15 +3576,699 @@
 					"item": [
 						{
 							"name": "Deworming",
-							"item": []
+							"item": [
+								{
+									"name": "Get Deworm Details",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "127.0.0.1:8000/api/user/pets/2/deworm",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"user",
+												"pets",
+												"2",
+												"deworm"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add Deworm Details",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "user_id",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "pet_id",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "drug",
+													"value": "drug name",
+													"type": "text"
+												},
+												{
+													"key": "administer_rate",
+													"value": "rate",
+													"type": "text"
+												},
+												{
+													"key": "frequency",
+													"value": "frequesncy",
+													"type": "text"
+												},
+												{
+													"key": "administration_duration",
+													"value": "administration_duration",
+													"type": "text"
+												},
+												{
+													"key": "last_session",
+													"value": "2022-10-29 13:52:17",
+													"type": "text"
+												},
+												{
+													"key": "next_session",
+													"value": "",
+													"type": "text"
+												},
+												{
+													"key": "created_by",
+													"value": "created_by",
+													"type": "text"
+												},
+												{
+													"key": "location",
+													"value": "locaton",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "127.0.0.1:8000/api/user/pets/2/deworm/create",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"user",
+												"pets",
+												"2",
+												"deworm",
+												"create"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update Deworm Detail",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "user_id",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "pet_id",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "drug",
+													"value": "drug name",
+													"type": "text"
+												},
+												{
+													"key": "administer_rate",
+													"value": "rate",
+													"type": "text"
+												},
+												{
+													"key": "frequency",
+													"value": "frequesncy",
+													"type": "text"
+												},
+												{
+													"key": "administration_duration",
+													"value": "administration_duration",
+													"type": "text"
+												},
+												{
+													"key": "last_session",
+													"value": "2022-10-30 13:52:17",
+													"type": "text"
+												},
+												{
+													"key": "next_session",
+													"value": "2022-11-30 13:52:17",
+													"type": "text"
+												},
+												{
+													"key": "created_by",
+													"value": "created_by",
+													"type": "text"
+												},
+												{
+													"key": "location",
+													"value": "locaton",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "127.0.0.1:8000/api/user/pets/deworm/1/update",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"user",
+												"pets",
+												"deworm",
+												"1",
+												"update"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Deworm Detail",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "127.0.0.1:8000/api/user/pets/deworm/2/delete",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"user",
+												"pets",
+												"deworm",
+												"2",
+												"delete"
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						},
 						{
 							"name": "Diet",
-							"item": []
+							"item": [
+								{
+									"name": "Get Diet Details",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "127.0.0.1:8000/api/user/pets/2/diet",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"user",
+												"pets",
+												"2",
+												"diet"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Store Diet Details",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "user_id",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "pet_id",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "food_name",
+													"value": "food name",
+													"type": "text"
+												},
+												{
+													"key": "day",
+													"value": "day",
+													"type": "text"
+												},
+												{
+													"key": "date",
+													"value": "time",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "127.0.0.1:8000/api/user/pets/2/diet/create",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"user",
+												"pets",
+												"2",
+												"diet",
+												"create"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update Diet Detail",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "user_id",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "pet_id",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "food_name",
+													"value": "updated food name",
+													"type": "text"
+												},
+												{
+													"key": "day",
+													"value": "day",
+													"type": "text"
+												},
+												{
+													"key": "date",
+													"value": "time",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "127.0.0.1:8000/api/user/pets/diet/2/update",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"user",
+												"pets",
+												"diet",
+												"2",
+												"update"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Diet Detaill",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "127.0.0.1:8000/api/user/pets/diet/2/delete",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"user",
+												"pets",
+												"diet",
+												"2",
+												"delete"
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						},
 						{
 							"name": "Vaccination",
-							"item": []
+							"item": [
+								{
+									"name": "Get Pet Vaccination",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "127.0.0.1:8000/api/user/pets/2/vaccination",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"user",
+												"pets",
+												"2",
+												"vaccination"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Store Pet Vaccination",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "user_id",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "pet_id",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "drug",
+													"value": "drug name 2",
+													"type": "text"
+												},
+												{
+													"key": "source",
+													"value": "source",
+													"type": "text"
+												},
+												{
+													"key": "administer_rate",
+													"value": "adminsster_rate",
+													"type": "text"
+												},
+												{
+													"key": "frequency",
+													"value": "frequency",
+													"type": "text"
+												},
+												{
+													"key": "administration_duration",
+													"value": "administration",
+													"type": "text"
+												},
+												{
+													"key": "batch_number",
+													"value": "11111",
+													"type": "text"
+												},
+												{
+													"key": "last_session",
+													"value": "2022-10-25 13:52:17",
+													"type": "text"
+												},
+												{
+													"key": "next_session",
+													"value": "2022-11-25 13:52:17",
+													"type": "text"
+												},
+												{
+													"key": "created_by",
+													"value": "creator",
+													"type": "text"
+												},
+												{
+													"key": "location",
+													"value": "location",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "127.0.0.1:8000/api/user/pets/2/vaccination/create",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"user",
+												"pets",
+												"2",
+												"vaccination",
+												"create"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update Pet Vaccination",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "user_id",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "pet_id",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "drug",
+													"value": "drug name updated 2",
+													"type": "text"
+												},
+												{
+													"key": "source",
+													"value": "source",
+													"type": "text"
+												},
+												{
+													"key": "administer_rate",
+													"value": "adminsster_rate",
+													"type": "text"
+												},
+												{
+													"key": "frequency",
+													"value": "frequency",
+													"type": "text"
+												},
+												{
+													"key": "administration_duration",
+													"value": "administration",
+													"type": "text"
+												},
+												{
+													"key": "batch_number",
+													"value": "11111",
+													"type": "text"
+												},
+												{
+													"key": "last_session",
+													"value": "2022-10-25 13:52:17",
+													"type": "text"
+												},
+												{
+													"key": "next_session",
+													"value": "2022-11-25 13:52:17",
+													"type": "text"
+												},
+												{
+													"key": "created_by",
+													"value": "creator",
+													"type": "text"
+												},
+												{
+													"key": "location",
+													"value": "location",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "127.0.0.1:8000/api/user/pets/vaccination/2/update",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"user",
+												"pets",
+												"vaccination",
+												"2",
+												"update"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Pet Vaccination",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "127.0.0.1:8000/api/user/pets/vaccination/2/delete",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"user",
+												"pets",
+												"vaccination",
+												"2",
+												"delete"
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						},
 						{
 							"name": "Get User Pets",
@@ -4259,6 +4943,35 @@
 										"service-providers",
 										"1",
 										"category"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Wallet",
+					"item": [
+						{
+							"name": "Get Balance",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:8000/api/user/wallet/balance",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"user",
+										"wallet",
+										"balance"
 									]
 								}
 							},
