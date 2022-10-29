@@ -18,12 +18,16 @@ class PetDewormService
         return $this->petDeworm()->findOrFail($id);
     }
 
+    public function dewormsByPetId($id){
+        return $this->petDeworm()->where('pet_id', $id);
+    }
+
     public function addDewormDetail($request, $petId, $ownerId){
         $input = $request->all();
         $input['pet_id'] = $petId;
         $input['user_id'] = $ownerId;
 
-        $this->petDeworm()->create($input);
+        return $this->petDeworm()->create($input);
     }
 
     public function updateDewormDetail($request, $id, $ownerId): array
@@ -39,7 +43,8 @@ class PetDewormService
         $deworm->update($input);
         return [
             'success' => true,
-            'message' => $deworm
+            'message' => 'Updated',
+            'deworm' => $deworm
         ];
     }
 
@@ -58,4 +63,5 @@ class PetDewormService
             'message' => 'Deleted'
         ];
     }
+
 }

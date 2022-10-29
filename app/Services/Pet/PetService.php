@@ -37,7 +37,8 @@ class PetService
         return $this->pet()->with('user', 'type', 'deworm_details', 'diet_details', 'vaccination_details');
     }
 
-    public function petsByOwnerId($userId){
+    public function petsByOwnerId($userId): \Illuminate\Database\Eloquent\Builder
+    {
         return $this->petWithRelations()->where('user_id', $userId);
     }
 

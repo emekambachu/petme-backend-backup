@@ -238,19 +238,19 @@ Route::middleware('auth:api')->group(static function (){
     Route::delete('/user/{userId}/pets/{petId}/delete', [UserPetController::class, 'delete']);
 
     // User Pets Deworm
-    Route::get('/user/pets/deworm', [UserPetDewormController::class, 'index']);
+    Route::get('/user/pets/{petId}/deworm', [UserPetDewormController::class, 'index']);
     Route::post('/user/pets/{petId}/deworm/create', [UserPetDewormController::class, 'store']);
     Route::post('/user/pets/{petId}/deworm/{id}/update', [UserPetDewormController::class, 'update']);
     Route::delete('/user/pets/{petId}/deworm/{id}/delete', [UserPetDewormController::class, 'delete']);
 
     // User Pets Diet
-    Route::get('/user/pets/diet', [UserPetDietController::class, 'index']);
+    Route::get('/user/pets/{petId}/diet', [UserPetDietController::class, 'index']);
     Route::post('/user/pets/{petId}/diet/create', [UserPetDietController::class, 'store']);
     Route::post('/user/pets/{petId}/diet/{id}/update', [UserPetDietController::class, 'update']);
     Route::delete('/user/pets/{petId}/diet/{id}/delete', [UserPetDietController::class, 'delete']);
 
     // User Pets Vaccination
-    Route::get('/user/pets/vaccination', [UserPetVaccinationController::class, 'index']);
+    Route::get('/user/pets/{petId}/vaccination', [UserPetVaccinationController::class, 'index']);
     Route::post('/user/pets/{petId}/vaccination/create', [UserPetVaccinationController::class, 'store']);
     Route::post('/user/pets/{petId}/vaccination/{id}/update', [UserPetVaccinationController::class, 'update']);
     Route::delete('/user/pets/{petId}/vaccination/{id}/delete', [UserPetVaccinationController::class, 'delete']);

@@ -21,23 +21,28 @@ class Pet extends Model
         'registration_number',
     ];
 
-    public function user(){
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function type(){
+    public function type(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
         return $this->belongsTo(PetType::class, 'pet_type_id', 'id');
     }
 
-    public function deworm_details(){
+    public function deworm_details(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
         return $this->hasMany(PetDewormDetail::class, 'pet_id', 'id');
     }
 
-    public function diet_details(){
+    public function diet_details(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
         return $this->hasMany(PetDietDetail::class, 'pet_id', 'id');
     }
 
-    public function vaccination_details(){
+    public function vaccination_details(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
         return $this->hasMany(PetVaccinationDetail::class, 'pet_id', 'id');
     }
 }
