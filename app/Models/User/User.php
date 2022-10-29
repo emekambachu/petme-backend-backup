@@ -54,7 +54,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function user_wallet(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function wallet(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(UserWallet::class, 'user_id', 'id');
     }

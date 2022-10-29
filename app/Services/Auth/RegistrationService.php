@@ -2,6 +2,7 @@
 
 namespace App\Services\Auth;
 
+use App\Services\Wallet\WalletService;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
@@ -10,6 +11,11 @@ use Illuminate\Support\Facades\Mail;
  */
 class RegistrationService
 {
+    protected WalletService $wallet;
+    public function __construct(WalletService $wallet){
+        $this->wallet = $wallet;
+    }
+
     //Generate email verification token
     public function generateToken($length = 8): string
     {
@@ -26,6 +32,9 @@ class RegistrationService
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
         $user = $queryBuilder->create($input);
+
+        // Create wallet
+        $this->wallet->createWallet($user->id, $queryBuilder);
 
         // Send welcome and otp emails
         $this->sendWelcomeEmail($user, $emailContent);
@@ -45,7 +54,8 @@ class RegistrationService
         $this->sendEmail($user, $emailContent, 'Welcome to Pet Me');
     }
 
-    public function generateOtpForUserById($id, $queryBuilder){
+    public function generateOtpForUserById($id, $queryBuilder): string
+    {
         $otp = $this->generateToken();
         $user = $queryBuilder->findOrFail($id);
         $user->verification_token = $otp;
@@ -97,5 +107,7 @@ class RegistrationService
             $message->subject($subject);
         });
     }
+
+
 
 }

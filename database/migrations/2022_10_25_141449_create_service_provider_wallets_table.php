@@ -15,8 +15,9 @@ class CreateServiceProviderWalletsTable extends Migration
     {
         Schema::create('service_provider_wallets', static function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('service_provider_id');
-            $table->string('amount');
+            $table->unsignedBigInteger('user_id');
+            $table->string('type')->nullable();
+            $table->integer('amount')->default(0);
             $table->timestamps();
         });
     }

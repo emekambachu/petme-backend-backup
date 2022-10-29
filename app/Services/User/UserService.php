@@ -18,7 +18,8 @@ class UserService
 
     public function userWithRelations(): \Illuminate\Database\Eloquent\Builder
     {
-        return $this->user()->with('appointments', 'pets', 'location', 'shop_discounts');
+        return $this->user()
+            ->with('appointments', 'pets', 'location', 'shop_discounts', 'wallet');
     }
 
     public function userById($id){

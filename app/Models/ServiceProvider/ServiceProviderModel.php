@@ -46,7 +46,7 @@ class ServiceProviderModel extends Authenticatable
         );
     }
 
-    public function service_provider_wallet(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function wallet(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(ServiceProviderWallet::class, 'service_provider_id', 'id');
     }

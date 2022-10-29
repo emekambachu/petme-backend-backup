@@ -269,7 +269,9 @@ Route::middleware('auth:api')->group(static function (){
     Route::get('/user/service-providers/{id}/category', [UserServiceProviderController::class, 'category']);
 
     // User Wallet
-    Route::get('/user/wallet', [UserWalletController::class, 'index']);
+    Route::get('/user/wallet/balance', [UserWalletController::class, 'balance']);
+    Route::get('/user/wallet/fund', [UserWalletController::class, 'fund']);
+    Route::get('/user/wallet/withdraw', [UserWalletController::class, 'withdraw']);
 
     // User Logout
     Route::post('/user/logout', [ApiAdminLoginController::class, 'logout']);

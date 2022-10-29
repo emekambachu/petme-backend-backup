@@ -13,8 +13,8 @@ use Intervention\Image\Facades\Image;
  */
 class ServiceProviderService
 {
-    protected $imagePath = 'photos/service-providers';
-    protected $documentPath = 'documents/service-providers';
+    protected string $imagePath = 'photos/service-providers';
+    protected string $documentPath = 'documents/service-providers';
 
     public function serviceProvider(): ServiceProviderModel
     {
@@ -24,7 +24,7 @@ class ServiceProviderService
     public function serviceProviderWithRelations(): \Illuminate\Database\Eloquent\Builder
     {
         return $this->serviceProvider()
-            ->with('service_provider_wallet', 'appointments', 'documents');
+            ->with('wallet', 'appointments', 'documents');
     }
 
     public function approvedJoinServiceProviders(): \Illuminate\Database\Eloquent\Builder
