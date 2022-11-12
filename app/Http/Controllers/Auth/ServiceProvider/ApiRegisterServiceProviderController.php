@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth\ServiceProvider;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ServiceProvider\Auth\ServiceProviderEmailOtpRequest;
 use App\Http\Requests\ServiceProvider\Auth\ServiceProviderRegisterRequest;
 use App\Services\Auth\RegistrationService;
 use App\Services\ServiceProvider\ServiceProviderService;
@@ -57,6 +58,26 @@ class ApiRegisterServiceProviderController extends Controller
                 'success' => $data['success'],
                 'message' => $data['message']
             ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
+    public function sendOtpToUserEmail(ServiceProviderEmailOtpRequest $request){
+        try {
+            $user = $this->provider->serviceProviderByEmail($request->email);
+            if($user){
+                $otp = $this->registration->generateOtpForUserById($user->id, $this->provider->serviceProvider());
+                $this->registration->sendOtpEmail($user, $otp);
+                return response()->json([
+                    'success' => true,
+                    'message' => "Email Otp sent to ".$user->email
+                ]);
+            }
 
         } catch (\Exception $e) {
             return response()->json([

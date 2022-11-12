@@ -6,6 +6,7 @@ use App\Models\Pet\Pet;
 use App\Models\Pet\PetDewormDetail;
 use App\Models\Pet\PetDietDetail;
 use App\Models\Pet\PetVaccinationDetail;
+use App\Services\Base\BaseService;
 use App\Services\Base\CrudService;
 use App\Services\User\UserService;
 
@@ -48,7 +49,7 @@ class PetService
         $image = $this->crud->compressAndUploadImage($request, $this->imagePath, 200, 200);
         if($image){
             $input['image'] = $image;
-            $input['image_path'] = @config('app.url').$this->imagePath.'/';
+            $input['image_path'] = BaseService::$baseUrl.$this->imagePath.'/';
         }
         return $this->pet()->create($input);
     }

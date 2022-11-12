@@ -4,6 +4,7 @@ namespace App\Services\ServiceProvider;
 
 use App\Models\ServiceProvider\ServiceProviderModel;
 use App\Models\ServiceProvider\ServiceProviderDocument;
+use App\Services\Base\BaseService;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
@@ -57,10 +58,11 @@ class ServiceProviderService
     }
 
     public function storeServiceProvider($request){
-
         $input = $request->all();
         $input['photo'] = $this->compressAndUploadImage($request, $this->imagePath, 200, 200);
-        $input['photo_path'] = '/'.$this->imagePath.'/';
+        if($input['photo'] !== null){
+            $input['photo_path'] = BaseService::$baseUrl.$this->imagePath.'/';
+        }
         return $this->serviceProvider()->create($input);
     }
 
@@ -195,7 +197,7 @@ class ServiceProviderService
             // Return full image upload path
             return $name;
         }
-        return false;
+        return null;
     }
 
     protected function uploadDocument($request, $path)

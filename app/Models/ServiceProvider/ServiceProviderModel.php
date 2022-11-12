@@ -41,7 +41,7 @@ class ServiceProviderModel extends Authenticatable
     {
         return $this->belongsTo(
             ServiceProviderCategory::class,
-            'service_provider_id',
+            'service_provider_category_id',
             'id'
         );
     }

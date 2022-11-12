@@ -11,13 +11,13 @@ class ServiceProviderWallet extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'user_id',
+        'service_provider_id',
         'type',
         'amount'
     ];
 
     public function service_provider(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(ServiceProviderModel::class, 'user_id', 'id');
+        return $this->belongsTo(ServiceProviderModel::class, 'service_provider_id', 'id');
     }
 }

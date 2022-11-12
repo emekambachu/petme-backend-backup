@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Mail;
  */
 class BaseService
 {
-    public static $baseUrl = 'http://petme.us-east-2.elasticbeanstalk.com/';
+    public static string $baseUrl = 'http://petme.us-east-2.elasticbeanstalk.com/';
 
     public function getIp(): ?string
     {

@@ -30,7 +30,7 @@ class UserStorePetRequest extends FormRequest
             'pet_type_id' => 'required|integer|exists:pet_types,id',
             'name' => 'required|string',
             'gender' => 'required|string',
-            'registration_number' => 'required|string',
+            'registration_number' => 'nullable|string',
             'dob' => 'required|string',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2000',
         ];

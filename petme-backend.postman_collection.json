@@ -476,7 +476,7 @@
 											"formdata": [
 												{
 													"key": "name",
-													"value": "Chew Toy 2",
+													"value": "test toy",
 													"type": "text"
 												},
 												{
@@ -522,7 +522,7 @@
 												{
 													"key": "images",
 													"type": "file",
-													"src": "/C:/Users/Lenovo/Downloads/shot-grey-black-woman-warrior-holding-axe-shield-dressed-ancient-armor-african-amazon-249922484.jpg"
+													"src": "/C:/Users/Lenovo/Downloads/payslip-contract-options.PNG"
 												}
 											]
 										},
@@ -4564,6 +4564,45 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Get User Pets (Production)",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "32|zAKUXF6tm9h3hGm5pkG5Is5Li1ZvOq0v4GXmdHkK",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://petme.us-east-2.elasticbeanstalk.com/api/user/pets",
+									"protocol": "http",
+									"host": [
+										"petme",
+										"us-east-2",
+										"elasticbeanstalk",
+										"com"
+									],
+									"path": [
+										"api",
+										"user",
+										"pets"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -5557,6 +5596,49 @@
 							"response": []
 						},
 						{
+							"name": "Submit OTP (Production)",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "otp",
+											"value": "IBHI6196",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://petme.us-east-2.elasticbeanstalk.com/api/service-provider/otp/submit",
+									"protocol": "http",
+									"host": [
+										"petme",
+										"us-east-2",
+										"elasticbeanstalk",
+										"com"
+									],
+									"path": [
+										"api",
+										"service-provider",
+										"otp",
+										"submit"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Login Service provider",
 							"request": {
 								"auth": {
@@ -5637,6 +5719,50 @@
 										"api",
 										"service-provider",
 										"logout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Sent OTP to Service Provider Email",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "xeddtech@gmail.com",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "127.0.0.1:8000/api/service-provider/otp/email/send",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"service-provider",
+										"otp",
+										"email",
+										"send"
 									]
 								}
 							},

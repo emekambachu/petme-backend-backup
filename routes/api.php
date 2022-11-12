@@ -82,6 +82,7 @@ Route::post('/user/login', [ApiLoginController::class, 'login']);
 
 // Service Provider Auth
 Route::post('/service-provider/register', [ApiRegisterServiceProviderController::class, 'register']);
+Route::post('/service-provider/otp/email/send', [ApiRegisterServiceProviderController::class, 'sendOtpToUserEmail']);
 Route::post('/service-provider/otp/submit', [ApiRegisterServiceProviderController::class, 'submitOtp']);
 Route::post('/service-provider/login', [ApiLoginServiceProviderController::class, 'login']);
 
