@@ -18,6 +18,7 @@ class CreateUserWalletsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('type')->nullable();
             $table->integer('amount')->default(0);
+            $table->text('last_reference');
             $table->timestamps();
         });
     }

@@ -17,6 +17,7 @@ return [
 
     'name' => env('APP_NAME', 'Pet Me'),
     'mail_from' => env('MAIL_FROM_ADDRESS', 'noreply@petme.tech'),
+    'paystach_secret_key' => env('PAYSTACK_SECRET_KEY', ''),
 
     /*
     |--------------------------------------------------------------------------

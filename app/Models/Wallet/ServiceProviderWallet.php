@@ -13,7 +13,8 @@ class ServiceProviderWallet extends Model
     protected $fillable = [
         'service_provider_id',
         'type',
-        'amount'
+        'amount',
+        'last_reference',
     ];
 
     public function service_provider(): \Illuminate\Database\Eloquent\Relations\BelongsTo

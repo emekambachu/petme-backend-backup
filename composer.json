@@ -16,7 +16,9 @@
         "sentry/sentry-laravel": "^2.13",
         "stevebauman/location": "^6.5",
         "timwassenburg/laravel-service-generator": "^1.0",
-        "unicodeveloper/laravel-paystack": "^1.0"
+        "unicodeveloper/laravel-paystack": "^1.0",
+        "ext-curl": "*",
+        "ext-json": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

@@ -271,8 +271,13 @@ Route::middleware('auth:api')->group(static function (){
 
     // User Wallet
     Route::get('/user/wallet/balance', [UserWalletController::class, 'balance']);
-    Route::get('/user/wallet/fund', [UserWalletController::class, 'fund']);
-    Route::get('/user/wallet/withdraw', [UserWalletController::class, 'withdraw']);
+
+    // After funding account, redirect user to callback
+    // to verify transaction with reference code
+    Route::post('/user/wallet/fund', [UserWalletController::class, 'fund']);
+    Route::get('/user/wallet/verify/{reference}', [UserWalletController::class, 'verifyTransaction']);
+
+    Route::post('/user/wallet/withdraw', [UserWalletController::class, 'withdraw']);
 
     // User Logout
     Route::post('/user/logout', [ApiAdminLoginController::class, 'logout']);

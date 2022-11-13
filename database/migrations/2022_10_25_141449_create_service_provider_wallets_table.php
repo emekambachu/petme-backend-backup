@@ -18,6 +18,7 @@ class CreateServiceProviderWalletsTable extends Migration
             $table->unsignedBigInteger('service_provider_id');
             $table->string('type')->nullable();
             $table->integer('amount')->default(0);
+            $table->text('last_reference');
             $table->timestamps();
         });
     }

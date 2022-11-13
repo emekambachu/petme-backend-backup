@@ -12,7 +12,8 @@ class UserWallet extends Model
     protected $fillable = [
         'user_id',
         'type',
-        'amount'
+        'amount',
+        'last_reference',
     ];
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo

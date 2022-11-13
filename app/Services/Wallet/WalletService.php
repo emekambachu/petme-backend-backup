@@ -45,25 +45,106 @@ class WalletService
         ]);
     }
 
-    public function fundWallet(Int $amount, string $type, $query){
-        $wallet = $query;
-        if($type === 'debit'){
-            if($wallet->amount < $amount) {
+    /**
+     * @throws \JsonException
+     */
+    public function fundWallet($request, $user): array
+    {
+        $url = "https://api.paystack.co/transaction/initialize";
+        $fields = [
+            'first_name' => $user->name,
+            'email' => $user->email,
+            'amount' => $request->amount * 100, //convert to kobo,
+            'metadata' => [
+                'user_id' => $user->id,
+                'name' => $user->name
+            ]
+        ];
+
+        $fields_string = http_build_query($fields);
+        //open connection
+        $ch = curl_init();
+        //set the url, number of POST vars, POST data
+        curl_setopt($ch,CURLOPT_URL, $url);
+        curl_setopt($ch,CURLOPT_POST, true);
+        curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
+
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            "Authorization: Bearer ".@env('PAYSTACK_SECRET_KEY'),
+            "Cache-Control: no-cache",
+        ));
+
+        //So that curl_exec returns the contents of the cURL; rather than echoing it
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
+        //execute post
+        $data = json_decode(curl_exec($ch), true, 512, JSON_THROW_ON_ERROR);
+        if($data['status'] === true){
+            return [
+                'success' => true,
+                'amount' => $request->amount,
+                'access_code' => $data['data']['access_code'],
+                'reference' => $data['data']['reference'],
+                'paystack_url' => $data['data']['authorization_url'],
+            ];
+        }
+        return [
+            'success' => false,
+            'message' => $data['message'],
+        ];
+    }
+
+    public function verifyWalletTransaction($reference, $query): array
+    {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://api.paystack.co/transaction/verify/".$reference,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => array(
+                "Authorization: Bearer ".@env('PAYSTACK_SECRET_KEY'),
+                "Cache-Control: no-cache",
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        curl_close($curl);
+
+        $data = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
+        if($data['data']['status'] === 'success'){
+
+            $wallet = $query;
+            // If this transaction has already been stored
+            if($wallet->last_reference === $data['data']['reference']){
                 return [
                     'success' => false,
-                    'message' => 'Insufficient funds, please fund wallet',
+                    'message' => 'Transaction already exists',
                 ];
             }
-            $wallet->amount -= $amount;
-        }
 
-        if($type === 'credit'){
+            $userId = (int)$data['data']['metadata']['user_id'];
+            $amount = $data['data']['amount'] / 100; // convert back to naira
+
+            // fund wallet after transaction reference verification
             $wallet->amount += $amount;
+            $wallet->last_reference = $data['data']['reference'];
+            $wallet->save();
+
+            return [
+                'success' => true,
+                'status' => $data['data']['status'],
+                'reference' => $data['data']['reference'],
+                'amount' => $amount,
+            ];
         }
-
-        $wallet->type = $type;
-        $wallet->save();
-
-        return $wallet->amount;
+        return [
+            'success' => false,
+            'message' => $err,
+        ];
     }
+
 }
