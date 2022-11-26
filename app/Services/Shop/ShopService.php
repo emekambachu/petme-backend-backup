@@ -153,7 +153,7 @@ class ShopService
     {
         $shopItem = $this->shopItemWithRelations()->findOrFail($id);
         // Delete all relationships from shop items
-        $this->deleteRelations($shopItem->shop_item_images);
+        $this->deleteRelations($shopItem->images);
         $shopItem->delete();
     }
 

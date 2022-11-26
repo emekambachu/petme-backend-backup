@@ -5015,6 +5015,77 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Fund Wallet",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "amount",
+											"value": "5000",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "127.0.0.1:8000/api/user/wallet/fund",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"user",
+										"wallet",
+										"fund"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify Fund Wallet Transaction",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "127.0.0.1:8000/api/user/wallet/verify/xab6ps5v7e",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"user",
+										"wallet",
+										"verify",
+										"xab6ps5v7e"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				}
