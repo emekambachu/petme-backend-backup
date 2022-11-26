@@ -123,18 +123,20 @@ class BlogPostService
     {
         $input = $request->all();
         $post = $this->blogPostById($id);
+
+        $input['slug'] = Str::slug($input['title']);
         // store previous image in session
-        Session::put('previous_image', $post->photo);
+        Session::put('previous_image', $post->image);
         // Compress and upload image
-        $photo = $this->compressAndUploadImage($request, $this->imagePath, 700, 400);
-        if($photo){
-            $input['photo'] = $photo;
+        $image = $this->compressAndUploadImage($request, $this->imagePath, 700, 400);
+        if($image){
+            $input['image'] = $image;
         }else{
-            $input['photo'] = $post->photo;
+            $input['image'] = $post->image;
         }
         $post->update($input);
         // Delete previous image if it was updated
-        if(Session::get('previous_image') !== $post->photo){
+        if(Session::get('previous_image') !== $post->image){
             $this->deleteFile(Session::get('previous_image'), $this->imagePath);
         }
         return $post;
@@ -149,9 +151,9 @@ class BlogPostService
 
 
     // Reusable
-    protected function compressAndUploadImage($request, $path, $width, $height)
+    protected function compressAndUploadImage($request, $path, $width, $height): ?string
     {
-        if($file = $request->file('photo')) {
+        if($file = $request->file('image')) {
             $name = time() . $file->getClientOriginalName();
             // create path to directory
             if (!File::exists($path)){
@@ -172,7 +174,7 @@ class BlogPostService
             // Return full image upload path
             return $name;
         }
-        return false;
+        return null;
     }
 
     protected function uploadFile($file, $path): string
