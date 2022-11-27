@@ -290,4 +290,18 @@ class AppointmentService
         ];
     }
 
+//    public function acceptAppointment($appointmentId, $userId){
+//        $appointment = $this->appointmentById($appointmentId);
+//        if($appointment->service_provider_id !== $userId){
+//            return [
+//                'success' => false,
+//                'message' => 'Incorrect user',
+//            ];
+//        }
+//
+//        $appointment->status = 1;
+//        $appointment->save();
+//
+//    }
+
 }
