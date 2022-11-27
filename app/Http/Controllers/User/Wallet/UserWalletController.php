@@ -41,4 +41,21 @@ class UserWalletController extends Controller
             ]);
         }
     }
+
+    public function balance(){
+        try {
+            $data = $this->wallet->walletByUserId(Auth::user()->id);
+            return response()->json([
+                'success' => true,
+                'balance' => $data->amount
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
+
 }

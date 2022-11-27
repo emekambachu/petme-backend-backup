@@ -32,7 +32,7 @@ class CrudService
         ];
     }
 
-    public function compressAndUploadImage($request, String $path, Int $width, Int $height)
+    public function compressAndUploadImage($request, String $path, Int $width, Int $height): ?string
     {
         if($file = $request->file('image')) {
             $name = time() . $file->getClientOriginalName();
@@ -55,7 +55,7 @@ class CrudService
             // Return full image upload path
             return $name;
         }
-        return false;
+        return null;
     }
 
     public function uploadDocument($request, $path)

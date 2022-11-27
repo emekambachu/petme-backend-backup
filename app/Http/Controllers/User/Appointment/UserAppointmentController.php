@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class UserAppointmentController extends Controller
 {
-    protected $appointment;
+    protected AppointmentService $appointment;
     public function __construct(AppointmentService $appointment){
         $this->appointment = $appointment;
     }
@@ -74,10 +74,7 @@ class UserAppointmentController extends Controller
     {
         try {
             $data = $this->appointment->deleteAppointmentForUser($id, Auth::user()->id);
-            return response()->json([
-                'success' => $data['success'],
-                'message' => $data['message']
-            ]);
+            return response()->json($data);
 
         } catch (\Exception $e) {
             return response()->json([
@@ -87,7 +84,7 @@ class UserAppointmentController extends Controller
         }
     }
 
-    public function addService($serviceId, $appointmentId): \Illuminate\Http\JsonResponse
+    public function addService($appointmentId, $serviceId): \Illuminate\Http\JsonResponse
     {
         try {
             $data = $this->appointment->addServiceToAppointment($serviceId, $appointmentId);
@@ -104,14 +101,11 @@ class UserAppointmentController extends Controller
         }
     }
 
-    public function removeService($serviceId, $appointmentId): \Illuminate\Http\JsonResponse
+    public function removeService($appointmentId, $serviceId): \Illuminate\Http\JsonResponse
     {
         try {
             $data = $this->appointment->removeServiceFromAppointment($serviceId, $appointmentId);
-            return response()->json([
-                'success' => $data['success'],
-                'message' => $data['message']
-            ]);
+            return response()->json($data);
 
         } catch (\Exception $e) {
             return response()->json([

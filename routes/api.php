@@ -262,7 +262,7 @@ Route::middleware('auth:api')->group(static function (){
     Route::post('/user/appointments/{id}/reschedule', [UserAppointmentController::class, 'update']);
     Route::delete('/user/appointments/{id}/cancel', [UserAppointmentController::class, 'destroy']);
     Route::post('/user/appointments/{appointmentId}/service/{serviceId}/add', [UserAppointmentController::class, 'addService']);
-    Route::post('/user/appointments/{appointmentId}/service/{serviceId}/remove', [UserAppointmentController::class, 'removeService']);
+    Route::delete('/user/appointments/{appointmentId}/service/{serviceId}/remove', [UserAppointmentController::class, 'removeService']);
 
     // User Service Providers
     Route::get('/user/service-providers', [UserServiceProviderController::class, 'index']);

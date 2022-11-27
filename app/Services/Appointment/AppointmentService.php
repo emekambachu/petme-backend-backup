@@ -6,6 +6,7 @@ use App\Models\Appointment\Appointment;
 use App\Services\Base\BaseService;
 use App\Services\Base\CrudService;
 use App\Services\ServiceProvider\ServiceProviderService;
+use App\Services\Wallet\WalletService;
 use Carbon\Carbon;
 
 /**
@@ -13,17 +14,20 @@ use Carbon\Carbon;
  */
 class AppointmentService
 {
-    protected $base;
-    protected $crud;
-    protected $provider;
+    protected BaseService $base;
+    protected CrudService $crud;
+    protected ServiceProviderService $provider;
+    protected WalletService $wallet;
     public function __construct(
         BaseService $base,
         CrudService $crud,
-        ServiceProviderService $provider
+        ServiceProviderService $provider,
+        WalletService $wallet
     ){
         $this->base = $base;
         $this->crud = $crud;
         $this->provider = $provider;
+        $this->wallet = $wallet;
     }
 
     public function appointment(): Appointment
@@ -34,7 +38,7 @@ class AppointmentService
     public function appointmentWithRelations(): \Illuminate\Database\Eloquent\Builder
     {
         return $this->appointment()
-            ->with('user', 'pet', 'service_provider', 'service_provider_category', 'appointment_type');
+            ->with('user', 'pet', 'service_provider', 'service_provider_category', 'appointment_type', 'appointment_services');
     }
 
     public function appointmentById($id){
@@ -74,8 +78,30 @@ class AppointmentService
 
     public function createAppointmentForUser($request, $userId): array
     {
+        // Request all except services because it's an array
         $input = $request->all();
         $input['user_id'] = $userId;
+
+        // Services should be a multi-dimensional array with id and cost
+        if(!is_array($request->services)){
+            return [
+                'success' => false,
+                'appointment' => null,
+                'message' => 'Services must be an array',
+            ];
+        }
+
+        // Iterate services and get costs
+        $serviceCosts = $this->getCostFromServices($request, $userId);
+        if(!$serviceCosts){
+            return [
+                'success' => false,
+                'appointment' => null,
+                'message' => 'Insufficient funds, please fund wallet.',
+            ];
+        }
+        $input['total_cost'] = $serviceCosts;
+
         $appointment = $this->appointment()->create($input);
         // Send email to service provider if appointment was created
         if(!$appointment){
@@ -98,13 +124,34 @@ class AppointmentService
     {
         $appointment = $this->appointmentById($id);
         $input = $request->all();
-        if($appointment->user_id !== $userId){
+
+        // Services should be a multidimentional array with id and cost
+        if(!is_array($request->services)){
             return [
-                  'success' => false,
-                  'appointment' => null,
-                  'message' => 'Error rescheduling appointment',
+                'success' => false,
+                'appointment' => null,
+                'message' => 'Services must be an array',
             ];
         }
+
+        // Iterate services and get costs
+        $serviceCosts = $this->getCostFromServices($request, $userId);
+        if(!$serviceCosts){
+            return [
+                'success' => false,
+                'appointment' => null,
+                'message' => 'Insufficient funds, please fund wallet.',
+            ];
+        }
+
+        if($appointment->user_id !== $userId){
+            return [
+              'success' => false,
+              'appointment' => null,
+              'message' => 'Error rescheduling appointment',
+            ];
+        }
+        $input['total_cost'] = $serviceCosts;
         $input['status'] = 'pending';
         $appointment->update($input);
         $this->sendEmailToServiceProvider($appointment);
@@ -121,8 +168,8 @@ class AppointmentService
             'name' => $appointment->service_provider->name,
             'email' => $appointment->service_provider->email,
             'user_name' => $appointment->user->name,
-            'pet_type' => $appointment->pet->pet_type->name,
-            'service_provider_category' => $appointment->service_provider_category->name,
+            'pet_type' => $appointment->pet->pet_type->name ?? '',
+            'service_provider_category' => $appointment->service_provider_category->name ?? '',
             'appointment_note' => $appointment->note,
             'appointment_time' => Carbon::parse($appointment->appointment_time)
                 ->format('g:i a, l jS F Y'),
@@ -134,21 +181,27 @@ class AppointmentService
         );
     }
 
+    protected function getCostFromServices($request, $userId){
+        $serviceCosts = 0;
+        // Iterate services and get total cost
+        foreach ($request->services as $value) {
+            $serviceCosts += $value['cost'];
+        }
+        // if service costs is more than wallet balance return false
+        if($serviceCosts > $this->wallet->walletByUserId($userId)->amount){
+            return false;
+        }
+        return $serviceCosts;
+    }
+
     protected function addAppointmentServices($request, $appointment): void
     {
-        if(is_array($request->services) && !empty($request->services)){
-            $cost = 0;
-            foreach ($request->services as $service){
-                $cost += $service->cost;
-                $this->appointmentService()->create([
-                    'appointment_id' => $appointment->id,
-                    'user_id' => $appointment->user_id,
-                    'service_provider_id' => $appointment->service_provider_id,
-                    'service_provider_service_id' => $service->id,
-                ]);
-            }
-            $this->appointmentById($appointment->id)->update([
-                'total_cost' => $cost
+        foreach ($request->services as $value){
+            $this->appointmentService()->create([
+                'appointment_id' => $appointment->id,
+                'user_id' => $appointment->user_id,
+                'service_provider_id' => $appointment->service_provider_id,
+                'service_provider_service_id' => $value['id'],
             ]);
         }
     }
@@ -160,6 +213,12 @@ class AppointmentService
             return [
                 'success' => false,
                 'message' => 'Error deleting appointment',
+            ];
+        }
+        if($appointment->status === 1){
+            return [
+                'success' => false,
+                'message' => 'Appointment already accepted',
             ];
         }
         $appointment->delete();
@@ -176,6 +235,12 @@ class AppointmentService
             return [
                 'success' => false,
                 'message' => 'The appointment does not exist',
+            ];
+        }
+        if($appointment->status === 1){
+            return [
+                'success' => false,
+                'message' => 'Appointment already accepted',
             ];
         }
 
@@ -204,6 +269,13 @@ class AppointmentService
             return [
                 'success' => false,
                 'message' => 'The service or appointment does not exist',
+            ];
+        }
+
+        if($appointment->status === 1){
+            return [
+                'success' => false,
+                'message' => 'Appointment already accepted',
             ];
         }
 

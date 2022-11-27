@@ -24,7 +24,7 @@ class CreateAppointmentsTable extends Migration
             $table->longText('note');
             $table->integer('total_cost');
             $table->dateTime('appointment_time');
-            $table->string('status')->default('pending');
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }
