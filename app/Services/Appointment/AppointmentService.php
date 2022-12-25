@@ -82,7 +82,7 @@ class AppointmentService
         $input = $request->all();
         $input['user_id'] = $userId;
 
-        // Services should be a multi-dimensional array with id and cost
+        // Services should be a multidimensional array with id and cost
         if(!is_array($request->services)){
             return [
                 'success' => false,
@@ -125,7 +125,7 @@ class AppointmentService
         $appointment = $this->appointmentById($id);
         $input = $request->all();
 
-        // Services should be a multidimentional array with id and cost
+        // Services should be a multidimensional array with id and cost
         if(!is_array($request->services)){
             return [
                 'success' => false,

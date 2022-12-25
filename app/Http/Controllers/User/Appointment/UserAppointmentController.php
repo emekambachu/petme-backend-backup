@@ -38,11 +38,7 @@ class UserAppointmentController extends Controller
     {
         try {
             $data = $this->appointment->createAppointmentForUser($request, Auth::user()->id);
-            return response()->json([
-                'success' => $data['success'],
-                'appointment' => $data['appointment'],
-                'message' => $data['message']
-            ]);
+            return response()->json($data);
 
         } catch (\Exception $e) {
             return response()->json([

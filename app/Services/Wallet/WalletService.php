@@ -77,7 +77,8 @@ class WalletService
         //So that curl_exec returns the contents of the cURL; rather than echoing it
         curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
         //execute post
-        $data = json_decode(curl_exec($ch), true, 512, JSON_THROW_ON_ERROR);
+        $data = json_decode(curl_exec($ch));
+
         if($data['status'] === true){
             return [
                 'success' => true,
@@ -114,7 +115,7 @@ class WalletService
         $err = curl_error($curl);
         curl_close($curl);
 
-        $data = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
+        $data = json_decode($response);
         if($data['data']['status'] === 'success'){
 
             $wallet = $query;

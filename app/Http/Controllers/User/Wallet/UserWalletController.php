@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User\Wallet;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\Wallet\UserFundWalletRequest;
+use App\Services\Base\BaseService;
 use App\Services\User\UserService;
 use App\Services\Wallet\WalletService;
 use Illuminate\Http\Request;
@@ -18,26 +19,28 @@ class UserWalletController extends Controller
         $this->user = $user;
     }
 
-    public function fund(UserFundWalletRequest $request){
+    public function fund(UserFundWalletRequest $request): \Illuminate\Http\JsonResponse
+    {
         try {
             $data = $this->wallet->fundWallet($request, Auth::user());
             return response()->json($data);
 
         } catch (\Exception $e) {
             return response()->json([
-                'message' => $e->getMessage()
+                'message' => "Line ".$e->getLine()." of ".$e->getFile().", ".$e->getMessage(),
             ]);
         }
     }
 
-    public function verifyTransaction($reference){
+    public function verifyTransaction($reference): \Illuminate\Http\JsonResponse
+    {
         try {
             $data = $this->wallet->verifyWalletTransaction($reference, $this->wallet->walletByUserId(Auth::user()->id));
             return response()->json($data);
 
         } catch (\Exception $e) {
             return response()->json([
-                'message' => $e->getMessage()
+                'message' => "Line ".$e->getLine()." of ".$e->getFile().", ".$e->getMessage(),
             ]);
         }
     }
@@ -52,7 +55,7 @@ class UserWalletController extends Controller
 
         } catch (\Exception $e) {
             return response()->json([
-                'message' => $e->getMessage()
+                'message' => "Line ".$e->getLine()." of ".$e->getFile().", ".$e->getMessage(),
             ]);
         }
     }
