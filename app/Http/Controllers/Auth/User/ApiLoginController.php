@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Auth;
 
 class ApiLoginController extends Controller
 {
-    private $login;
-    private $user;
+    private LoginService $login;
+    private UserService $user;
     public function __construct(LoginService $login, UserService $user){
         $this->middleware('guest:web')
             ->except('logout');
@@ -28,17 +28,11 @@ class ApiLoginController extends Controller
                 'api',
                 $this->user->user()
             );
-            return response()->json([
-                'success' => $data['success'] ?? null,
-                'user' => $data['user'] ?? null,
-                'token' => $data['token'] ?? null,
-                'message' => $data['message'] ?? null,
-                'errors' => $data['errors'] ?? null,
-            ]);
+            return response()->json($data);
 
         } catch (\Exception $e) {
             return response()->json([
-                'message' => $e->getMessage()
+                'message' => "Line ".$e->getLine()." of ".$e->getFile().", ".$e->getMessage(),
             ]);
         }
     }
@@ -55,7 +49,7 @@ class ApiLoginController extends Controller
 
         } catch (\Exception $e) {
             return response()->json([
-                'message' => $e->getMessage()
+                'message' => "Line ".$e->getLine()." of ".$e->getFile().", ".$e->getMessage(),
             ]);
         }
     }

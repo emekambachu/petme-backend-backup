@@ -42,10 +42,10 @@ class LoginService{
     {
         // Check if user is verified before attempting to login
         $status = $queryBuilder->where('email', $request->email)->first()->status;
-        if($status !== 'verified'){
+        if($status !== 1){
             return [
                 'success' => false,
-                'errors' => ['unverified', 'Unverified User'],
+                'message' => "Unverified User",
             ];
         }
 
