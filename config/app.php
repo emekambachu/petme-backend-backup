@@ -16,6 +16,8 @@ return [
     */
 
     'name' => env('APP_NAME', 'Pet Me'),
+    'termii_api_key' => array_key_exists('TERMII_API_KEY',$_SERVER) ? $_SERVER['TERMII_API_KEY'] : env('TERMII_API_KEY'),
+    'termii_config_id' => array_key_exists('TERMII_EMAIL_CONFIG_ID',$_SERVER) ? $_SERVER['TERMII_EMAIL_CONFIG_ID'] : env('TERMII_EMAIL_CONFIG_ID'),
     'mail_from' => env('MAIL_FROM_ADDRESS', 'noreply@petme.tech'),
     'paystach_secret_key' => env('PAYSTACK_SECRET_KEY', ''),
 

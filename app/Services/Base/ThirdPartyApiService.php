@@ -13,8 +13,8 @@ class ThirdPartyApiService
         $data = [
             "email_address" => $mailTo,
             "code" => $message,
-            "api_key" => @env('TERMII_API_KEY'),
-            "email_configuration_id" => @env('TERMII_EMAIL_CONFIG_ID')
+            "api_key" => config('app.termii_api_key'),
+            "email_configuration_id" => config('app.termii_email_config_id')
         ];
 
         $post_data = json_encode($data);
