@@ -31,8 +31,8 @@ class ThirdPartyApiService
             CURLOPT_POSTFIELDS => $post_data,
 
             // Comment before moving to production
-//            CURLOPT_SSL_VERIFYPEER => false,
-//            CURLOPT_SSL_VERIFYHOST => false,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_SSL_VERIFYHOST => false,
 
             CURLOPT_HTTPHEADER => array(
                 'Content-Type: application/json'
