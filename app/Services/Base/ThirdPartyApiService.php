@@ -17,8 +17,6 @@ class ThirdPartyApiService
             "email_configuration_id" => config('app.termii_email_config_id')
         ];
 
-        dd($data);
-
         $post_data = json_encode($data);
 
         curl_setopt_array($curl, array(
