@@ -44,10 +44,10 @@ class RegistrationService
 
         // Send welcome and otp emails
         $otp = $this->generateOtpForUserById($user->id, $userQuery);
-        $this->api->termiiEmailApi($user->email, (int)$otp);
+//        $this->api->termiiEmailApi($user->email, (int)$otp);
 
-//        $this->sendWelcomeEmail($user, $emailContent);
-//        $this->sendOtpEmail($user, $otp);
+        $this->sendWelcomeEmail($user, $emailContent);
+        $this->sendOtpEmail($user, $otp);
 
         // Return user
         return $user;
