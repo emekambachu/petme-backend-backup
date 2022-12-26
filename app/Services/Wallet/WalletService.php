@@ -79,7 +79,7 @@ class WalletService
         //execute post
         $data = json_decode(curl_exec($ch), true);
 
-        if($data->status === true){
+        if($data['status'] === true){
             return [
                 'success' => true,
                 'amount' => $request->amount,
