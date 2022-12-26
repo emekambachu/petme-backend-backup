@@ -111,8 +111,8 @@ class WalletService
             CURLOPT_CUSTOMREQUEST => "GET",
 
             // Comment before moving to production
-//            CURLOPT_SSL_VERIFYPEER => false,
-//            CURLOPT_SSL_VERIFYHOST => false,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_SSL_VERIFYHOST => false,
 
             CURLOPT_HTTPHEADER => array(
                 "Authorization: Bearer ".@env('PAYSTACK_SECRET_KEY'),
