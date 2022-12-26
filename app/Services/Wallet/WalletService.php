@@ -79,8 +79,6 @@ class WalletService
         //execute post
         $data = json_decode(curl_exec($ch), true);
 
-        return dd($data);
-
         if($data['status'] === true){
             return [
                 'success' => true,
