@@ -25,6 +25,8 @@ class CreateAppointmentsTable extends Migration
             $table->integer('total_cost');
             $table->dateTime('appointment_time');
             $table->boolean('status')->default(0);
+            $table->boolean('user_approved')->default(0);
+            $table->boolean('service_provider_approved')->default(0);
             $table->timestamps();
         });
     }

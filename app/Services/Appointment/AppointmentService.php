@@ -2,6 +2,7 @@
 
 namespace App\Services\Appointment;
 
+use App\Http\Resources\User\Appointment\UserAppointmentResource;
 use App\Models\Appointment\Appointment;
 use App\Services\Base\BaseService;
 use App\Services\Base\CrudService;
@@ -115,7 +116,7 @@ class AppointmentService
         $this->sendEmailToServiceProvider($appointment);
         return [
             'success' => true,
-            'appointment' => $appointment,
+            'appointment' => new UserAppointmentResource($appointment),
             'message' => 'Appointment successfully sent',
         ];
     }
@@ -221,7 +222,15 @@ class AppointmentService
                 'message' => 'Appointment already accepted',
             ];
         }
+
+        // Delete appointment services before deleting appointments
+        if($appointment->appointment_services && count($appointment->appointment_services) > 0) {
+            foreach($appointment->appointment_services as $service){
+                $service->delete();
+            }
+        }
         $appointment->delete();
+
         return [
             'success' => true,
             'message' => 'Deleted',

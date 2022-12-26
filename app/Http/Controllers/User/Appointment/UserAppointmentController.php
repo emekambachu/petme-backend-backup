@@ -4,7 +4,9 @@ namespace App\Http\Controllers\User\Appointment;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\Appointment\UserStoreAppointmentRequest;
+use App\Http\Resources\User\Appointment\UserAppointmentCollection;
 use App\Services\Appointment\AppointmentService;
+use App\Services\Base\BaseService;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,14 +25,11 @@ class UserAppointmentController extends Controller
             return response()->json([
                 'success' => true,
                 'total' => $appointments->total(),
-                'appointments' => $appointments
+                'appointments' => new UserAppointmentCollection($appointments)
             ]);
 
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => $e->getMessage()
-            ]);
+            return BaseService::tryCatchException($e);
         }
     }
 
@@ -41,10 +40,7 @@ class UserAppointmentController extends Controller
             return response()->json($data);
 
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => $e->getMessage()
-            ]);
+            return BaseService::tryCatchException($e);
         }
     }
 
@@ -52,17 +48,10 @@ class UserAppointmentController extends Controller
     {
         try {
             $data = $this->appointment->rescheduleAppointmentForUser($request, $id, Auth::user()->id);
-            return response()->json([
-                'success' => $data['success'],
-                'appointment' => $data['appointment'],
-                'message' => $data['message']
-            ]);
+            return response()->json($data);
 
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => $e->getMessage()
-            ]);
+            return BaseService::tryCatchException($e);
         }
     }
 
@@ -73,10 +62,7 @@ class UserAppointmentController extends Controller
             return response()->json($data);
 
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => $e->getMessage()
-            ]);
+            return BaseService::tryCatchException($e);
         }
     }
 
@@ -98,6 +84,20 @@ class UserAppointmentController extends Controller
     }
 
     public function removeService($appointmentId, $serviceId): \Illuminate\Http\JsonResponse
+    {
+        try {
+            $data = $this->appointment->removeServiceFromAppointment($serviceId, $appointmentId);
+            return response()->json($data);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
+    public function approveAppointment($appointmentId)
     {
         try {
             $data = $this->appointment->removeServiceFromAppointment($serviceId, $appointmentId);

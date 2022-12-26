@@ -263,6 +263,7 @@ Route::middleware('auth:api')->group(static function (){
     Route::delete('/user/appointments/{id}/cancel', [UserAppointmentController::class, 'destroy']);
     Route::post('/user/appointments/{appointmentId}/service/{serviceId}/add', [UserAppointmentController::class, 'addService']);
     Route::delete('/user/appointments/{appointmentId}/service/{serviceId}/remove', [UserAppointmentController::class, 'removeService']);
+    Route::post('/user/appointments/{id}/approve', [UserAppointmentController::class, 'approveAppointment']);
 
     // User Service Providers
     Route::get('/user/service-providers', [UserServiceProviderController::class, 'index']);
@@ -272,7 +273,7 @@ Route::middleware('auth:api')->group(static function (){
     // User Wallet
     Route::get('/user/wallet/balance', [UserWalletController::class, 'balance']);
 
-    // After funding account, redirect user to callback
+    // After funding account, redirect user to call-back
     // to verify transaction with reference code
     Route::post('/user/wallet/fund', [UserWalletController::class, 'fund']);
     Route::get('/user/wallet/verify/{reference}', [UserWalletController::class, 'verifyTransaction']);

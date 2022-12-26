@@ -124,7 +124,7 @@ class WalletService
         $err = curl_error($curl);
         curl_close($curl);
 
-        $data = json_decode($response);
+        $data = json_decode($response, true);
         if($data['data']['status'] === 'success'){
 
             $wallet = $query;

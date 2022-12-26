@@ -22,13 +22,18 @@ class Appointment extends Model
         'total_cost',
         'location',
         'appointment_time',
+        'status',
+        'user_approved',
+        'service_provider_approved',
     ];
 
-    public function user(){
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function pet(){
+    public function pet(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
         return $this->belongsTo(Pet::class, 'pet_id', 'id');
     }
 
