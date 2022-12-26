@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\Auth\UserLoginRequest;
 use App\Services\Auth\LoginService;
+use App\Services\Base\BaseService;
 use App\Services\User\UserService;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,9 +32,7 @@ class ApiLoginController extends Controller
             return response()->json($data);
 
         } catch (\Exception $e) {
-            return response()->json([
-                'message' => "Line ".$e->getLine()." of ".$e->getFile().", ".$e->getMessage(),
-            ]);
+            return BaseService::tryCatchException($e);
         }
     }
 
@@ -48,9 +47,7 @@ class ApiLoginController extends Controller
             ]);
 
         } catch (\Exception $e) {
-            return response()->json([
-                'message' => "Line ".$e->getLine()." of ".$e->getFile().", ".$e->getMessage(),
-            ]);
+            return BaseService::tryCatchException($e);
         }
     }
 }

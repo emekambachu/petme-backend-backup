@@ -2,6 +2,7 @@
 
 namespace App\Services\Auth;
 
+use App\Services\Base\ThirdPartyApiService;
 use App\Services\Wallet\WalletService;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -12,14 +13,19 @@ use Illuminate\Support\Facades\Mail;
 class RegistrationService
 {
     protected WalletService $wallet;
-    public function __construct(WalletService $wallet){
+    protected ThirdPartyApiService $api;
+    public function __construct(
+        WalletService $wallet,
+        ThirdPartyApiService $api
+    ){
         $this->wallet = $wallet;
+        $this->api = $api;
     }
 
     //Generate email verification token
-    public function generateToken($length = 8): string
+    public function generateToken($length = 6): string
     {
-        $characters = '0123456789ABCDEFGHIJ';
+        $characters = '0123456789';
         $charactersLength = strlen($characters);
         $randomString = '';
         for ($i = 0; $i < $length; $i++) {
@@ -37,9 +43,11 @@ class RegistrationService
         $this->wallet->createWallet($user->id, $walletQuery);
 
         // Send welcome and otp emails
-        $this->sendWelcomeEmail($user, $emailContent);
         $otp = $this->generateOtpForUserById($user->id, $userQuery);
-        $this->sendOtpEmail($user, $otp);
+        $this->api->termiiEmailApi($user->email, (int)$otp);
+
+//        $this->sendWelcomeEmail($user, $emailContent);
+//        $this->sendOtpEmail($user, $otp);
 
         // Return user
         return $user;

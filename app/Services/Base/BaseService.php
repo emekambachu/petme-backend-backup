@@ -35,4 +35,11 @@ class BaseService
             $message->subject($subject);
         });
     }
+
+    public static function tryCatchException($e): \Illuminate\Http\JsonResponse
+    {
+        return response()->json([
+            'message' => "Line ".$e->getLine()." of ".$e->getFile().", ".$e->getMessage(),
+        ]);
+    }
 }

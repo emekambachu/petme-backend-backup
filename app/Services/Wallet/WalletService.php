@@ -69,6 +69,10 @@ class WalletService
         curl_setopt($ch,CURLOPT_POST, true);
         curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
 
+        // Comment before moving to production
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             "Authorization: Bearer ".@env('PAYSTACK_SECRET_KEY'),
             "Cache-Control: no-cache",
@@ -79,7 +83,7 @@ class WalletService
         //execute post
         $data = json_decode(curl_exec($ch), true);
 
-        if($data['status'] === true){
+        if(isset($data) && $data['status'] === true){
             return [
                 'success' => true,
                 'amount' => $request->amount,
@@ -90,7 +94,7 @@ class WalletService
         }
         return [
             'success' => false,
-            'message' => $data['message'],
+            'message' => "Error connecting to API",
         ];
     }
 
@@ -105,6 +109,11 @@ class WalletService
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "GET",
+
+            // Comment before moving to production
+//            CURLOPT_SSL_VERIFYPEER => false,
+//            CURLOPT_SSL_VERIFYHOST => false,
+
             CURLOPT_HTTPHEADER => array(
                 "Authorization: Bearer ".@env('PAYSTACK_SECRET_KEY'),
                 "Cache-Control: no-cache",

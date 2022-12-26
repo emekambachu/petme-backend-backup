@@ -26,9 +26,7 @@ class UserWalletController extends Controller
             return response()->json($data);
 
         } catch (\Exception $e) {
-            return response()->json([
-                'message' => "Line ".$e->getLine()." of ".$e->getFile().", ".$e->getMessage(),
-            ]);
+            return BaseService::tryCatchException($e);
         }
     }
 
@@ -39,9 +37,7 @@ class UserWalletController extends Controller
             return response()->json($data);
 
         } catch (\Exception $e) {
-            return response()->json([
-                'message' => "Line ".$e->getLine()." of ".$e->getFile().", ".$e->getMessage(),
-            ]);
+            return BaseService::tryCatchException($e);
         }
     }
 
@@ -54,9 +50,7 @@ class UserWalletController extends Controller
             ]);
 
         } catch (\Exception $e) {
-            return response()->json([
-                'message' => "Line ".$e->getLine()." of ".$e->getFile().", ".$e->getMessage(),
-            ]);
+            return BaseService::tryCatchException($e);
         }
     }
 
