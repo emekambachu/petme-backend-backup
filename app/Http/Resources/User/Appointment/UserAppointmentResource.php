@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\User\Appointment;
 
+use App\Http\Resources\Appointment\Service\AppointmentServiceResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserAppointmentResource extends JsonResource
@@ -16,7 +17,7 @@ class UserAppointmentResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'services' => $this->appointment_services ?? null,
+            'services' => $this->appointment_services ? AppointmentServiceResource::collection($this->appointment_services) : null,
             'note' => $this->note,
             'total_cost' => $this->total_cost,
             'appointment_time' => $this->appointment_time,

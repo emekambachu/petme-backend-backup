@@ -92,7 +92,7 @@ class RegistrationService
                     'message' => 'Token used, generate another.',
                 ];
             }
-            $user->status = 'verified';
+            $user->status = 1;
             $user->token_used = 1;
             $user->save();
             return [

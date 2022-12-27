@@ -19,16 +19,19 @@ class AppointmentService
     protected CrudService $crud;
     protected ServiceProviderService $provider;
     protected WalletService $wallet;
+    protected AppointmentTransactionService $transaction;
     public function __construct(
         BaseService $base,
         CrudService $crud,
         ServiceProviderService $provider,
-        WalletService $wallet
+        WalletService $wallet,
+        AppointmentTransactionService $transaction
     ){
         $this->base = $base;
         $this->crud = $crud;
         $this->provider = $provider;
         $this->wallet = $wallet;
+        $this->transaction = $transaction;
     }
 
     public function appointment(): Appointment
@@ -108,11 +111,12 @@ class AppointmentService
         if(!$appointment){
             return [
                 'success' => false,
-                'appointment' => null,
                 'message' => 'Error creating appointment',
             ];
         }
+
         $this->addAppointmentServices($request, $appointment);
+        $this->addPaymentToTransaction($appointment);
         $this->sendEmailToServiceProvider($appointment);
         return [
             'success' => true,
@@ -140,7 +144,6 @@ class AppointmentService
         if(!$serviceCosts){
             return [
                 'success' => false,
-                'appointment' => null,
                 'message' => 'Insufficient funds, please fund wallet.',
             ];
         }
@@ -299,18 +302,65 @@ class AppointmentService
         ];
     }
 
-//    public function acceptAppointment($appointmentId, $userId){
-//        $appointment = $this->appointmentById($appointmentId);
-//        if($appointment->service_provider_id !== $userId){
-//            return [
-//                'success' => false,
-//                'message' => 'Incorrect user',
-//            ];
-//        }
-//
-//        $appointment->status = 1;
-//        $appointment->save();
-//
-//    }
+    public function addPaymentToTransaction($appointment){
+        $this->transaction->appointmentTransaction()->create([
+           'appointment_id' => $appointment->id,
+           'user_id' => $appointment->user_id,
+           'service_provider_id' => $appointment->service_provider_id,
+           'amount' => $appointment->total_cost
+        ]);
+
+        $wallet = $this->wallet->walletByUserId($appointment->user_id);
+        $wallet->amount -= $appointment->total_cost;
+        $wallet->save();
+    }
+
+    public function serviceProviderAcceptAppointment($appointmentId, $providerId): array
+    {
+        $appointment = $this->appointmentById($appointmentId);
+        if($appointment->service_provider_id !== $providerId){
+            return [
+                'success' => false,
+                'message' => 'Unauthorized User',
+            ];
+        }
+
+        $appointment->status = 1;
+        $appointment->save();
+
+        return [
+            'success' => true,
+            'appointment' => new UserAppointmentResource($appointment),
+        ];
+    }
+
+    public function serviceProviderRejectAppointment($appointmentId, $providerId): array
+    {
+        $appointment = $this->appointmentById($appointmentId);
+        if($appointment->service_provider_id !== $providerId){
+            return [
+                'success' => false,
+                'message' => 'Unauthorized User',
+            ];
+        }
+
+        // Update appointment
+        $appointment->status = 2;
+        $appointment->save();
+
+        // Delete from transaction
+        $transaction = $this->transaction->transactionByAppointmentId($appointment->id);
+        $transaction->delete();
+
+        // Update user wallet
+        $wallet = $this->wallet->walletByUserId($appointment->user_id);
+        $wallet->amount += $appointment->total_cost;
+        $wallet->save();
+
+        return [
+            'success' => true,
+            'message' => "Appointment Cancelled",
+        ];
+    }
 
 }

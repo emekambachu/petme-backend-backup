@@ -97,10 +97,10 @@ class UserAppointmentController extends Controller
         }
     }
 
-    public function approveAppointment($appointmentId)
+    public function approve($appointmentId)
     {
         try {
-            $data = $this->appointment->removeServiceFromAppointment($serviceId, $appointmentId);
+            $data = $this->appointment->userApproveAppointment($appointmentId);
             return response()->json($data);
 
         } catch (\Exception $e) {

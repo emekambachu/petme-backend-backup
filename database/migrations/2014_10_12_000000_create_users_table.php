@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('last_login')->nullable();
             $table->string('verification_token')->nullable();
             $table->boolean('token_used')->default(false);
-            $table->string('status')->default('pending');
+            $table->boolean('status')->default(0);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

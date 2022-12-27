@@ -211,8 +211,9 @@ Route::middleware('auth:service-provider-api')->group(static function (){
 
     // Service Provider Appointment
     Route::get('/service-provider/appointments', [ServiceProviderAppointmentController::class, 'index']);
-    Route::post('/service-provider/appointments/{id}/accept', [ServiceProviderAppointmentController::class, 'acceptAppointment']);
-    Route::post('/service-provider/appointments/{id}/reject', [ServiceProviderAppointmentController::class, 'rejectAppointment']);
+    Route::post('/service-provider/appointments/{id}/accept', [ServiceProviderAppointmentController::class, 'accept']);
+    Route::post('/service-provider/appointments/{id}/reject', [ServiceProviderAppointmentController::class, 'reject']);
+    Route::post('/service-provider/appointments/{id}/approve', [ServiceProviderAppointmentController::class, 'approve']);
 
     // Service provider Logout
     Route::post('/service-provider/logout', [ApiLoginServiceProviderController::class, 'logout']);
@@ -263,7 +264,7 @@ Route::middleware('auth:api')->group(static function (){
     Route::delete('/user/appointments/{id}/cancel', [UserAppointmentController::class, 'destroy']);
     Route::post('/user/appointments/{appointmentId}/service/{serviceId}/add', [UserAppointmentController::class, 'addService']);
     Route::delete('/user/appointments/{appointmentId}/service/{serviceId}/remove', [UserAppointmentController::class, 'removeService']);
-    Route::post('/user/appointments/{id}/approve', [UserAppointmentController::class, 'approveAppointment']);
+    Route::post('/user/appointments/{id}/approve', [UserAppointmentController::class, 'approve']);
 
     // User Service Providers
     Route::get('/user/service-providers', [UserServiceProviderController::class, 'index']);

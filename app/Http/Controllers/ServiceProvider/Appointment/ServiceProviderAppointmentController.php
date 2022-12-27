@@ -14,7 +14,8 @@ class ServiceProviderAppointmentController extends Controller
         $this->appointment = $appointment;
     }
 
-    public function index(){
+    public function index(): \Illuminate\Http\JsonResponse
+    {
         try {
             $appointments = $this->appointment->appointmentsByServiceProviderId(Auth::user()->id)
                 ->orderBy('created_at', 'desc')->paginate(12);
@@ -32,15 +33,11 @@ class ServiceProviderAppointmentController extends Controller
         }
     }
 
-    public function accept($id){
+    public function accept($id): \Illuminate\Http\JsonResponse
+    {
         try {
-            $appointments = $this->appointment->appointmentsByServiceProviderId(Auth::user()->id)
-                ->orderBy('created_at', 'desc')->paginate(12);
-            return response()->json([
-                'success' => true,
-                'total' => $appointments->total(),
-                'appointments' => $appointments
-            ]);
+            $data = $this->appointment->serviceProviderAcceptAppointment($id, Auth::user()->id);
+            return response()->json($data);
 
         } catch (\Exception $e) {
             return response()->json([
@@ -49,4 +46,33 @@ class ServiceProviderAppointmentController extends Controller
             ]);
         }
     }
+
+    public function reject($id): \Illuminate\Http\JsonResponse
+    {
+        try {
+            $data = $this->appointment->serviceProviderRejectAppointment($id, Auth::user()->id);
+            return response()->json($data);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
+    public function approve($id): \Illuminate\Http\JsonResponse
+    {
+        try {
+            $data = $this->appointment->serviceProviderRejectAppointment($id, Auth::user()->id);
+            return response()->json($data);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
 }

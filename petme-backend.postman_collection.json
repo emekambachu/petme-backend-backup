@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "96480ad2-547a-48dd-92b9-1ab13698469e",
+		"_postman_id": "b0f46ea6-aa05-44c4-ba0f-147b6ab5fa16",
 		"name": "petme-backend",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "8728302"
+		"_exporter_id": "25071444"
 	},
 	"item": [
 		{
@@ -3324,12 +3324,12 @@
 									"urlencoded": [
 										{
 											"key": "name",
-											"value": "Mr neutron Test",
+											"value": "Mr Xedd Neutron",
 											"type": "text"
 										},
 										{
 											"key": "email",
-											"value": "neutron@gmail.com",
+											"value": "neutrondeveloper@gmail.com",
 											"type": "text"
 										},
 										{
@@ -3381,7 +3381,7 @@
 									"formdata": [
 										{
 											"key": "name",
-											"value": "Emeka Mbachu",
+											"value": "Xedd Tech",
 											"type": "text"
 										},
 										{
@@ -3448,7 +3448,7 @@
 									"formdata": [
 										{
 											"key": "email",
-											"value": "embachu@afchub.org",
+											"value": "neutrondeveloper@gmail.com",
 											"type": "text"
 										},
 										{
@@ -3459,7 +3459,8 @@
 									]
 								},
 								"url": {
-									"raw": "127.0.0.1:8000/api/user/login",
+									"raw": "http://127.0.0.1:8000/api/user/login",
+									"protocol": "http",
 									"host": [
 										"127",
 										"0",
@@ -3467,6 +3468,53 @@
 										"1"
 									],
 									"port": "8000",
+									"path": [
+										"api",
+										"user",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User Login (Production)",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "neutrondeveloper@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "11111111",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://petme.us-east-2.elasticbeanstalk.com/api/user/login",
+									"protocol": "http",
+									"host": [
+										"petme",
+										"us-east-2",
+										"elasticbeanstalk",
+										"com"
+									],
 									"path": [
 										"api",
 										"user",
@@ -3534,7 +3582,7 @@
 									"formdata": [
 										{
 											"key": "otp",
-											"value": "G0H39I5B",
+											"value": "375836",
 											"type": "text"
 										}
 									]
@@ -3577,7 +3625,7 @@
 									"formdata": [
 										{
 											"key": "email",
-											"value": "embachu@afchub.org",
+											"value": "neutrondeveloper@gmail.com",
 											"type": "text"
 										},
 										{
@@ -4778,7 +4826,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"pet_id\": 3,\r\n    \"service_provider_id\": 4,\r\n    \"service_provider_category_id\": 2,\r\n    \"appointment_type_id\": null,\r\n    \"note\": \"Lorem ipsum\",\r\n    \"services\": [\r\n        {\"id\": 1, \"cost\": 50},\r\n        {\"id\": 2, \"cost\": 50},\r\n        {\"id\": 3, \"cost\": 100}\r\n    ],\r\n    \"appointment_time\": \"2022-12-02 00:00:00\"\r\n}",
+									"raw": "{\r\n    \"pet_id\": 3,\r\n    \"service_provider_id\": 4,\r\n    \"service_provider_category_id\": 2,\r\n    \"appointment_type_id\": null,\r\n    \"note\": \"Lorem ipsum ggggg\",\r\n    \"services\": [\r\n        {\"id\": 1, \"cost\": 300},\r\n        {\"id\": 2, \"cost\": 500},\r\n        {\"id\": 3, \"cost\": 1000}\r\n    ],\r\n    \"appointment_time\": \"2022-12-02 00:00:00\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -5131,6 +5179,56 @@
 							"response": []
 						},
 						{
+							"name": "User Fund Wallet (Production)",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "434|hRe5HUl6R5e8qv8MtmQknnOtbZqrbK4WJg4gi4JJ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "amount",
+											"value": "5000",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://petme.us-east-2.elasticbeanstalk.com/api/user/wallet/fund",
+									"protocol": "http",
+									"host": [
+										"petme",
+										"us-east-2",
+										"elasticbeanstalk",
+										"com"
+									],
+									"path": [
+										"api",
+										"user",
+										"wallet",
+										"fund"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "User Verify Fund Wallet Transaction",
 							"request": {
 								"method": "GET",
@@ -5142,7 +5240,7 @@
 									}
 								],
 								"url": {
-									"raw": "127.0.0.1:8000/api/user/wallet/verify/xab6ps5v7e",
+									"raw": "127.0.0.1:8000/api/user/wallet/verify/72ksdze4iz",
 									"host": [
 										"127",
 										"0",
@@ -5155,7 +5253,48 @@
 										"user",
 										"wallet",
 										"verify",
-										"xab6ps5v7e"
+										"72ksdze4iz"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User Verify Fund Wallet Transaction (Production)",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "433|h9eqIMR2l9Xho3hk8H0eP0aWwWJv2Ss1FOBHoUVI",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://petme.us-east-2.elasticbeanstalk.com/api/user/wallet/verify/g8jvnsfl7z",
+									"protocol": "http",
+									"host": [
+										"petme",
+										"us-east-2",
+										"elasticbeanstalk",
+										"com"
+									],
+									"path": [
+										"api",
+										"user",
+										"wallet",
+										"verify",
+										"g8jvnsfl7z"
 									]
 								}
 							},
@@ -5716,7 +5855,7 @@
 									"formdata": [
 										{
 											"key": "otp",
-											"value": "IBHI6196",
+											"value": "858950",
 											"type": "text"
 										}
 									]
@@ -6023,7 +6162,13 @@
 									]
 								},
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
 								"url": {
 									"raw": "127.0.0.1:8000/api/service-provider/appointments",
 									"host": [
@@ -6069,6 +6214,31 @@
 						},
 						{
 							"name": "Service Provider Reject Appointment",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:8000/api/service-providers/appointments/1/reject",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"service-providers",
+										"appointments",
+										"1",
+										"reject"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Service Provider Approve Appointment",
 							"request": {
 								"method": "POST",
 								"header": [],

@@ -6,14 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ServiceProvider\Auth\ServiceProviderLoginRequest;
 use App\Http\Requests\User\Auth\UserLoginRequest;
 use App\Services\Auth\LoginService;
+use App\Services\Base\BaseService;
 use App\Services\ServiceProvider\ServiceProviderService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ApiLoginServiceProviderController extends Controller
 {
-    private $login;
-    private $provider;
+    private LoginService $login;
+    private ServiceProviderService $provider;
     public function __construct(LoginService $login, ServiceProviderService $provider){
         $this->middleware('guest:service-provider')
             ->except('logout');
@@ -21,7 +22,8 @@ class ApiLoginServiceProviderController extends Controller
         $this->provider = $provider;
     }
 
-    public function login(ServiceProviderLoginRequest $request){
+    public function login(ServiceProviderLoginRequest $request): \Illuminate\Http\JsonResponse
+    {
         try {
             $data = $this->login->loginWithToken(
                 $request,
@@ -29,22 +31,15 @@ class ApiLoginServiceProviderController extends Controller
                 'service-provider-api',
                 $this->provider->serviceProvider()
             );
-            return response()->json([
-                'success' => $data['success'] ?? null,
-                'user' => $data['user'] ?? null,
-                'token' => $data['token'] ?? null,
-                'message' => $data['message'] ?? null,
-                'errors' => $data['errors'] ?? null,
-            ]);
+            return response()->json($data);
 
         } catch (\Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage()
-            ]);
+            return BaseService::tryCatchException($e);
         }
     }
 
-    public function logout(){
+    public function logout(): \Illuminate\Http\JsonResponse
+    {
         try {
             Auth::guard('service-provider')->logout();
             Auth::user()->tokens()->delete();
@@ -54,9 +49,7 @@ class ApiLoginServiceProviderController extends Controller
             ]);
 
         } catch (\Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage()
-            ]);
+            return BaseService::tryCatchException($e);
         }
     }
 
