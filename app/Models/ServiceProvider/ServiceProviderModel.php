@@ -3,6 +3,7 @@
 namespace App\Models\ServiceProvider;
 
 use App\Models\Appointment\Appointment;
+use App\Models\User\UserLocation;
 use App\Models\Wallet\ServiceProviderWallet;
 use App\Models\Wallet\WalletBalance;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,7 +21,6 @@ class ServiceProviderModel extends Authenticatable
         'email',
         'mobile',
         'password',
-        'location',
         'address',
         'specialization',
         'service_provider_category_id',
@@ -64,5 +64,11 @@ class ServiceProviderModel extends Authenticatable
     public function documents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(ServiceProviderDocument::class, 'service_provider_id', 'id');
+    }
+
+    public function location(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(UserLocation::class, 'user_id', 'id')
+            ->where('user_type', 'service-provider');
     }
 }

@@ -60,8 +60,8 @@ class LoginService{
 
             // Last login
             $queryBuilder->where('email', $request->email)->update([
-                    'last_login' => Carbon::now()->format('Y-m-d h:i:s'),
-                ]);
+                'last_login' => Carbon::now()->format('Y-m-d h:i:s'),
+            ]);
 
             $data = [
                 'success' => true,

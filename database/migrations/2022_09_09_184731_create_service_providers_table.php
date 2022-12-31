@@ -19,7 +19,6 @@ class CreateServiceProvidersTable extends Migration
             $table->string('email');
             $table->string('mobile');
             $table->string('specialization');
-            $table->string('location');
             $table->string('password');
             $table->unsignedBigInteger('service_provider_category_id')->nullable();
             $table->string('address')->nullable();
@@ -33,7 +32,7 @@ class CreateServiceProvidersTable extends Migration
             $table->dateTime('onboarding_date')->nullable();
             $table->string('verification_token')->nullable();
             $table->boolean('token_used')->default(false);
-            $table->string('status')->default('pending');
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
     }

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\User\Appointment;
+namespace App\Http\Resources\ServiceProvider\Appointment;
 
 use App\Http\Resources\Appointment\Service\AppointmentServiceResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserAppointmentResource extends JsonResource
+class ServiceProviderAppointmentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,7 +16,6 @@ class UserAppointmentResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'reference' => $this->reference,
             'id' => $this->id,
             'services' => $this->appointment_services ? AppointmentServiceResource::collection($this->appointment_services) : null,
             'note' => $this->note,
@@ -25,15 +24,14 @@ class UserAppointmentResource extends JsonResource
             'appointment_type' => $this->appointment_type ? $this->appointment_type->name : null,
             'created_at' => $this->created_at,
 
-            'service_provider_name' => $this->service_provider ? $this->service_provider->name : null,
-            'service_provider_email' => $this->service_provider ? $this->service_provider->email : null,
-            'service_provider_mobile' => $this->service_provider ? $this->service_provider->mobile : null,
-            'service_provider_location' => $this->service_provider ? $this->service_provider->location : null,
-            'service_provider_specialization' => $this->service_provider ? $this->service_provider->specialization : null,
+            'pet_owner' => $this->user ? $this->user->name : null,
+            'pet_owner_email' => $this->user ? $this->user->email : null,
+            'pet_owner_address' => $this->user ? $this->user->address : null,
+            'pet_owner_location' => $this->user && $this->user->location ? $this->user->location->country_name : null,
 
             'pet_type' => $this->pet && $this->pet->type ? $this->pet->type->name : null,
 
-            'status' => $this->status === 1 ? 'accepted' : 'pending',
+            'status' => $this->status === 1 ? 'accepted' : ($this->status === 2 ? 'declined' : 'pending'),
             'user_completed' => $this->user_completed === 1 ? 'completed' : 'pending',
             'service_provider_completed' => $this->service_provider_completed === 1 ? 'completed' : 'pending',
         ];

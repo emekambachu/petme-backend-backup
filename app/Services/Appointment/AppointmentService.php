@@ -2,6 +2,7 @@
 
 namespace App\Services\Appointment;
 
+use App\Http\Resources\ServiceProvider\Appointment\ServiceProviderAppointmentResource;
 use App\Http\Resources\User\Appointment\UserAppointmentResource;
 use App\Models\Appointment\Appointment;
 use App\Services\Base\BaseService;
@@ -80,11 +81,24 @@ class AppointmentService
         return $this->appointmentService()->findOrFail($id);
     }
 
+    //Generate email verification token
+    public function generateReference($length = 8): string
+    {
+        $characters = '0123456789';
+        $charactersLength = strlen($characters);
+        $randomString = 'APT';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[random_int(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
     public function createAppointmentForUser($request, $userId): array
     {
         // Request all except services because it's an array
         $input = $request->all();
         $input['user_id'] = $userId;
+        $input['reference'] = $this->generateReference();
 
         // Services should be a multidimensional array with id and cost
         if(!is_array($request->services)){
@@ -169,6 +183,7 @@ class AppointmentService
     protected function sendEmailToServiceProvider($appointment): void
     {
         $emailData = [
+            'reference' => $appointment->reference,
             'name' => $appointment->service_provider->name,
             'email' => $appointment->service_provider->email,
             'user_name' => $appointment->user->name,
@@ -180,7 +195,7 @@ class AppointmentService
         ];
         $this->base->sendEmail(
             $emailData,
-            'emails.service-providers.new-appointment',
+            'emails.appointments.new-appointment',
             'New Appointment | '.$emailData['user_name']
         );
     }
@@ -324,14 +339,49 @@ class AppointmentService
                 'message' => 'Unauthorized User',
             ];
         }
+        if($appointment->status === 1){
+            return [
+                'success' => false,
+                'message' => 'Appointment has already been accepted',
+            ];
+        }
+        if($appointment->status === 2){
+            return [
+                'success' => false,
+                'message' => 'Appointment was declined',
+            ];
+        }
 
         $appointment->status = 1;
         $appointment->save();
 
+        $this->sendAcceptanceEmailToUser($appointment);
+
         return [
             'success' => true,
-            'appointment' => new UserAppointmentResource($appointment),
+            'appointment' => new ServiceProviderAppointmentResource($appointment),
+            'message' => 'Appointment accepted'
         ];
+    }
+
+    protected function sendAcceptanceEmailToUser($appointment): void
+    {
+        $emailData = [
+            'reference' => $appointment->reference,
+            'service_provider_name' => $appointment->service_provider->name,
+            'name' => $appointment->user->name,
+            'email' => $appointment->user->email,
+            'pet_type' => $appointment->pet->pet_type->name ?? '',
+            'service_provider_category' => $appointment->service_provider_category->name ?? '',
+            'appointment_note' => $appointment->note,
+            'appointment_time' => Carbon::parse($appointment->appointment_time)
+                ->format('g:i a, l jS F Y'),
+        ];
+        $this->base->sendEmail(
+            $emailData,
+            'emails.appointments.accepted-appointment',
+            'Accepted Appointment | '.$emailData['service_provider_name']
+        );
     }
 
     public function serviceProviderRejectAppointment($appointmentId, $providerId): array
@@ -344,13 +394,22 @@ class AppointmentService
             ];
         }
 
+        if($appointment->status === 1){
+            return [
+                'success' => false,
+                'message' => 'Appointment has already been accepted',
+            ];
+        }
+
         // Update appointment
         $appointment->status = 2;
         $appointment->save();
 
         // Delete from transaction
         $transaction = $this->transaction->transactionByAppointmentId($appointment->id);
-        $transaction->delete();
+        if($transaction){
+            $transaction->delete();
+        }
 
         // Update user wallet
         $wallet = $this->wallet->walletByUserId($appointment->user_id);
@@ -359,8 +418,76 @@ class AppointmentService
 
         return [
             'success' => true,
-            'message' => "Appointment Cancelled",
+            'message' => "Appointment Declined",
         ];
+    }
+
+    public function serviceProviderCompletedAppointment($appointmentId, $providerId){
+
+        $appointment = $this->appointmentById($appointmentId);
+        if($appointment->service_provider_id !== $providerId){
+            return [
+                'success' => false,
+                'message' => 'Unauthorized User',
+            ];
+        }
+
+        if($appointment->status !== 1){
+            return [
+                'success' => false,
+                'message' => 'Appointment has not been accepted',
+            ];
+        }
+
+        // If this appointment date is not due, prevent completion.
+        // Else proceed with completion
+        $chosen_date = new Carbon($appointment->appointment_time);
+        $now = Carbon::now();
+        $now->addMinutes(30);
+
+        if($chosen_date->gt($now)) {
+            return [
+                'success' => false,
+                'message' => 'This appointment has not started',
+            ];
+        }
+
+        $appointment->service_provider_completed = 1;
+        $appointment->save();
+
+        $transition = $this->transaction->transactionByAppointmentId($appointment->id);
+        if($transition){
+            $transition->status = 1;
+            $transition->save();
+        }
+
+        $this->sendCompletionEmailToUser($appointment);
+
+        return [
+            'success' => true,
+            'message' => "Congratulations, you completed this appointment",
+        ];
+    }
+
+    protected function sendCompletionEmailToUser($appointment): void
+    {
+        $emailData = [
+            'reference' => $appointment->reference,
+            'service_provider_name' => $appointment->service_provider->name,
+            'name' => $appointment->user->name,
+            'email' => $appointment->user->email,
+            'pet_type' => $appointment->pet->pet_type->name ?? '',
+            'service_provider_category' => $appointment->service_provider_category->name ?? '',
+            'appointment_note' => $appointment->note,
+            'appointment_time' => Carbon::parse($appointment->appointment_time)
+                ->format('g:i a, l jS F Y'),
+        ];
+
+        $this->base->sendEmail(
+            $emailData,
+            'emails.appointments.completed-appointment',
+            'Completed Appointment | '.$emailData['service_provider_name']
+        );
     }
 
 }

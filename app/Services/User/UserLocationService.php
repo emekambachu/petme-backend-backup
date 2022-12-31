@@ -12,7 +12,7 @@ use Stevebauman\Location\Facades\Location;
  */
 class UserLocationService
 {
-    protected $base;
+    protected BaseService $base;
     public function __construct(BaseService $base){
         $this->base = $base;
     }
@@ -22,7 +22,7 @@ class UserLocationService
         return new UserLocation();
     }
 
-    public function userLocationWithRelations()
+    public function userLocationWithRelations(): \Illuminate\Database\Eloquent\Builder
     {
         return $this->userLocation()->with('user');
     }
@@ -31,24 +31,30 @@ class UserLocationService
         return $this->userLocationWithRelations()->findOrFail($id);
     }
 
-    public function userLocationByUserId($userId){
+    public function userLocationByUserId($userId, $userType){
         return $this->userLocationWithRelations()
-            ->where('user_id', $userId)->first();
+            ->where([
+                ['user_id', $userId],
+                ['user_type', $userType],
+            ])->first();
     }
 
-    public function getLocationFromUserId($userId)
+    public function getLocationFromUserId($userId, $userType)
     {
         // Check if user location exists in database, if not get from ip
-        $userLocation = $this->userLocation()->where('user_id', $userId)->first();
+        $userLocation = $this->userLocation()->where([
+            ['user_id', $userId],
+            ['user_type', $userType],
+        ])->first();
         if($userLocation){
             $location = $userLocation;
         }else{
-            $location = $this->addUserLocationFromIp($userId);
+            $location = $this->addUserLocationFromIp($userId, $userType);
         }
         return $location;
     }
 
-    public function addUserLocationFromIp($userId){
+    public function addUserLocationFromIp($userId, $userType){
         $ip = $this->base->getIp();
         $ipLocations = Location::get($ip);
         $ipLocationsArray = [];
@@ -58,6 +64,7 @@ class UserLocationService
             }
         }
         $ipLocationsArray['user_id'] = $userId;
+        $ipLocationsArray['user_type'] = $userType;
         $ipLocationsArray['country_name'] = $ipLocations->countryName;
         $ipLocationsArray['country_code'] = $ipLocations->countryCode;
         $ipLocationsArray['city_name'] = $ipLocations->cityName;
@@ -66,11 +73,11 @@ class UserLocationService
         return $this->userLocation()->create($ipLocationsArray);
     }
 
-    public function updateUserLocationFromIp($userId)
+    public function updateUserLocationFromIp($userId, $userType)
     {
         $ip = $this->base->getIp();
         $ipLocations = Location::get($ip);
-        $userLocation = $this->userLocationByUserId($userId);
+        $userLocation = $this->userLocationByUserId($userId, $userType);
         if($userLocation){
             $userLocation->update([
                 'ip' => $ip,

@@ -22,9 +22,10 @@ class Appointment extends Model
         'total_cost',
         'location',
         'appointment_time',
+        'reference',
         'status',
-        'user_approved',
-        'service_provider_approved',
+        'user_completed',
+        'service_provider_completed',
     ];
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo

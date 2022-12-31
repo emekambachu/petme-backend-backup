@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class UserLocationController extends Controller
 {
-    protected $location;
+    protected UserLocationService $location;
     public function __construct(UserLocationService $location){
         $this->location = $location;
     }
@@ -16,24 +16,7 @@ class UserLocationController extends Controller
     public function currentLocation(): \Illuminate\Http\JsonResponse
     {
         try {
-            $location = $this->location->getLocationFromUserId(Auth::user()->id);
-            return response()->json([
-                'success' => true,
-                'location' => $location
-            ]);
-
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => $e->getMessage()
-            ]);
-        }
-    }
-
-    public function getLocation(): \Illuminate\Http\JsonResponse
-    {
-        try {
-            $location = $this->location->addUserLocationFromIp(Auth::user()->id)->get();
+            $location = $this->location->getLocationFromUserId(Auth::user()->id, 'user');
             return response()->json([
                 'success' => true,
                 'location' => $location
@@ -50,7 +33,7 @@ class UserLocationController extends Controller
     public function updateLocation(): \Illuminate\Http\JsonResponse
     {
         try {
-            $location = $this->location->updateUserLocationFromIp(Auth::user()->id)->get();
+            $location = $this->location->updateUserLocationFromIp(Auth::user()->id, 'user')->get();
             return response()->json([
                 'success' => true,
                 'location' => $location

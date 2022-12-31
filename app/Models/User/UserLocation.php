@@ -2,6 +2,7 @@
 
 namespace App\Models\User;
 
+use App\Models\ServiceProvider\ServiceProviderModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,7 +21,15 @@ class UserLocation extends Model
         'longitude',
     ];
 
-    public function user(){
-        return $this->belongsTo(User::class, 'user_id', 'id');
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id')
+            ->where($this->user_type, 'user');
+    }
+
+    public function service_provider(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(ServiceProviderModel::class, 'user_id', 'id')
+            ->where($this->user_type, 'service-provider');
     }
 }

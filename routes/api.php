@@ -22,6 +22,7 @@ use App\Http\Controllers\Home\Pet\HomePetController;
 use App\Http\Controllers\Home\ServiceProvider\HomeServiceProviderController;
 use App\Http\Controllers\Home\Shop\HomeShopController;
 use App\Http\Controllers\ServiceProvider\Appointment\ServiceProviderAppointmentController;
+use App\Http\Controllers\ServiceProvider\Location\ServiceProviderLocationController;
 use App\Http\Controllers\ServiceProvider\Services\ServiceProviderServiceController;
 use App\Http\Controllers\User\Appointment\UserAppointmentController;
 use App\Http\Controllers\User\Location\UserLocationController;
@@ -203,6 +204,10 @@ Route::middleware('auth:service-provider-api')->group(static function (){
         return $request->user('service-provider-api');
     });
 
+    // User Location
+    Route::get('/service-provider/location', [ServiceProviderLocationController::class, 'currentLocation']);
+    Route::get('/service-provider/location/update', [ServiceProviderLocationController::class, 'updateLocation']);
+
     // Service Provider Services
     Route::get('/service-provider/services', [ServiceProviderServiceController::class, 'index']);
     Route::post('/service-provider/services/create', [ServiceProviderServiceController::class, 'store']);
@@ -213,7 +218,7 @@ Route::middleware('auth:service-provider-api')->group(static function (){
     Route::get('/service-provider/appointments', [ServiceProviderAppointmentController::class, 'index']);
     Route::post('/service-provider/appointments/{id}/accept', [ServiceProviderAppointmentController::class, 'accept']);
     Route::post('/service-provider/appointments/{id}/reject', [ServiceProviderAppointmentController::class, 'reject']);
-    Route::post('/service-provider/appointments/{id}/approve', [ServiceProviderAppointmentController::class, 'approve']);
+    Route::post('/service-provider/appointments/{id}/completed', [ServiceProviderAppointmentController::class, 'completed']);
 
     // Service provider Logout
     Route::post('/service-provider/logout', [ApiLoginServiceProviderController::class, 'logout']);

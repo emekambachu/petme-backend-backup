@@ -80,6 +80,7 @@ class User extends Authenticatable
 
     public function location(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->hasOne(UserLocation::class, 'user_id', 'id');
+        return $this->hasOne(UserLocation::class, 'user_id', 'id')
+            ->where('user_type', 'user');
     }
 }
