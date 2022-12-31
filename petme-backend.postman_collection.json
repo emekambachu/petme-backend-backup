@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "886c71ea-6ba0-46b0-a737-10e1eaec4323",
+		"_postman_id": "15724d3c-6688-4a7c-8d8e-f762a778bfe0",
 		"name": "petme-backend",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "9031746"
+		"_exporter_id": "25071444"
 	},
 	"item": [
 		{
@@ -5785,6 +5785,11 @@
 						},
 						{
 							"name": "Service Provider Login",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
+								}
+							},
 							"request": {
 								"auth": {
 									"type": "noauth"
@@ -5795,6 +5800,12 @@
 										"key": "Accept",
 										"value": "application/json",
 										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text",
+										"disabled": true
 									}
 								],
 								"body": {
@@ -5813,7 +5824,8 @@
 									]
 								},
 								"url": {
-									"raw": "127.0.0.1:8000/api/service-provider/login",
+									"raw": "http://127.0.0.1:8000/api/service-provider/login",
+									"protocol": "http",
 									"host": [
 										"127",
 										"0",
@@ -6017,7 +6029,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "51|VjAddALg6nsMPy9xLHtPb7ppdp1KEV2UKCVMQWvG",
+											"value": "65|6ubpoVJewT1X22mqAsptWvitv27cdzadPxcL14fv",
 											"type": "string"
 										}
 									]
@@ -6046,9 +6058,15 @@
 							"name": "Service Provider Accept Appointment",
 							"request": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
 								"url": {
-									"raw": "127.0.0.1:8000/api/service-providers/appointments/1/accept",
+									"raw": "127.0.0.1:8000/api/service-provider/appointments/21/accept",
 									"host": [
 										"127",
 										"0",
@@ -6058,9 +6076,9 @@
 									"port": "8000",
 									"path": [
 										"api",
-										"service-providers",
+										"service-provider",
 										"appointments",
-										"1",
+										"21",
 										"accept"
 									]
 								}
@@ -6071,9 +6089,15 @@
 							"name": "Service Provider Reject Appointment",
 							"request": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
 								"url": {
-									"raw": "127.0.0.1:8000/api/service-providers/appointments/1/reject",
+									"raw": "127.0.0.1:8000/api/service-provider/appointments/21/reject",
 									"host": [
 										"127",
 										"0",
@@ -6083,10 +6107,41 @@
 									"port": "8000",
 									"path": [
 										"api",
-										"service-providers",
+										"service-provider",
 										"appointments",
-										"1",
+										"21",
 										"reject"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Service Provider Completed Appointment",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "127.0.0.1:8000/api/service-provider/appointments/22/completed",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"service-provider",
+										"appointments",
+										"22",
+										"completed"
 									]
 								}
 							},
