@@ -30,7 +30,7 @@ class ApiLoginController extends Controller
                 'api',
                 $this->user->user()
             );
-            return response()->json($data, Response::HTTP_OK);
+            return response()->json($data, Response::HTTP_ACCEPTED);
 
         } catch (\Exception $e) {
             return BaseService::tryCatchException($e);
