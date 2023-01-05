@@ -3477,6 +3477,53 @@
 							"response": []
 						},
 						{
+							"name": "User Login (Production)",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "xeddtech@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "11111111",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://petme.us-east-2.elasticbeanstalk.com/api/user/login",
+									"protocol": "http",
+									"host": [
+										"petme",
+										"us-east-2",
+										"elasticbeanstalk",
+										"com"
+									],
+									"path": [
+										"api",
+										"user",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "User Logout",
 							"request": {
 								"auth": {
@@ -3506,6 +3553,35 @@
 										"1"
 									],
 									"port": "8000",
+									"path": [
+										"api",
+										"user",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User Logout (Production)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://petme.us-east-2.elasticbeanstalk.com/api/user/logout",
+									"protocol": "http",
+									"host": [
+										"petme",
+										"us-east-2",
+										"elasticbeanstalk",
+										"com"
+									],
 									"path": [
 										"api",
 										"user",
@@ -3548,6 +3624,49 @@
 										"1"
 									],
 									"port": "8000",
+									"path": [
+										"api",
+										"user",
+										"otp",
+										"submit"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User Submit OTP (Production)",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "otp",
+											"value": "684184",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://petme.us-east-2.elasticbeanstalk.com/api/user/otp/submit",
+									"protocol": "http",
+									"host": [
+										"petme",
+										"us-east-2",
+										"elasticbeanstalk",
+										"com"
+									],
 									"path": [
 										"api",
 										"user",
