@@ -8,6 +8,7 @@ use App\Services\Auth\LoginService;
 use App\Services\Base\BaseService;
 use App\Services\User\UserService;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 
 class ApiLoginController extends Controller
 {
@@ -29,7 +30,7 @@ class ApiLoginController extends Controller
                 'api',
                 $this->user->user()
             );
-            return response()->json($data);
+            return response()->json($data, Response::HTTP_ACCEPTED);
 
         } catch (\Exception $e) {
             return BaseService::tryCatchException($e);
