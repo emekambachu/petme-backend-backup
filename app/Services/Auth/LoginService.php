@@ -46,6 +46,7 @@ class LoginService{
             return [
                 'success' => false,
                 'message' => "Unverified User",
+                'status' => $status,
             ];
         }
 
