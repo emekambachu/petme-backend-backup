@@ -22,7 +22,7 @@ class UserWalletController extends Controller
     public function fund(UserFundWalletRequest $request): \Illuminate\Http\JsonResponse
     {
         try {
-            $data = $this->wallet->fundWallet($request, Auth::user());
+            $data = $this->wallet->fundWallet($request, Auth::user(), 'user');
             return response()->json($data);
 
         } catch (\Exception $e) {
@@ -41,8 +41,10 @@ class UserWalletController extends Controller
         }
     }
 
-    public function balance(){
+    public function balance(): \Illuminate\Http\JsonResponse
+    {
         try {
+            $this->wallet->checkAndCreateWallet(Auth::user()->id, 'user');
             $data = $this->wallet->walletByUserId(Auth::user()->id);
             return response()->json([
                 'success' => true,

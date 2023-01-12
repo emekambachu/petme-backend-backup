@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ServiceProvider\Auth\ServiceProviderEmailOtpRequest;
 use App\Http\Requests\ServiceProvider\Auth\ServiceProviderRegisterRequest;
 use App\Services\Auth\RegistrationService;
+use App\Services\Base\BaseService;
 use App\Services\ServiceProvider\ServiceProviderService;
 use App\Services\Wallet\WalletService;
 use Illuminate\Http\Request;
@@ -14,15 +15,12 @@ class ApiRegisterServiceProviderController extends Controller
 {
     private RegistrationService $registration;
     private ServiceProviderService $provider;
-    private WalletService $wallet;
     public function __construct(
         RegistrationService $registration,
-        ServiceProviderService $provider,
-        WalletService $wallet
+        ServiceProviderService $provider
     ){
         $this->registration = $registration;
         $this->provider = $provider;
-        $this->wallet = $wallet;
     }
 
     public function register(ServiceProviderRegisterRequest $request): \Illuminate\Http\JsonResponse
@@ -32,7 +30,7 @@ class ApiRegisterServiceProviderController extends Controller
                 $request,
                 'emails.service-providers.welcome',
                 $this->provider->serviceProvider(),
-                $this->wallet->serviceProviderWallet()
+                'service-provider'
             );
             return response()->json([
                 'success' => true,
@@ -40,10 +38,7 @@ class ApiRegisterServiceProviderController extends Controller
             ]);
 
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => $e->getMessage()
-            ]);
+            return BaseService::tryCatchException($e);
         }
     }
 
@@ -60,10 +55,7 @@ class ApiRegisterServiceProviderController extends Controller
             ]);
 
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => $e->getMessage()
-            ]);
+            return BaseService::tryCatchException($e);
         }
     }
 
@@ -80,10 +72,7 @@ class ApiRegisterServiceProviderController extends Controller
             }
 
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => $e->getMessage()
-            ]);
+            return BaseService::tryCatchException($e);
         }
     }
 

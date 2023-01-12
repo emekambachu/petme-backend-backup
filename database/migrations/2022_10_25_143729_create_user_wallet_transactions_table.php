@@ -15,6 +15,8 @@ class CreateUserWalletTransactionsTable extends Migration
     {
         Schema::create('user_wallet_transactions', static function (Blueprint $table){
             $table->id();
+            $table->string('name');
+            $table->string('type');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('user_wallet_id');
             $table->integer('debit');

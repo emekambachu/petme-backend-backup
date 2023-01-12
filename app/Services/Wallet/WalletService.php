@@ -2,7 +2,6 @@
 
 namespace App\Services\Wallet;
 
-use App\Models\Wallet\ServiceProviderWallet;
 use App\Models\Wallet\UserWallet;
 use App\Services\ServiceProvider\ServiceProviderService;
 use App\Services\User\UserService;
@@ -25,31 +24,61 @@ class WalletService
         return New UserWallet();
     }
 
-    public function walletByUserId($id){
-        return $this->userWallet()->where('user_id', $id)->first();
+    public function walletWithRelations(): \Illuminate\Database\Eloquent\Builder
+    {
+        return $this->userWallet()->with('user', 'service_provider');
     }
 
-    public function serviceProviderWallet(): ServiceProviderWallet
-    {
-        return New ServiceProviderWallet();
+    public function walletByUserId($id){
+        return $this->walletWithRelations()->where([
+                ['type', '=', 'user'],
+                ['user_id', '=', $id]
+            ])->first();
     }
 
     public function walletByServiceProviderId($id){
-        return $this->serviceProviderWallet()->where('service_provider_id', $id)->first();
+        return $this->walletWithRelations()->where([
+                ['type', 'service-provider'],
+                ['user_id', $id]
+            ])->first();
     }
 
-    public function createWallet($userId, $query): void
+    public function walletByusers(): \Illuminate\Database\Eloquent\Builder
     {
-        $query->create([
+        return $this->walletWithRelations()->where('type', 'user');
+    }
+
+    public function walletByServiceProviders(): \Illuminate\Database\Eloquent\Builder
+    {
+        return $this->walletWithRelations()->where('type', 'service-provider');
+    }
+
+    public function createWallet($userId, $userType): void
+    {
+        $this->userWallet()->create([
            'user_id' => $userId,
+           'type' => $userType,
         ]);
+    }
+
+    public function checkAndCreateWallet($userId, $userType){
+        $wallet = $this->userWallet()->where([
+           ['user_id', $userId],
+           ['type', $userType]
+        ])->first();
+
+        if(!$wallet){
+            $this->createWallet($userId, $userType);
+        }
     }
 
     /**
      * @throws \JsonException
      */
-    public function fundWallet($request, $user): array
+    public function fundWallet($request, $user, $userType): array
     {
+        $this->checkAndCreateWallet($user->id, $userType);
+
         $url = "https://api.paystack.co/transaction/initialize";
         $fields = [
             'first_name' => $user->name,

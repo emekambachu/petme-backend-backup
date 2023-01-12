@@ -104,17 +104,15 @@ class AppointmentService
         if(!is_array($request->services)){
             return [
                 'success' => false,
-                'appointment' => null,
                 'message' => 'Services must be an array',
             ];
         }
 
-        // Iterate services and get costs
+        // Iterate services, get costs and confirm if user has cost in wallet
         $serviceCosts = $this->getCostFromServices($request, $userId);
         if(!$serviceCosts){
             return [
                 'success' => false,
-                'appointment' => null,
                 'message' => 'Insufficient funds, please fund wallet.',
             ];
         }

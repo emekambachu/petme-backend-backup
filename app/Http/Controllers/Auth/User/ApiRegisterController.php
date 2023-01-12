@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\User\Auth\UserRegisterRequest;
 use App\Http\Requests\User\Auth\UserSendEmailOtpRequest;
 use App\Services\Auth\RegistrationService;
+use App\Services\Base\BaseService;
 use App\Services\User\UserService;
 use App\Services\Wallet\WalletService;
 use Illuminate\Http\Request;
@@ -14,15 +15,12 @@ class ApiRegisterController extends Controller
 {
     private RegistrationService $registration;
     private UserService $user;
-    private WalletService $wallet;
     public function __construct(
         RegistrationService $registration,
         UserService $user,
-        WalletService $wallet
     ){
         $this->registration = $registration;
         $this->user = $user;
-        $this->wallet = $wallet;
     }
 
     public function register(UserRegisterRequest $request): \Illuminate\Http\JsonResponse
@@ -32,7 +30,7 @@ class ApiRegisterController extends Controller
                 $request,
                 'emails.users.welcome',
                 $this->user->user(),
-                $this->wallet->userWallet(),
+                'user',
             );
             return response()->json([
                 'success' => true,
@@ -40,10 +38,7 @@ class ApiRegisterController extends Controller
             ]);
 
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => $e->getMessage()
-            ]);
+            return BaseService::tryCatchException($e);
         }
     }
 
@@ -56,10 +51,7 @@ class ApiRegisterController extends Controller
             ]);
 
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => $e->getMessage()
-            ]);
+            return BaseService::tryCatchException($e);
         }
     }
 
@@ -76,10 +68,7 @@ class ApiRegisterController extends Controller
             }
 
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => $e->getMessage()
-            ]);
+            return BaseService::tryCatchException($e);
         }
     }
 
